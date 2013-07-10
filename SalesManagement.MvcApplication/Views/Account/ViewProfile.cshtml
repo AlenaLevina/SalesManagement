@@ -62,13 +62,25 @@
             {
                 <div id="managerArea">
                     <h3>Manager panel</h3>
-                    
+                    <div class="subArea">
+                        <h4>Users</h4>
+                        @Html.ActionLink("Register new employee","Register","Account")
+                    </div>
                 </div>
             }
             if (User.IsInRole(RoleNames.AdministratorRoleName))
             {
                 <div id="adminArea">
                     <h3>Administrator panel</h3>
+                    <div class="subArea">
+                        <h4>Users</h4>
+                        @Html.ActionLink("Register new user","Register","Account")
+                    </div>
+                    <div class="subArea">
+                        <h4>Product categories</h4>
+                        @Html.ActionLink("View all and edit","Categories","Product")
+                        @Html.ActionLink("Create new","CreateCategory","Product")
+                    </div>
                     
                 </div>
             }    
