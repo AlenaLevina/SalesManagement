@@ -21,6 +21,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleNames.ManagerRoleName + "," + RoleNames.AdministratorRoleName)]
         public ActionResult Register(RegisterViewModel model)
         {
             var service = DependencyResolver.Current.Resolve<IMembershipService>();
@@ -38,6 +39,10 @@ namespace SalesManagement.MvcApplication.Controllers
             model.SuccessfullyRegistered = false;
             if (ModelState.IsValid)
             {
+                if (User.IsInRole(RoleNames.ManagerRoleName) && (!model.Role.Equals(RoleNames.EmployeeRoleName)))
+                {
+                    return Redirect(Url.Action("SignIn"));
+                }
                 service.CreateUser(model.Login, model.Password, model.Role);
                 model.SuccessfullyRegistered = true;
             }
