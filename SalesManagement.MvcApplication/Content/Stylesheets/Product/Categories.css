@@ -1,0 +1,25 @@
+﻿div.category {
+    padding: 1%;
+    border-radius: 5px;
+    background-color: #FFEEDF; /*min-height: 70px;*/
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left;
+    width: 98%;
+}
+
+div.category:hover {
+    background-color: #FFE3CA;
+}
+
+div.category span {
+    display: block;
+}
+
+div.category span.name {
+    float: left;
+}
+
+div.category span.editLink {
+    float: right;
+}
