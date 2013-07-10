@@ -10,7 +10,7 @@ namespace Common.Dependency
         {
             if (dependencyResolver == null) throw new ArgumentNullException("dependencyResolver");
 
-            Current = dependencyResolver;
+            Current = dependencyResolver;l
         }
 
     }
