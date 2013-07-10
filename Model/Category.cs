@@ -31,7 +31,6 @@ namespace Model
         public void CopyFrom(Category category)
         {
             Name = category.Name;
-            Characteristics = category.Characteristics;
         }
 
         #endregion
