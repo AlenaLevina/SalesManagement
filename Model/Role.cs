@@ -29,7 +29,6 @@ namespace Model
         public void CopyFrom(Role role)
         {
             Name = role.Name;
-            Users = role.Users;
         }
 
         #endregion
