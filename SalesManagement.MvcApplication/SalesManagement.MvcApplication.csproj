@@ -123,13 +123,17 @@
     <Compile Include="StartDbHelper.cs" />
     <Compile Include="ViewModelBuilders\Account\EditProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Account\ViewProfileViewModelBuilder.cs" />
-    <Compile Include="ViewModelBuilders\Product\CreateCategoryViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\SignInViewModel.cs" />
     <Compile Include="ViewModels\Account\ViewProfileViewModel.cs" />
-    <Compile Include="ViewModels\Product\CreateCategoryCharacteristic.cs" />
-    <Compile Include="ViewModels\Product\CreateCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Product\ActionType.cs" />
+    <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Product\CategoryCharacteristic.cs" />
+    <Compile Include="ViewModels\Product\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Product\CreateCharacteristicViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -146,6 +150,7 @@
     <Content Include="Content\Images\male.png" />
     <Content Include="Content\Images\noimage.png" />
     <Content Include="Content\Stylesheets\Account\ViewProfileStyle.css" />
+    <Content Include="Content\Stylesheets\Product\Categories.css" />
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -211,7 +216,10 @@
     <Folder Include="Data\Images\Users\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Product\CreateCategory.cshtml" />
+    <Content Include="Views\Product\Category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\Categories.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
