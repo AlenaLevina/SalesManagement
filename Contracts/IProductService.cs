@@ -8,7 +8,9 @@ namespace Contracts
         void CreateCategory(string name, IEnumerable<Characteristic> characteristics);
         IEnumerable<Characteristic> GetAllCharacteristics();
         Category GetCategoryById(int id);
-        void EditCategory(int id, IEnumerable<Characteristic> characteristics);
+        void EditCategory(Category newCategory);
         IEnumerable<Category> GetAllCategories();
+        void CreateCharacteristic(string name);
+        void DeleteCategory(int id);
     }
 }
