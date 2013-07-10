@@ -87,6 +87,7 @@ namespace Data.EF.Repositories
                 if (entity != null)
                 {
                     _context.Set<TEntity>().Remove(entity);
+                    _context.SaveChanges();
                 }
             }
             catch (Exception ex)
