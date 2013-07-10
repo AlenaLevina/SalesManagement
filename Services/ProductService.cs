@@ -34,37 +34,36 @@ namespace Services
             }
         }
 
-        public void EditCategory(int id, IEnumerable<Characteristic> chosenCharacteristics)
+        public void EditCategory(Category newCategory)
         {
-            if (chosenCharacteristics == null) throw new ArgumentNullException("chosenCharacteristics");
+            if (newCategory == null) throw new ArgumentNullException("newCategory");
 
             var categoryRepo = GetRepository<ICategoryRepository>();
-            var category = categoryRepo.Get(id);
-            category.Characteristics.Clear();
-            categoryRepo.Update(category);
-            foreach (var characteristic in chosenCharacteristics)
+            var oldCategory = categoryRepo.Get(newCategory.Id);
+            oldCategory.CopyFrom(newCategory);
+            oldCategory.Characteristics.Clear();
+            categoryRepo.Update(oldCategory);
+            foreach (var characteristic in newCategory.Characteristics)
             {
-                AddCharacteristicToCategory(id, characteristic.Id);
+                AddCharacteristicToCategory(oldCategory.Id, characteristic.Id);
             }
-            //foreach (var categoryCharacteristic in category.Characteristics)
-            //{
-            //    if (!chosenCharacteristics.Any(c => c.Id.Equals(categoryCharacteristic.Id)))
-            //    {
-            //        RemoveCharacteristicFromCategory(id,categoryCharacteristic.Id);
-            //    }
-            //}
-            //foreach (var chosenCharacteristic in chosenCharacteristics)
-            //{
-            //    if (!category.Characteristics.Any(c => c.Id.Equals(chosenCharacteristic.Id)))
-            //    {
-            //        AddCharacteristicToCategory(id, chosenCharacteristic.Id);
-            //    }
-            //}
         }
 
         public IEnumerable<Category> GetAllCategories()
         {
             return GetRepository<ICategoryRepository>().GetAll();
+        }
+
+        public void CreateCharacteristic(string name)
+        {
+            if (name == null) throw new ArgumentNullException("name");
+
+            GetRepository<ICharacteristicRepository>().Create(new Characteristic {Name = name});
+        }
+
+        public void DeleteCategory(int id)
+        {
+            GetRepository<ICategoryRepository>().Delete(id);
         }
 
         public void AddCharacteristicToCategory(string categoryName, int characteristicId)
