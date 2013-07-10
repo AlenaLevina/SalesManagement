@@ -19,8 +19,13 @@
     @foreach (var category in Model.Categories)
     {
         <div class="category">
-            <span class="name">@category.Name</span>
-            <span class="editLink">@Html.ActionLink("Edit","EditCategory","Product",new {id=category.Id},null)</span>
+            <div class="name">@category.Name</div>
+            <div class="editLink">
+                @Html.ActionLink("Edit","EditCategory","Product",new {id=category.Id},null)
+            </div>
+            <div class="deleteLink">
+                @Html.ActionLink("Delete","DeleteCategory","Product",new {id=category.Id},null)
+            </div>
         </div>
     }
 }
