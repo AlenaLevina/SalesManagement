@@ -13,14 +13,23 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
             {
                 Id=category.Id,
                 Name=category.Name,
-                Characteristics = characteristics.Select(c=>new CategoryCharacteristic{Id=c.Id,Name = c.Name,Chosen = category.Characteristics.Any(e=>e.Id.Equals(c.Id))}).ToList(),
+                Characteristics = characteristics.Select(c=>new CategoryCharacteristic{Id=c.Id,Name = c.Name,Chosen =  actionType != ActionType.Create && category.Characteristics.Any(e => e.Id.Equals(c.Id))}).ToList(),
                 ActionType = actionType
             };
         }
 
-        public static IEnumerable<Characteristic> Build(CategoryViewModel model)
+        public static Category Build(CategoryViewModel model)
         {
-            return model.Characteristics.Where(c=>c.Chosen).Select(c => new Characteristic {Id = c.Id, Name = c.Name}).ToList();
+            var category = new Category
+                {
+                    Characteristics =
+                        model.Characteristics.Where(c => c.Chosen)
+                             .Select(c => new Characteristic {Id = c.Id, Name = c.Name})
+                             .ToList(),
+                    Name = model.Name,
+                    Id=model.Id
+                };
+            return category;
         }
     }
 }
