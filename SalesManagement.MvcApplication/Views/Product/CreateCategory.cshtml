@@ -1,0 +1,52 @@
+﻿@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Product.CreateCategoryViewModel
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Create category";
+}
+
+@section Head{
+    @*<link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Article/CreateViewStyle.css" />*@
+}
+@section MainContent{
+    <h2>
+        @if (Model == null||!Model.SuccesfullyCreated)
+        {
+            @:Category creation
+        }
+        else
+        {
+            @:Category is successfully created
+        }
+    </h2>
+    @using (Html.BeginForm("CreateCategory","Product",FormMethod.Post))
+    {
+        <div class="separate">
+            @Html.Label("Name")<br/>
+            @Html.TextBoxFor(m=>m.Name)
+            @Html.ValidationMessageFor(a => a.Name)
+        </div>
+
+        <div class="separate">
+            @for (int i = 0; i < Model.Characteristics.Count(); i++)
+            {
+                
+                @Html.CheckBoxFor(m=>m.Characteristics[i].Chosen,new {id="cbxCharacteristic"+i})
+                @Html.Label(Model.Characteristics[i].Name,new {@for="cbxCharacteristic"+i})
+                @Html.HiddenFor(m=>m.Characteristics[i].Id)<br/>
+                @*
+                @Html.RadioButtonFor(p=>p.Gender,"",new {@checked = true, id = "rbnNotSet"})
+                @Html.Label("Not set",new {@for="rbnNotSet"})<br />
+                @Html.RadioButtonFor(p => p.Gender, Gender.Male, new {id = "rbnMale"})
+                @Html.Label("Male", new {@for = "rbnMale"})<br/>
+                @Html.RadioButtonFor(p => p.Gender, Gender.Female, new {id = "rbnFemale"})
+                @Html.Label("Female", new {@for = "rbnFemale"})
+                *@
+            }
+        </div>
+
+        <div class="separate">
+            <button type="submit">Create</button>
+        </div>
+    }
+}

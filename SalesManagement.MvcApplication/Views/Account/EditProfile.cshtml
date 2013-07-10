@@ -1,0 +1,50 @@
+﻿@using Model
+@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Account.EditProfileViewModel
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix+"Edit Profile";
+}
+
+@section MainContent{
+    <h2>Profile editing</h2>
+    @using (Html.BeginForm("EditProfile","Account",FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="separate">
+            @Html.Label("First name")<br/>
+            @Html.TextBoxFor(p => p.FirstName)
+            @Html.ValidationMessageFor(p => p.FirstName)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Last name")<br/>
+            @Html.TextBoxFor(p => p.LastName)
+            @Html.ValidationMessageFor(p => p.LastName)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Gender")<br/>
+            @Html.RadioButtonFor(p=>p.Gender,"",new {@checked = true, id = "rbnNotSet"})
+            @Html.Label("Not set",new {@for="rbnNotSet"})<br />
+            @Html.RadioButtonFor(p => p.Gender, Gender.Male, new {id = "rbnMale"})
+            @Html.Label("Male", new {@for = "rbnMale"})<br/>
+            @Html.RadioButtonFor(p => p.Gender, Gender.Female, new {id = "rbnFemale"})
+            @Html.Label("Female", new {@for = "rbnFemale"})
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Date of birth")<br/>
+            @Html.EditorFor(p=>p.DateOfBirth)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Image")<br/>
+            <input type="file" id="Image" name="Image" accept="image/jpeg,image/png">
+            @Html.HiddenFor(m=>m.ImageUrl)
+        </div>
+        
+        <div class="separate">
+            <button type="submit">Save</button>
+        </div>
+    }
+}

@@ -1,0 +1,63 @@
+﻿
+@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Account.RegisterViewModel
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Register";
+}
+
+@section MainContent
+{
+    <h2>
+        @if (Model == null)
+        {
+            @:Registration
+        }
+        else if (Model.SuccessfullyRegistered)
+        {
+            @:New user is succesfully registered on SalMan
+        }
+        else
+        {
+            @:Registration failed
+        }
+    </h2>
+    
+    @using (Html.BeginForm())
+    {
+        <div class="separate">
+            @Html.LabelFor(m => m.Login)<br/>
+            @Html.TextBoxFor(m => m.Login)
+            @Html.ValidationMessageFor(m => m.Login)
+        </div>
+        <div class="separate">
+            @Html.LabelFor(m => m.Password)<br/>
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        
+        <div class="separate">
+            @Html.LabelFor(m => m.RepeatedPassword,"Repeat password")<br/>
+            @Html.PasswordFor(m => m.RepeatedPassword)
+            @Html.ValidationMessageFor(m => m.RepeatedPassword)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Role")<br/>
+            @Html.RadioButtonFor(m=>m.Role,RoleNames.EmployeeRoleName,new {@checked = true, id = "rbnEmployee"})
+            @Html.Label("Employee",new {@for="rbnEmployee"})<br />
+            @if (User.IsInRole(RoleNames.AdministratorRoleName))
+            {
+            @Html.RadioButtonFor(m => m.Role, RoleNames.ManagerRoleName, new {id = "rbnManager"})
+            @Html.Label("Manager", new {@for = "rbnManager"})<br/>
+            @Html.RadioButtonFor(m => m.Role, RoleNames.AdministratorRoleName, new {id = "rbnAdministrator"})
+            @Html.Label("Administrator", new {@for = "rbnAdministrator"})
+            }
+
+        </div>
+
+        <div class="separate">
+            <button type="submit" title="Register">Register</button>
+        </div>
+    }
+}
