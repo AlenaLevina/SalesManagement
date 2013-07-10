@@ -1,0 +1,26 @@
+﻿@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Product.CategoriesViewModel
+
+@{
+    
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Categories";
+}
+
+@section Head
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Product/Categories.css"/>
+}
+
+@section MainContent{
+    <h2>
+        Categories
+    </h2>
+    
+    @foreach (var category in Model.Categories)
+    {
+        <div class="category">
+            <span class="name">@category.Name</span>
+            <span class="editLink">@Html.ActionLink("Edit","EditCategory","Product",new {id=category.Id},null)</span>
+        </div>
+    }
+}
