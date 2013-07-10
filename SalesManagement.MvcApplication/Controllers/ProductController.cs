@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Contracts;
+using Model;
 using SalesManagement.MvcApplication.ViewModelBuilders.Product;
 using SalesManagement.MvcApplication.ViewModels.Product;
 using DependencyResolver = Common.Dependency.DependencyResolver;
@@ -14,7 +15,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
             var characteristics = service.GetAllCharacteristics();
-            return View("Category", CategoryViewModelBuilder.Build(characteristics,null,ActionType.Create));
+            return View("Category", CategoryViewModelBuilder.Build(characteristics,new Category(), ActionType.Create));
         }
         
         [HttpPost]
@@ -29,8 +30,8 @@ namespace SalesManagement.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var service = DependencyResolver.Current.Resolve<IProductService>();
-                var chosenCharacteristics = CategoryViewModelBuilder.Build(model);
-                service.CreateCategory(model.Name, chosenCharacteristics);
+                var category = CategoryViewModelBuilder.Build(model);
+                service.CreateCategory(category.Name, category.Characteristics);
                 model.Success = true;
                 model.ActionType=ActionType.Create;
             }
@@ -59,8 +60,8 @@ namespace SalesManagement.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var service = DependencyResolver.Current.Resolve<IProductService>();
-                var chosenCharacteristics = CategoryViewModelBuilder.Build(model);
-                service.EditCategory(model.Id, chosenCharacteristics);
+                var category = CategoryViewModelBuilder.Build(model);
+                service.EditCategory(category);
                 model.Success = true;
                 model.ActionType=ActionType.Edit;
             }
@@ -73,5 +74,31 @@ namespace SalesManagement.MvcApplication.Controllers
             var categories = service.GetAllCategories();
             return View(CategoriesViewModelBuilder.Build(categories));
         }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult CreateCharacteristic(CategoryViewModel model)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            service.CreateCharacteristic(model.NewCharacteristicName);
+            switch (model.ActionType)
+            {
+                case ActionType.Create:
+                    return CreateCategory();
+                case ActionType.Edit:
+                    return EditCategory(model.Id);
+            }
+            return CreateCategory();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult DeleteCategory(int id)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            service.DeleteCategory(id);
+            return Redirect(Url.Action("Categories"));
+        }
+
     }
 }
