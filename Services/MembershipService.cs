@@ -83,7 +83,7 @@ namespace Services
 
 
             var repository = GetRepository<IProfileRepository>();
-            var profile = repository.GetByUserLogin(login);//user.Profile);
+            var profile = repository.GetByUserLogin(login);
             if (profile != null)
             {
                 profile.CopyFrom(newProfile);
