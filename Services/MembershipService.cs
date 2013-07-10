@@ -33,13 +33,6 @@ namespace Services
             return user;
         }
 
-        //public Profile CreateProfile(Profile profile)
-        //{
-        //    if (profile == null) throw new ArgumentNullException("profile");
-        //    GetRepository<IProfileRepository>().Create(profile);
-        //    return GetRepository<IProfileRepository>().
-        //}
-
         public Role GetUserRole(string login)
         {
             var user = GetRepository<IUserRepository>().GetByLogin(login);
