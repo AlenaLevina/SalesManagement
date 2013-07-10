@@ -9,5 +9,6 @@ namespace SalesManagement.MvcApplication.ViewModels.Product
         public List<CategoryCharacteristic> Characteristics { get; set; }
         public bool Success { get; set; }
         public ActionType ActionType { get; set; }
+        public string NewCharacteristicName { get; set; }
     }
 }
