@@ -16,10 +16,19 @@ div.category span {
     display: block;
 }
 
-div.category span.name {
+div.category div.name {
     float: left;
+    /*width: 70px;*/
 }
 
-div.category span.editLink {
+div.editLink, div.deleteLink {
+    text-align: right;
+}
+div.category div a {
+    display: block;
+}
+
+div.category div.deleteLink {
+    width: 50px;
     float: right;
 }
