@@ -17,6 +17,7 @@ namespace SalesManagement.MvcApplication
             builder.RegisterType<EfUnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<MembershipService>().As<IMembershipService>();
             builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<OrderService>().As<IOrderService>();
             _container = builder.Build();
         }
         public T Resolve<T>()
