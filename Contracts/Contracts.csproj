@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMembershipService.cs" />
+    <Compile Include="IOrderService.cs" />
     <Compile Include="IProductService.cs" />
   </ItemGroup>
   <ItemGroup>
