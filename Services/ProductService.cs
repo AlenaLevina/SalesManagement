@@ -13,7 +13,7 @@ namespace Services
     {
         public IEnumerable<Characteristic> GetAllCharacteristics()
         {
-            return GetRepository<ICharacteristicRepository>().GetAll();
+            return GetRepository<ICharacteristicRepository>().GetAll().OrderBy(e=>e.Name);
         }
 
         public Category GetCategoryById(int id)
@@ -51,7 +51,7 @@ namespace Services
 
         public IEnumerable<Category> GetAllCategories()
         {
-            return GetRepository<ICategoryRepository>().GetAll();
+            return GetRepository<ICategoryRepository>().GetAll().OrderBy(e=>e.Name);
         }
 
         public void CreateCharacteristic(string name)

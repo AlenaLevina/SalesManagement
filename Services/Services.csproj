@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="MembershipService.cs" />
+    <Compile Include="OrderService.cs" />
     <Compile Include="ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
