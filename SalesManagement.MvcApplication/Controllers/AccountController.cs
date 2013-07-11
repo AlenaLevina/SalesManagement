@@ -76,7 +76,8 @@ namespace SalesManagement.MvcApplication.Controllers
                                                            user.Login);
                 var et = FormsAuthentication.Encrypt(ticket);
                 HttpContext.Response.Cookies.Add(new HttpCookie(GlobalConstants.AuthenticationCookieName, et));
-                return Redirect(Url.Action("Index", "Home"));
+                if (Request.Params["ReturnUrl"]!=null){return Redirect(Request.Params["ReturnUrl"]);}
+                return Redirect(Url.Action("ViewProfile", "Account"));
             }
             return View();
         }

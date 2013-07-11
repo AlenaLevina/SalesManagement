@@ -68,6 +68,7 @@ namespace SalesManagement.MvcApplication.Controllers
             return View("Category", model);
         }
 
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult Categories()
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
@@ -79,8 +80,12 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult CreateCharacteristic(CategoryViewModel model)
         {
-            var service = DependencyResolver.Current.Resolve<IProductService>();
-            service.CreateCharacteristic(model.NewCharacteristicName);
+            if (model.NewCharacteristicName == null) ModelState.AddModelError("NewCharacteristicName","Name is requiered");
+            if (ModelState.IsValid)
+            {
+                var service = DependencyResolver.Current.Resolve<IProductService>();
+                service.CreateCharacteristic(model.NewCharacteristicName);
+            }
             switch (model.ActionType)
             {
                 case ActionType.Create:

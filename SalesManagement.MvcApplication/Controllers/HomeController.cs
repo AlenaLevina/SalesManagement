@@ -6,7 +6,7 @@ namespace SalesManagement.MvcApplication.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect(Url.Action("ViewProfile", "Account"));
         }
 
     }
