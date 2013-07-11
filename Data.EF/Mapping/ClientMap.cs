@@ -11,6 +11,9 @@ namespace Data.EF.Mapping
 
             Property(e => e.FirstName).HasMaxLength(Client.MaxLengthFor.FirstName);
             Property(e => e.LastName).HasMaxLength(Client.MaxLengthFor.LastName);
+            Property(e => e.Phone).HasMaxLength(Client.MaxLengthFor.Phone);
+            Property(e => e.Email).HasMaxLength(Client.MaxLengthFor.Email);
+            Property(e => e.Address).HasMaxLength(Client.MaxLengthFor.Address);
 
             HasMany(e => e.Orders).WithRequired(e => e.Client);
         }
