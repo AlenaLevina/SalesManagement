@@ -67,6 +67,9 @@
     <Compile Include="Mapping\ProfileMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
     <Compile Include="Mapping\UserMap.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\MigrationHelper.cs" />
+    <Compile Include="Migrations\ProjectInitializer.cs" />
     <Compile Include="Repositories\EfCategoryRepository.cs" />
     <Compile Include="Repositories\EfCharacteristicRepository.cs" />
     <Compile Include="Repositories\EfCharacteristicValueRepository.cs" />
@@ -79,7 +82,6 @@
     <Compile Include="Repositories\EntityRepository.cs" />
     <Compile Include="SalesManagementContext.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
