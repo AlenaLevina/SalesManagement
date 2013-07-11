@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Contracts;
+using Data.EF.Migrations;
 using DependencyResolver = Common.Dependency.DependencyResolver;
 namespace SalesManagement.MvcApplication
 {
@@ -17,6 +18,7 @@ namespace SalesManagement.MvcApplication
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            MigrationHelper.Prepare();
 
             DependencyResolver.SetResolver(new SalesManagementDependencyResolver());
             StartDbHelper.Prepare();
