@@ -1,4 +1,4 @@
-﻿div.category {
+﻿div.entityListItem {
     padding: 1%;
     border-radius: 5px;
     background-color: #FFEEDF; /*min-height: 70px;*/
@@ -8,15 +8,15 @@
     width: 98%;
 }
 
-div.category:hover {
+div.entityListItem:hover {
     background-color: #FFE3CA;
 }
 
-div.category span {
+/*div.entityListItem span {
     display: block;
-}
+}*/
 
-div.category div.name {
+div.entityListItem div.name {
     float: left;
     /*width: 70px;*/
 }
@@ -24,11 +24,15 @@ div.category div.name {
 div.editLink, div.deleteLink {
     text-align: right;
 }
-div.category div a {
+div.entityListItem div a {
     display: block;
 }
 
-div.category div.deleteLink {
+div.entityListItem div.deleteLink {
     width: 50px;
     float: right;
+}
+
+div.additionalInfo {
+    /*background-color: rosybrown;*/
 }
