@@ -8,17 +8,16 @@
 
 @section Head
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Product/Categories.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_EntityList.css"/>
 }
 
 @section MainContent{
     <h2>
         Categories
     </h2>
-    
     @foreach (var category in Model.Categories)
     {
-        <div class="category">
+        <div class="entityListItem">
             <div class="name">@category.Name</div>
             <div class="editLink">
                 @Html.ActionLink("Edit","EditCategory","Product",new {id=category.Id},null)

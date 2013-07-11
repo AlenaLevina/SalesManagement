@@ -66,6 +66,11 @@
                         <h4>Users</h4>
                         @Html.ActionLink("Register new employee","Register","Account")
                     </div>
+                    <div class="subArea">
+                        <h4>Clients</h4>
+                        @Html.ActionLink("View all","Clients","Order")
+                        @Html.ActionLink("Create new client","CreateClient","Order")
+                    </div>
                 </div>
             }
             if (User.IsInRole(RoleNames.AdministratorRoleName))

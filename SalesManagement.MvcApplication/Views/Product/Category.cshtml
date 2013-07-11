@@ -1,6 +1,6 @@
 ﻿@using SalesManagement.MvcApplication
 @using SalesManagement.MvcApplication.ViewModels.Product
-@model SalesManagement.MvcApplication.ViewModels.Product.CategoryViewModel
+@model CategoryViewModel
 
 @{
     string title=null;
@@ -8,6 +8,7 @@
     string notification = null;
     string notificationSuccessful = null;
     string buttonTitle = null;
+    string linkText = String.Empty;
     switch (Model.ActionType)
     {
         case ActionType.Create:
@@ -16,6 +17,7 @@
             notification = "Category creation";
             notificationSuccessful = "Category is successfully created";
             buttonTitle = "Create";
+            linkText = "← To the categories list";
             break;
         case ActionType.Edit:
             title = "Edit category";
@@ -23,6 +25,7 @@
             notification = "Category editing";
             notificationSuccessful = "Category is successfully changed";
             buttonTitle = "Save";
+            linkText = "← Back to the categories list";
             break;
     }
     ViewBag.Title = GlobalConstants.TitlePrefix + title;
@@ -40,6 +43,7 @@
         }
     </h2>
     
+    @Html.ActionLink(linkText,"Categories")
     @using (Html.BeginForm(actionName,"Product",FormMethod.Post))
     {
         <div class="separate">
@@ -61,6 +65,7 @@
         </div>
         
         @Html.HiddenFor(m=>m.Id)
+        @Html.HiddenFor(m=>m.ActionType)
         
         <div class="separate">
             <button type="submit">@buttonTitle</button>
@@ -71,6 +76,7 @@
     {
         @Html.Label("Create new characteristic")<br/>
         @Html.TextBoxFor(m=>m.NewCharacteristicName)
+        @Html.ValidationMessageFor(m=>m.NewCharacteristicName)
         @Html.HiddenFor(m=>m.ActionType)
         @Html.HiddenFor(m=>m.Id)
         <button type="submit">Create characteristic</button>
