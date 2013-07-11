@@ -57,6 +57,7 @@
     <Compile Include="Dependency\IDependencyResolver.cs" />
     <Compile Include="Exceptions\EmailException.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
   </ItemGroup>
   <ItemGroup>
