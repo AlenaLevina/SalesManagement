@@ -1,4 +1,5 @@
 ﻿using Common.Dependency;
+using Common.Helpers;
 using Contracts;
 
 namespace SalesManagement.MvcApplication
