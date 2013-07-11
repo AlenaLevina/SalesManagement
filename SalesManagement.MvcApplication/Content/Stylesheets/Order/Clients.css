@@ -1,0 +1,15 @@
+﻿h4 {
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6978;
+    margin-bottom: 5px;
+}
+
+div.fullName{
+    font-size: 14px;
+}
+
+div.phoneNumber {
+    font-size: 13px;
+}
+
