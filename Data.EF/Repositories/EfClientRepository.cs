@@ -1,4 +1,5 @@
-﻿using Data.Repositories;
+﻿using System.Linq;
+using Data.Repositories;
 using Model;
 
 namespace Data.EF.Repositories
@@ -7,6 +8,11 @@ namespace Data.EF.Repositories
     {
         public EfClientRepository(EfUnitOfWork unitOfWork) : base(unitOfWork)
         {
+        }
+
+        public bool ClientIdExists(int id)
+        {
+            return Context.Clients.Any(c => c.ClientId.Equals(id));
         }
     }
 }
