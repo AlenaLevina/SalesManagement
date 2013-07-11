@@ -48,6 +48,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -112,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -123,12 +125,15 @@
     <Compile Include="StartDbHelper.cs" />
     <Compile Include="ViewModelBuilders\Account\EditProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Account\ViewProfileViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Order\ClientsViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\SignInViewModel.cs" />
     <Compile Include="ViewModels\Account\ViewProfileViewModel.cs" />
+    <Compile Include="ViewModels\Order\ClientsViewModel.cs" />
+    <Compile Include="ViewModels\Order\CreateClientViewModel.cs" />
     <Compile Include="ViewModels\Product\ActionType.cs" />
     <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoryCharacteristic.cs" />
@@ -150,9 +155,12 @@
     <Content Include="Content\Images\male.png" />
     <Content Include="Content\Images\noimage.png" />
     <Content Include="Content\Stylesheets\Account\ViewProfileStyle.css" />
-    <Content Include="Content\Stylesheets\Product\Categories.css" />
+    <Content Include="Content\Stylesheets\Order\Clients.css" />
+    <Content Include="Content\Stylesheets\Order\CreateClient.css" />
+    <Content Include="Content\Stylesheets\_Shared\_EntityList.css" />
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Order\CreateClient.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -213,6 +221,7 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Stylesheets\Product\" />
     <Folder Include="Data\Images\Users\" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +229,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Product\Categories.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\CreateClient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jQuery.1.10.2.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Clients.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
