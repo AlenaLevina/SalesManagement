@@ -1,0 +1,75 @@
+﻿@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Order.CreateClientViewModel
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Create client";
+}
+
+@section MainContent{
+    <h2>
+        @if (Model == null||!Model.Success)
+        {
+            @:Client creation
+        }
+        else
+        {
+            @:New client with id <span>@Model.ClientId</span> is successfully created
+        }
+    </h2>
+    @Html.ActionLink("← Back to the categories list","Clients")
+    @using (Html.BeginForm("CreateClient","Order",FormMethod.Post))
+    {
+        
+
+        <div class="separate">
+            @Html.Label("First name")<br/>
+            @Html.TextBoxFor(m=>m.FirstName)
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Last name")<br/>
+            @Html.TextBoxFor(m=>m.LastName)
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Phone number")<br/>
+            +@Html.TextBoxFor(m=>m.Phone)
+            @Html.ValidationMessageFor(m => m.Phone)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("E-mail address")<br/>
+            @Html.TextBoxFor(m=>m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Home address")<br/>
+            @Html.TextBoxFor(m=>m.Address)
+            @Html.ValidationMessageFor(m => m.Address)
+        </div>
+        
+        <div class="separate">
+            @Html.Label("Client id")<br/>
+            @Html.TextBoxFor(m=>m.ClientId,new {@readonly=""})
+            @Html.ValidationMessageFor(m => m.ClientId)
+            <button type="button" id="generateId">Generate</button>
+        </div>
+        
+        <div class="separate">
+            <button type="submit">Create</button>
+        </div>
+    }
+    
+    @*@using (Html.BeginForm("GenerateId", "Order", FormMethod.Post, new { @class = "subForm" }))
+    {
+        @Html.HiddenFor(m=>m.ClientId)
+        @Html.HiddenFor(m=>m.FirstName)
+        @Html.HiddenFor(m=>m.LastName)
+        <button type="submit">Generate</button>
+    }*@
+    <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/Order/CreateClient.js"></script>
+}
