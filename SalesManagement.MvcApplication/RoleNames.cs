@@ -1,5 +1,4 @@
-﻿using System.Linq;
-namespace SalesManagement.MvcApplication
+﻿namespace SalesManagement.MvcApplication
 {
     public static class RoleNames
     {
@@ -9,5 +8,13 @@ namespace SalesManagement.MvcApplication
         public static readonly string[] AllRoles = new []{EmployeeRoleName,ManagerRoleName,AdministratorRoleName};
         public const string AllRoleNames = EmployeeRoleName + "," + ManagerRoleName + "," +
                                                      AdministratorRoleName;
+#if DEBUG
+        public const string ManagerActionsRoleName = ManagerRoleName + "," + AdministratorRoleName;
+        public const string EmployeeActionsRoleName = EmployeeRoleName + "," + AdministratorRoleName;
+#else
+        public const string ManagerActionsRoleName = ManagerRoleName;
+        public const string EmployeeActionsRoleName = EmployeeRoleName;
+#endif
+
     }
 }
