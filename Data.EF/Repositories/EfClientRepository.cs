@@ -14,5 +14,10 @@ namespace Data.EF.Repositories
         {
             return Context.Clients.Any(c => c.ClientId.Equals(id));
         }
+
+        public Client GetByClientId(int id)
+        {
+            return Context.Clients.FirstOrDefault(e => e.ClientId.Equals(id));
+        }
     }
 }
