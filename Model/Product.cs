@@ -21,6 +21,8 @@ namespace Model
 
         public string Description { get; set; }
 
+        public int Sku { get; set; }
+
         #endregion
 
 
@@ -47,6 +49,7 @@ namespace Model
             Description = product.Description;
             CategoryId = product.CategoryId;
             Category = product.Category;
+            Sku = product.Sku;
         }
 
         #endregion
