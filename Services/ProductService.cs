@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Common.Helpers;
 using Contracts;
 using Data.Exceptions;
 using Data.Repositories;
@@ -65,6 +66,19 @@ namespace Services
         {
             GetRepository<ICategoryRepository>().Delete(id);
         }
+
+        public int GetNewSku(int size)
+        {
+            int newSku;
+            while (true)
+            {
+                newSku = RandomHelper.GenerateNumber(size);
+                if (!GetRepository<IProductRepository>().SkuExists(newSku)) break;
+            }
+            return newSku;
+        }
+
+        
 
         public void AddCharacteristicToCategory(string categoryName, int characteristicId)
         {
