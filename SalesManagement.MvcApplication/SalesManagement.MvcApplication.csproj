@@ -34,7 +34,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -119,6 +119,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalConstants.cs" />
+    <Compile Include="PreprocessorHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleNames.cs" />
     <Compile Include="SalesManagementDependencyResolver.cs" />
@@ -129,18 +130,22 @@
     <Compile Include="ViewModelBuilders\Order\ClientViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\CharacteristicValuesViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\CreateViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\SignInViewModel.cs" />
     <Compile Include="ViewModels\Account\ViewProfileViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientsViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientViewModel.cs" />
-    <Compile Include="ViewModels\Order\CreateClientViewModel.cs" />
     <Compile Include="ViewModels\ActionType.cs" />
     <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoryCharacteristic.cs" />
     <Compile Include="ViewModels\Product\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Product\CharacteristicValuesViewModel.cs" />
     <Compile Include="ViewModels\Product\CreateCharacteristicViewModel.cs" />
+    <Compile Include="ViewModels\Product\CreateViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductCharacteristicValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -163,6 +168,7 @@
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Order\CreateClient.js" />
+    <Content Include="Scripts\Product\Create.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -223,7 +229,6 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Stylesheets\Product\" />
     <Folder Include="Data\Images\Users\" />
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +238,6 @@
     <Content Include="Views\Product\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\CreateClient.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Scripts\jQuery.1.10.2.js" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +245,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Client.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\_CharacteristicValues.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
