@@ -96,6 +96,31 @@ namespace SalesManagement.MvcApplication.Controllers
             return Redirect(Url.Action("Categories"));
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var categories = service.GetAllCategories();
+            return View(CreateViewModelBuilder.Build(new Product(), categories));
+        }
+
+        public ActionResult GetCharacteristics()
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var characteristics = service.GetAllCharacteristics();
+            var model = CharacteristicValuesViewModelBuilder.Build(characteristics);
+            return PartialView("_CharacteristicValues", model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult GenerateSku()
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var newSku = service.GetNewSku(GlobalConstants.SkuLength);
+            return Json(newSku, JsonRequestBehavior.AllowGet);
+        }
+
         private void Validate(CategoryViewModel model)
         {
             if (model.Name == null) ModelState.AddModelError("Name", "Name is requiered");

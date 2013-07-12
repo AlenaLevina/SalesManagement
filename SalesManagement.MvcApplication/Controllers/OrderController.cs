@@ -12,8 +12,14 @@ namespace SalesManagement.MvcApplication.Controllers
 {
     public class OrderController : Controller
     {
+#if DEBUG
+        public ActionResult Index()
+        {
+            return Json("Hello, DEBUG is defined",JsonRequestBehavior.AllowGet);
+        }
+#endif
         [HttpGet]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult GenerateId()
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
@@ -29,7 +35,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult CreateClient()
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
@@ -37,7 +43,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult CreateClient(ClientViewModel model)
         {
             #region Validation
@@ -85,7 +91,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult EditClient(int id)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
@@ -94,7 +100,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult EditClient(ClientViewModel model)
         {
             Validate(model);
@@ -110,7 +116,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleNames.ManagerRoleName)]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult DeleteClient(int id)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
