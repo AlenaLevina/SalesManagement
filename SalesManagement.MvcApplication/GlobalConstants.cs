@@ -7,5 +7,6 @@
         public const string UploadUserImageDirectory = @"\Data\Images\Users\";
         public const string UserImageDirectory = "../../Data/Images/Users/";
         public const int ClientIdLength = 7;
+        public const int SkuLength = 8;
     }
 }
