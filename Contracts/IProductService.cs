@@ -12,5 +12,6 @@ namespace Contracts
         IEnumerable<Category> GetAllCategories();
         void CreateCharacteristic(string name);
         void DeleteCategory(int id);
+        int GetNewSku(int size);
     }
 }
