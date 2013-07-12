@@ -2,6 +2,7 @@
 using Contracts;
 using Model;
 using SalesManagement.MvcApplication.ViewModelBuilders.Product;
+using SalesManagement.MvcApplication.ViewModels;
 using SalesManagement.MvcApplication.ViewModels.Product;
 using DependencyResolver = Common.Dependency.DependencyResolver;
 
@@ -22,18 +23,13 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize (Roles = RoleNames.AdministratorRoleName)]
         public ActionResult CreateCategory(CategoryViewModel model)
         {
-            if (model.Name == null) ModelState.AddModelError("Name", "Name is requiered");
-            else
-            {
-                if (model.Name.Length > Model.Category.MaxLengthFor.Name) ModelState.AddModelError("Name", "Name is too long");
-            }
+            Validate(model);
             if (ModelState.IsValid)
             {
                 var service = DependencyResolver.Current.Resolve<IProductService>();
                 var category = CategoryViewModelBuilder.Build(model);
                 service.CreateCategory(category.Name, category.Characteristics);
                 model.Success = true;
-                model.ActionType=ActionType.Create;
             }
             return View("Category",model);
         }
@@ -52,18 +48,13 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult EditCategory(CategoryViewModel model)
         {
-            if (model.Name == null) ModelState.AddModelError("Name", "Name is requiered");
-            else
-            {
-                if (model.Name.Length > Model.Category.MaxLengthFor.Name) ModelState.AddModelError("Name", "Name is too long");
-            }
+            Validate(model);
             if (ModelState.IsValid)
             {
                 var service = DependencyResolver.Current.Resolve<IProductService>();
                 var category = CategoryViewModelBuilder.Build(model);
                 service.EditCategory(category);
                 model.Success = true;
-                model.ActionType=ActionType.Edit;
             }
             return View("Category", model);
         }
@@ -103,6 +94,15 @@ namespace SalesManagement.MvcApplication.Controllers
             var service = DependencyResolver.Current.Resolve<IProductService>();
             service.DeleteCategory(id);
             return Redirect(Url.Action("Categories"));
+        }
+
+        private void Validate(CategoryViewModel model)
+        {
+            if (model.Name == null) ModelState.AddModelError("Name", "Name is requiered");
+            else
+            {
+                if (model.Name.Length > Category.MaxLengthFor.Name) ModelState.AddModelError("Name", "Name is too long");
+            }
         }
 
     }

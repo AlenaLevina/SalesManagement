@@ -1,10 +1,11 @@
 ﻿@using SalesManagement.MvcApplication
+@using SalesManagement.MvcApplication.ViewModels
 @using SalesManagement.MvcApplication.ViewModels.Product
 @model CategoryViewModel
 
 @{
-    string title=null;
-    string actionName=null;
+    string title = null;
+    string actionName = null;
     string notification = null;
     string notificationSuccessful = null;
     string buttonTitle = null;
@@ -33,7 +34,7 @@
 
 @section MainContent{
     <h2>
-        @if (Model == null||!Model.Success)
+        @if (Model == null || !Model.Success)
         {
             @notification
         }
@@ -42,43 +43,43 @@
             @notificationSuccessful
         }
     </h2>
-    
-    @Html.ActionLink(linkText,"Categories")
-    @using (Html.BeginForm(actionName,"Product",FormMethod.Post))
+
+    @Html.ActionLink(linkText, "Categories")
+    @using (Html.BeginForm(actionName, "Product", FormMethod.Post))
     {
         <div class="separate">
-            @Html.Label("Name")<br/>
-            @Html.TextBoxFor(m=>m.Name)
-            @Html.ValidationMessageFor(a => a.Name)
+            @Html.Label("Name")<br />
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
         </div>
 
         <div class="separate">
-            @Html.Label("Characteristics")<br/>
+            @Html.Label("Characteristics")<br />
             @for (int i = 0; i < Model.Characteristics.Count(); i++)
             {
-                @Html.CheckBoxFor(m => m.Characteristics[i].Chosen, new {id = "cbxCharacteristic" + i})
-                @Html.Label(Model.Characteristics[i].Name, Model.Characteristics[i].Name,new {@for="cbxCharacteristic"+i})
-                @Html.HiddenFor(m=>m.Characteristics[i].Name)
-                @Html.HiddenFor(m=>m.Characteristics[i].Id)<br/>
+                @Html.CheckBoxFor(m => m.Characteristics[i].Chosen, new { id = "cbxCharacteristic" + i })
+                @Html.Label(Model.Characteristics[i].Name, Model.Characteristics[i].Name, new { @for = "cbxCharacteristic" + i })
+                @Html.HiddenFor(m => m.Characteristics[i].Name)
+                @Html.HiddenFor(m => m.Characteristics[i].Id)<br />
             }
-            
+
         </div>
         
-        @Html.HiddenFor(m=>m.Id)
-        @Html.HiddenFor(m=>m.ActionType)
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.ActionType)
         
         <div class="separate">
             <button type="submit">@buttonTitle</button>
         </div>
     }
-    
+
     @using (Html.BeginForm("CreateCharacteristic", "Product", FormMethod.Post))
     {
-        @Html.Label("Create new characteristic")<br/>
-        @Html.TextBoxFor(m=>m.NewCharacteristicName)
-        @Html.ValidationMessageFor(m=>m.NewCharacteristicName)
-        @Html.HiddenFor(m=>m.ActionType)
-        @Html.HiddenFor(m=>m.Id)
+        @Html.Label("Create new characteristic")<br />
+        @Html.TextBoxFor(m => m.NewCharacteristicName)
+        @Html.ValidationMessageFor(m => m.NewCharacteristicName)
+        @Html.HiddenFor(m => m.ActionType)
+        @Html.HiddenFor(m => m.Id)
         <button type="submit">Create characteristic</button>
     }
 }

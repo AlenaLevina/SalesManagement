@@ -1,4 +1,4 @@
-﻿namespace SalesManagement.MvcApplication.ViewModels.Product
+﻿namespace SalesManagement.MvcApplication.ViewModels
 {
     public enum ActionType
     {

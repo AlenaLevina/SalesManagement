@@ -18,10 +18,7 @@
     @foreach (var category in Model.Categories)
     {
         <div class="entityListItem">
-            <div class="name">@category.Name</div>
-            <div class="editLink">
-                @Html.ActionLink("Edit","EditCategory","Product",new {id=category.Id},null)
-            </div>
+            <div class="name"><h4 >@Html.ActionLink(@category.Name,"EditCategory","Product",new {id=category.Id},new {title="Edit this category"})</h4></div>
             <div class="deleteLink">
                 @Html.ActionLink("Delete","DeleteCategory","Product",new {id=category.Id},null)
             </div>

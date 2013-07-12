@@ -1,8 +1,9 @@
-﻿h4 {
+﻿div.bottomBordered {
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     border-bottom-color: #6F6978;
     margin-bottom: 5px;
+    float: left;
 }
 
 div.fullName{

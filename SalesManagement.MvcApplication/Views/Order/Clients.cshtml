@@ -19,7 +19,12 @@
     @foreach (var client in Model.Clients)
     {
         <div class="entityListItem">
-            <div class="clientId"><h4>Client #@client.ClientId</h4></div>
+            <div class="bottomBordered">
+                <div class="name"><h4 >@Html.ActionLink("Client #"+@client.ClientId,"EditClient","Order",new {id=client.ClientId},new {title="Edit this client"})</h4></div>
+                <div class="deleteLink">
+                    @Html.ActionLink("Delete","DeleteClient","Order",new {id=client.Id},null)
+                </div>
+            </div>
             <div class="additionalInfo">
                 <div class="fullName">
                     <span class="lastName">@client.LastName</span>
@@ -29,12 +34,8 @@
                     <span class="phone">+@client.Phone</span>
                 </div>
             </div>
-            @*<div class="editLink">
-                @Html.ActionLink("Edit","EditClient","Order",new {id=client.Id},null)
-            </div>
-            <div class="deleteLink">
-                @Html.ActionLink("Delete","DeleteClient","Order",new {id=client.Id},null)
-            </div>*@
+            
+            
         </div>
     }
 }

@@ -126,6 +126,7 @@
     <Compile Include="ViewModelBuilders\Account\EditProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Account\ViewProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Order\ClientsViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Order\ClientViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
@@ -133,8 +134,9 @@
     <Compile Include="ViewModels\Account\SignInViewModel.cs" />
     <Compile Include="ViewModels\Account\ViewProfileViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientsViewModel.cs" />
+    <Compile Include="ViewModels\Order\ClientViewModel.cs" />
     <Compile Include="ViewModels\Order\CreateClientViewModel.cs" />
-    <Compile Include="ViewModels\Product\ActionType.cs" />
+    <Compile Include="ViewModels\ActionType.cs" />
     <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoryCharacteristic.cs" />
     <Compile Include="ViewModels\Product\CategoryViewModel.cs" />
@@ -238,6 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Clients.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Client.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

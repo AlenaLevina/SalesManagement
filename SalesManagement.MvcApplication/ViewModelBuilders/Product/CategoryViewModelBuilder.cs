@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Model;
+using SalesManagement.MvcApplication.ViewModels;
 using SalesManagement.MvcApplication.ViewModels.Product;
 using System.Linq;
 
