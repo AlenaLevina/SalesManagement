@@ -36,5 +36,26 @@ namespace Services
         {
             return GetRepository<IClientRepository>().GetAll();
         }
+
+        public Client GetClientByClientId(int clientId)
+        {
+            return GetRepository<IClientRepository>().GetByClientId(clientId);
+        }
+
+        public void EditClient(Client client)
+        {
+            if (client == null) throw new ArgumentNullException("client");
+
+            var clientRepo = GetRepository<IClientRepository>();
+            var oldClient = clientRepo.GetByClientId(client.ClientId);
+            oldClient.CopyFrom(client);
+            clientRepo.Update(oldClient);
+            
+        }
+
+        public void DeleteClient(int id)
+        {
+            GetRepository<IClientRepository>().Delete(id);;
+        }
     }
 }
