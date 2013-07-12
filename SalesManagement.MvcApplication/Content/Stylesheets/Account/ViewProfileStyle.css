@@ -79,6 +79,6 @@ div.subArea h4 {
     border-bottom-style: dashed;
 }
 
-
-
-
+div.debug {
+    opacity: 0.5;
+}
