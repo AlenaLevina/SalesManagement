@@ -7,7 +7,7 @@
 }
 
 @section Head{
-    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Account/ViewProfileStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Account/ViewProfileStyle.css" />
 }
 
 @section MainContent{
@@ -19,7 +19,7 @@
             }
             else
             {
-                <img src="~/Content/Images/noimage.png" width="100" alt=""/>
+                <img src="~/Content/Images/noimage.png" width="100" alt="" />
             }
         </div>
         <div id="profileDetails">
@@ -27,10 +27,10 @@
                 @switch (Model.Gender)
                 {
                     case Gender.Female:
-                        <img src="~/Content/Images/female.png" alt="" />
+                    <img src="~/Content/Images/female.png" alt="" />
                         break;
                     case Gender.Male:
-                        <img src="~/Content/Images/male.png" alt="" />
+                    <img src="~/Content/Images/male.png" alt="" />
                         break;
                 }
             </div>
@@ -39,7 +39,8 @@
             </div>
             <div id="fullName">
                 <span id="firstName">@Model.FirstName</span>
-                <span id="lastName">@Model.LastName</span>@if (Model.DateOfBirth!=null){<span id="age">, @((new DateTime((DateTime.Now-Model.DateOfBirth).Value.Ticks).Year-1))</span>}
+                <span id="lastName">@Model.LastName</span>@if (Model.DateOfBirth != null)
+                                                          {<span id="age">, @((new DateTime((DateTime.Now - Model.DateOfBirth).Value.Ticks).Year - 1))</span>}
             </div>
             <div id="roles">
                 <label>Role:</label>
@@ -47,48 +48,64 @@
             </div>
         </div>
     </div>
+
     <div id="profileLinks">
         @if (Context.User.Identity.Name.Equals(Model.Login, StringComparison.OrdinalIgnoreCase))
         {
             @Html.ActionLink("Edit profile", "EditProfile", "Account")
             if (User.IsInRole(RoleNames.EmployeeRoleName))
             {
-                <div id="employeeArea">
-                    <h3>Employee panel</h3>
-                    
-                </div>
+            <div id="employeeArea">
+                <h3>Employee panel</h3>
+
+            </div>
             }
             if (User.IsInRole(RoleNames.ManagerRoleName))
             {
-                <div id="managerArea">
-                    <h3>Manager panel</h3>
-                    <div class="subArea">
-                        <h4>Users</h4>
-                        @Html.ActionLink("Register new employee","Register","Account")
-                    </div>
-                    <div class="subArea">
-                        <h4>Clients</h4>
-                        @Html.ActionLink("View all","Clients","Order")
-                        @Html.ActionLink("Create new","CreateClient","Order")
-                    </div>
+            <div id="managerArea">
+                <h3>Manager panel</h3>
+                <div class="subArea">
+                    <h4>Users</h4>
+                    @Html.ActionLink("Register new employee", "Register", "Account")
                 </div>
+                <div class="subArea">
+                    <h4>Clients</h4>
+                    @Html.ActionLink("View all", "Clients", "Order")
+                    @Html.ActionLink("Create new", "CreateClient", "Order")
+                </div>
+            </div>
             }
+
             if (User.IsInRole(RoleNames.AdministratorRoleName))
             {
-                <div id="adminArea">
-                    <h3>Administrator panel</h3>
-                    <div class="subArea">
-                        <h4>Users</h4>
-                        @Html.ActionLink("Register new user","Register","Account")
-                    </div>
-                    <div class="subArea">
-                        <h4>Product categories</h4>
-                        @Html.ActionLink("View all and edit","Categories","Product")
-                        @Html.ActionLink("Create new","CreateCategory","Product")
-                    </div>
-                    
+            <div id="adminArea">
+                <h3>Administrator panel</h3>
+                <div class="subArea">
+                    <h4>Users</h4>
+                    @Html.ActionLink("Register new user", "Register", "Account")
                 </div>
-            }    
+                <div class="subArea">
+                    <h4>Product categories</h4>
+                    @Html.ActionLink("View all and edit", "Categories", "Product")
+                    @Html.ActionLink("Create new", "CreateCategory", "Product")
+                </div>
+                <div class="subArea">
+                    <h4>Products</h4>
+                    @Html.ActionLink("Create new", "Create", "Product")
+                </div>
+
+                @if (PreprocessorHelper.IsDebug())
+                {
+                    <div class="subArea debug">
+                        <h4>Clients</h4>
+                        @Html.ActionLink("View all", "Clients", "Order")
+                        @Html.ActionLink("Create new", "CreateClient", "Order")
+                    </div>
+                }
+
+
+            </div>
+            }
         }
     </div>
 }
