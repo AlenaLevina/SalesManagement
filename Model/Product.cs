@@ -50,6 +50,7 @@ namespace Model
             CategoryId = product.CategoryId;
             Category = product.Category;
             Sku = product.Sku;
+            Price = product.Price;
         }
 
         #endregion
