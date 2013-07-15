@@ -13,5 +13,14 @@ namespace Contracts
         void CreateCharacteristic(string name);
         void DeleteCategory(int id);
         int GetNewSku(int size);
+        IEnumerable<Characteristic> GetCharacteristics(int categoryId);
+        IEnumerable<CharacteristicValue> GetCharacteristicValuesByProductSku(int productSku);
+        bool SkuExists(int sku);
+        void CreateProduct(Product product, IEnumerable<CharacteristicValue> characteristicValues);
+        IEnumerable<Product> GetAllProducts();
+        Product GetProductById(int id);
+        Product GetProductBySku(int sku);
+        void EditProduct(Product product,IEnumerable<CharacteristicValue> characteristicValues);
+        void DeleteProduct(int id);
     }
 }
