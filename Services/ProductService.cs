@@ -78,10 +78,100 @@ namespace Services
             return newSku;
         }
 
-        
+        public IEnumerable<Characteristic> GetCharacteristics(int categoryId)
+        {
+            return GetRepository<ICharacteristicRepository>().GetByCategoryId(categoryId);
+        }
+
+        public IEnumerable<CharacteristicValue> GetCharacteristicValuesByProductSku(int productSku)
+        {
+            var id = GetRepository<IProductRepository>().GetIdBySku(productSku);
+            return GetRepository<ICharacteristicValueRepository>().GetByProductId(id);
+        }
+
+        public bool SkuExists(int sku)
+        {
+            return GetRepository<IProductRepository>().SkuExists(sku);
+        }
+
+        public void CreateProduct(Product product, IEnumerable<CharacteristicValue> characteristicValues)
+        {
+            if (product == null) throw new ArgumentNullException("product");
+            if (characteristicValues == null) throw new ArgumentNullException("characteristicValues");
+
+            var productRepo = GetRepository<IProductRepository>();
+            productRepo.Create(product);
+            var productId = GetRepository<IProductRepository>().GetIdBySku(product.Sku);
+            foreach (var characteristicValue in characteristicValues)
+            {
+                characteristicValue.ProductId = productId;
+                GetRepository<ICharacteristicValueRepository>().Create(characteristicValue);
+            }
+        }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return GetRepository<IProductRepository>().GetAll();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return GetRepository<IProductRepository>().Get(id);
+        }
+
+        public Product GetProductBySku(int sku)
+        {
+            return GetRepository<IProductRepository>().GetBySku(sku);
+        }
+
+        public void EditProduct(Product product,IEnumerable<CharacteristicValue> characteristicValues)
+        {
+            if (product == null) throw new ArgumentNullException("product");
+
+            var productRepo = GetRepository<IProductRepository>();
+            var characteristicValueRepo = GetRepository<ICharacteristicValueRepository>();
+            product.Category = GetRepository<ICategoryRepository>().Get(product.CategoryId);
+            var oldProduct = productRepo.GetBySku(product.Sku);
+
+            bool categoryChanged = !oldProduct.CategoryId.Equals(product.CategoryId);
+            var productId = GetRepository<IProductRepository>().GetIdBySku(product.Sku);
+            oldProduct.CopyFrom(product);
+            productRepo.Update(oldProduct);
+            if (!categoryChanged)
+            {
+                foreach (var characteristicValue in characteristicValues)
+                {
+                    characteristicValue.ProductId = productId;
+                    characteristicValue.Product = productRepo.Get(productId);
+                    var oldCharacteristicValue = characteristicValueRepo.Get(characteristicValue.Id);
+                    oldCharacteristicValue.CopyFrom(characteristicValue);
+                    characteristicValueRepo.Update(oldCharacteristicValue);
+                }
+            }
+            else
+            {
+                var oldCaharcteristicValues = characteristicValueRepo.GetByProductId(productId).ToList();
+                foreach (var characteristicValue in oldCaharcteristicValues)
+                {
+                    characteristicValueRepo.Delete(characteristicValue.Id);
+                }
+                foreach (var characteristicValue in characteristicValues)
+                {
+                    characteristicValue.ProductId = productId;
+                    GetRepository<ICharacteristicValueRepository>().Create(characteristicValue);
+                }
+            }
+        }
+
+        public void DeleteProduct(int id)
+        {
+            GetRepository<IProductRepository>().Delete(id);
+        }
+
 
         public void AddCharacteristicToCategory(string categoryName, int characteristicId)
         {
+            if (categoryName == null) throw new ArgumentNullException("categoryName");
             var categoryRepo = GetRepository<ICategoryRepository>();
             var characteristicRepo = GetRepository<ICharacteristicRepository>();
             var category = categoryRepo.GetByName(categoryName);
@@ -122,5 +212,6 @@ namespace Services
             }
             else throw new DataException("Can't perform operation due to invalid data");
         }
+        
     }
 }
