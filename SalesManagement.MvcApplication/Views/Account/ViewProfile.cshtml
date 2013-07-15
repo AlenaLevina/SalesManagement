@@ -70,8 +70,8 @@
                 </div>
                 <div class="subArea">
                     <h4>Clients</h4>
-                    @Html.ActionLink("View all", "Clients", "Order")
                     @Html.ActionLink("Create new", "CreateClient", "Order")
+                    @Html.ActionLink("View all", "Clients", "Order")
                 </div>
             </div>
             }
@@ -86,20 +86,21 @@
                 </div>
                 <div class="subArea">
                     <h4>Product categories</h4>
-                    @Html.ActionLink("View all and edit", "Categories", "Product")
                     @Html.ActionLink("Create new", "CreateCategory", "Product")
+                    @Html.ActionLink("View all and edit", "Categories", "Product")
                 </div>
                 <div class="subArea">
                     <h4>Products</h4>
                     @Html.ActionLink("Create new", "Create", "Product")
+                    @Html.ActionLink("View all","Products","Product")
                 </div>
 
                 @if (PreprocessorHelper.IsDebug())
                 {
                     <div class="subArea debug">
                         <h4>Clients</h4>
-                        @Html.ActionLink("View all", "Clients", "Order")
                         @Html.ActionLink("Create new", "CreateClient", "Order")
+                        @Html.ActionLink("View all", "Clients", "Order")
                     </div>
                 }
 
