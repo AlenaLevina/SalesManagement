@@ -1,0 +1,57 @@
+﻿@model SalesManagement.MvcApplication.ViewModels.Product.ProductsViewModel
+@using Model
+@using SalesManagement.MvcApplication
+
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Products";
+}
+
+@section Head
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_EntityList.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Product/Products.css"/>
+}
+
+@section MainContent{
+    <h2>
+        Products
+    </h2>
+    @foreach (var product in Model.Products)
+    {
+        <div class="entityListItem">
+            <div class="bottomBordered">
+                <div class="name">
+                    <h4 >
+                        <a href='@Url.Action("Edit","Product",new {sku=product.Sku})' title="Edit this product">
+                            #@product.Sku
+                            @switch (product.Status)
+                            {
+                                case ProductStatus.Available:
+                                    <span class="status available">(available)</span>
+                                    break;
+                                case ProductStatus.TemporaryUnavailable:
+                                    <span class="status temporaryUnavailable">(temporary unavailable)</span>
+                                    break;
+                                case ProductStatus.Unavailable:
+                                    <span class="status unavailable">(unavailable)</span>
+                                    break;
+                            }                          
+                        </a>
+                    </h4>
+                </div>
+                <div class="deleteLink">
+                    @Html.ActionLink("Delete","Delete","Product",new {id=product.Id},null)
+                </div>
+            </div>
+            <div class="additionalInfo">
+                <div class="productName">
+                    <span>@product.Category.Name → </span><span>@product.Name</span>
+                </div>
+                <div class="productDescription">
+                    <span>@product.Description</span>
+                </div>
+            </div>
+        </div>
+    }
+}

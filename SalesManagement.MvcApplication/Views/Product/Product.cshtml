@@ -1,0 +1,122 @@
+﻿@using Model
+@using SalesManagement.MvcApplication
+@using SalesManagement.MvcApplication.ViewModelBuilders.Product
+@using SalesManagement.MvcApplication.ViewModels
+@using SalesManagement.MvcApplication.ViewModels.Product
+@model ProductViewModel
+
+@{
+    string title = null;
+    string actionName = null;
+    string notification = null;
+    string notificationSuccessful = null;
+    string buttonTitle = null;
+    string linkText = String.Empty;
+    switch (Model.ActionType)
+    {
+        case ActionType.Create:
+            title = "Create product";
+            actionName = "Create";
+            notification = "Product creation";
+            notificationSuccessful = "Product is successfully created";
+            buttonTitle = "Create";
+            linkText = "← To the products list";
+            break;
+        case ActionType.Edit:
+            title = "Edit product";
+            actionName = "Edit";
+            notification = "Product editing";
+            notificationSuccessful = "Product is successfully changed";
+            buttonTitle = "Save";
+            linkText = "← Back to the products list";
+            break;
+    }
+    ViewBag.Title = GlobalConstants.TitlePrefix + title;
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Product/Create.css" />
+}
+
+@section MainContent{
+    <h2>
+        @if (Model == null || !Model.Success)
+        {
+            @notification
+        }
+        else
+        {
+            @notificationSuccessful
+        }
+    </h2>
+
+    @Html.ActionLink(linkText, "Products")
+    @using (Html.BeginForm(actionName, "Product", FormMethod.Post))
+    {
+        <div class="separate">
+            @Html.Label("Name")<br />
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Category")<br />
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "- Select category -")
+            @Html.ValidationMessageFor(m => m.CategoryId)
+        </div>
+
+        <div class="separate">
+            <div id="characteristics">
+                @if (Model.CharacteristicValues != null)
+                {
+                    @Html.Partial("_CharacteristicValues", CharacteristicValuesViewModelBuilder.Build(Model.CharacteristicValues))
+                }
+            </div>
+        </div>
+
+        <div class="separate">
+            @Html.Label("Price")<br />
+            @Html.TextBoxFor(m => m.Price)
+            @Html.ValidationMessageFor(m => m.Price)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Amount")<br />
+            @Html.TextBoxFor(m => m.Amount)
+            @Html.ValidationMessageFor(m => m.Amount)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Description")<br />
+            @Html.TextAreaFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+
+        <div class="separate">
+            @Html.Label("Status")<br />
+            @Html.RadioButtonFor(m => m.Status, ProductStatus.Available, new {@checked = true, id = "rbnAvailable"})
+            @Html.Label("Available", new {@for = "rbnAvailable"})<br />
+            @Html.RadioButtonFor(m => m.Status, ProductStatus.TemporaryUnavailable, new {id = "rbnTemporaryUnavailable"})
+            @Html.Label("Temporary unavailable", new {@for = "rbnTemporaryUnavailable"})<br />
+            @Html.RadioButtonFor(m => m.Status, ProductStatus.Unavailable, new {id = "rbnUnavailable"})
+            @Html.Label("Unavailable", new {@for = "rbnUnavailable"})<br />
+        </div>
+
+        <div class="separate">
+            @Html.Label("SKU")<br />
+            @Html.TextBoxFor(m => m.Sku, new {@readonly = ""})
+            @Html.ValidationMessageFor(m => m.Sku)
+            @*<button type="button" id="generateSku">Generate SKU</button>*@
+        </div>
+        
+        @Html.HiddenFor(m => m.ActionType)
+        
+        <div class="separate">
+            <button type="submit">@buttonTitle</button>
+        </div>
+    }
+
+    <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/Product/Create.js"></script>
+}
+
