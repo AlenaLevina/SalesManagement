@@ -17,5 +17,14 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
                                        .ToList()
                 };
         }
+
+        public static CharacteristicValuesViewModel Build(
+            List<ProductCharacteristicValue> productCharacteristicValues)
+        {
+            return new CharacteristicValuesViewModel
+                {
+                    CharacteristicValues = productCharacteristicValues
+                };
+        }
     }
 }
