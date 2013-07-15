@@ -396,3 +396,9 @@ div#welcome a {
 div#welcome span.welcome a{
     font-weight: normal;
 }
+
+textarea {
+    max-width: 640px;
+    width: 400px;
+    height: 100px;
+}
