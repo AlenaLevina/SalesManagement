@@ -1,0 +1,12 @@
+﻿div#characteristics {
+    /*border-top-style: dashed;
+    border-bottom-style: dashed;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-color: #808080;
+    border-bottom-color: #808080;*/
+    border-left-style: dashed;
+    border-left-width: 1px;
+    border-left-color: #808080;
+    padding-left: 5px;
+}

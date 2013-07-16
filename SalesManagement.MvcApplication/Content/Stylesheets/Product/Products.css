@@ -1,0 +1,34 @@
+﻿div.bottomBordered {
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6978;
+    margin-bottom: 5px;
+    float: left;
+}
+
+div.productName{
+    font-size: 14px;
+}
+
+div.category {
+    font-size: 13px;
+}
+
+div.productName a span.status {
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+span.available {
+    color: green;
+}
+
+span.temporaryUnavailable {
+    color: #FFCC00;
+}
+
+span.unavailable {
+    color: #CC0000;
+}
+
