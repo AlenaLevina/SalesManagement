@@ -31,7 +31,7 @@
             <div id="characteristics">
                 @if (Model.CharacteristicValues != null)
                 {
-                    @Html.Partial("_CharacteristicValues", CharacteristicValuesViewModelBuilder.Build(Model.CharacteristicValues))
+                    @Html.Partial("_CharacteristicValues", CharacteristicValuesPartialViewModelBuilder.Build(Model.CharacteristicValues))
                 }
             </div>
         </div>
