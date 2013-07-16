@@ -5,11 +5,11 @@ using SalesManagement.MvcApplication.ViewModels.Product;
 
 namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
 {
-    public class CharacteristicValuesViewModelBuilder
+    public class CharacteristicValuesPartialViewModelBuilder
     {
-        public static CharacteristicValuesViewModel Build(IEnumerable<Characteristic> characteristics)
+        public static CharacteristicValuesPartialViewModel Build(IEnumerable<Characteristic> characteristics)
         {
-            return new CharacteristicValuesViewModel
+            return new CharacteristicValuesPartialViewModel
                 {
                     CharacteristicValues =
                         characteristics.Select(
@@ -18,10 +18,10 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
                 };
         }
 
-        public static CharacteristicValuesViewModel Build(
+        public static CharacteristicValuesPartialViewModel Build(
             List<ProductCharacteristicValue> productCharacteristicValues)
         {
-            return new CharacteristicValuesViewModel
+            return new CharacteristicValuesPartialViewModel
                 {
                     CharacteristicValues = productCharacteristicValues
                 };

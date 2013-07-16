@@ -7,6 +7,7 @@ namespace Model
         public static class MaxLengthFor
         {
             public static int DeliveryAddress = 200;
+            public static int ContactPhoneNumber = 20;
         }
 
 
@@ -21,6 +22,8 @@ namespace Model
         public DateTime DeliveryDate { get; set; }
 
         public string DeliveryAddress { get; set; }
+
+        public string ContactPhoneNumber { get; set; }
 
         public OrderStatus Status { get; set; }
 
@@ -53,6 +56,7 @@ namespace Model
             Date = order.Date;
             DeliveryDate = order.DeliveryDate;
             DeliveryAddress = order.DeliveryAddress;
+            ContactPhoneNumber = order.ContactPhoneNumber;
             Status = order.Status;
             ClientId = order.ClientId;
             Client = order.Client;

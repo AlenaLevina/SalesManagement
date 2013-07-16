@@ -1,0 +1,8 @@
+﻿div#matchingClients {
+    display: none;
+}
+
+img#uniqueIdExists {
+    display: none;
+    margin-bottom: -7px;
+}

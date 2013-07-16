@@ -7,10 +7,11 @@ namespace Contracts
     {
         int GetNewId(int size);
         void CreateClient(Client client);
-        bool ClientIdExists(int id);
+        bool UniqueIdExists(int id);
         IEnumerable<Client> GetAllClients();
-        Client GetClientByClientId(int clientId);
+        Client GetClientByUniqueId(int clientUniqueId);
         void EditClient(Client client);
         void DeleteClient(int id);
+        void CreateOrder(Order order, int productSku, string employeeLogin,int clientUniqueId);
     }
 }

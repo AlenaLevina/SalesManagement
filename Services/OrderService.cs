@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Common.Helpers;
 using Contracts;
 using Data.Repositories;
@@ -16,7 +15,7 @@ namespace Services
             while (true)
             {
                 newId = RandomHelper.GenerateNumber(size);
-                if (!GetRepository<IClientRepository>().ClientIdExists(newId)) break;
+                if (!GetRepository<IClientRepository>().UniqueIdExists(newId)) break;
             }
             return newId;
         }
@@ -27,9 +26,9 @@ namespace Services
             GetRepository<IClientRepository>().Create(client);
         }
 
-        public bool ClientIdExists(int id)
+        public bool UniqueIdExists(int id)
         {
-            return GetRepository<IClientRepository>().ClientIdExists(id);
+            return GetRepository<IClientRepository>().UniqueIdExists(id);
         }
 
         public IEnumerable<Client> GetAllClients()
@@ -37,9 +36,9 @@ namespace Services
             return GetRepository<IClientRepository>().GetAll();
         }
 
-        public Client GetClientByClientId(int clientId)
+        public Client GetClientByUniqueId(int clientUniqueId)
         {
-            return GetRepository<IClientRepository>().GetByClientId(clientId);
+            return GetRepository<IClientRepository>().GetByUniqueId(clientUniqueId);
         }
 
         public void EditClient(Client client)
@@ -47,7 +46,7 @@ namespace Services
             if (client == null) throw new ArgumentNullException("client");
 
             var clientRepo = GetRepository<IClientRepository>();
-            var oldClient = clientRepo.GetByClientId(client.ClientId);
+            var oldClient = clientRepo.GetByUniqueId(client.UniqueId);
             oldClient.CopyFrom(client);
             clientRepo.Update(oldClient);
             
@@ -56,6 +55,25 @@ namespace Services
         public void DeleteClient(int id)
         {
             GetRepository<IClientRepository>().Delete(id);;
+        }
+
+        public void CreateOrder(Order order, int productSku, string employeeLogin,int clientUniqueId)
+        {
+            if (order == null) throw new ArgumentNullException("order");
+            if (employeeLogin == null) throw new ArgumentNullException("employeeLogin");
+
+            var productRepo = GetRepository<IProductRepository>();
+            var productId = productRepo.GetIdBySku(productSku);
+            var clientId = GetRepository<IClientRepository>().GetByUniqueId(clientUniqueId).Id;
+            var employeeId = GetRepository<IUserRepository>().GetByLogin(employeeLogin).Id;
+            var price = productRepo.Get(productId).Price;
+            order.ClientId = clientId;
+            order.ProductId = productId;
+            order.EmployeeId = employeeId;
+            order.Date = DateTime.Now;
+            order.Price = price;
+            order.Status = OrderStatus.Unpaid;
+            GetRepository<IOrderRepository>().Create(order);
         }
     }
 }

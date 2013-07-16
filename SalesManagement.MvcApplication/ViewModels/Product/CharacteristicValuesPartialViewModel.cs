@@ -2,7 +2,7 @@
 
 namespace SalesManagement.MvcApplication.ViewModels.Product
 {
-    public class CharacteristicValuesViewModel
+    public class CharacteristicValuesPartialViewModel
     {
         public List<ProductCharacteristicValue> CharacteristicValues { get; set; }
     }

@@ -17,7 +17,7 @@ namespace Model
 
         #region Properties
 
-        public int ClientId { get; set; }
+        public int UniqueId { get; set; }
 
         public string FirstName { get; set; }
 
@@ -48,7 +48,7 @@ namespace Model
             Phone = client.Phone;
             Email = client.Email;
             Address = client.Address;
-            ClientId = client.ClientId;
+            UniqueId = client.UniqueId;
         }
 
         #endregion

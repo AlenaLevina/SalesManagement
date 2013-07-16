@@ -177,7 +177,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
             var characteristics = service.GetCharacteristics(categoryId);
-            var model = CharacteristicValuesViewModelBuilder.Build(characteristics);
+            var model = CharacteristicValuesPartialViewModelBuilder.Build(characteristics);
             return PartialView("_CharacteristicValues", model);
         }
 

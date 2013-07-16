@@ -57,7 +57,11 @@
             {
             <div id="employeeArea">
                 <h3>Employee panel</h3>
-
+                <div class="subArea">
+                    <h4>Orders</h4>
+                    @Html.ActionLink("Register new order", "Create", "Order")
+                    @Html.ActionLink("View all", "Orders", "Order")
+                </div>
             </div>
             }
             if (User.IsInRole(RoleNames.ManagerRoleName))
@@ -102,9 +106,13 @@
                         @Html.ActionLink("Create new", "CreateClient", "Order")
                         @Html.ActionLink("View all", "Clients", "Order")
                     </div>
+                    
+                    <div class="subArea debug">
+                        <h4>Orders</h4>
+                        @Html.ActionLink("Register new order", "Create", "Order")
+                        @Html.ActionLink("View all", "Orders", "Order")
+                    </div>
                 }
-
-
             </div>
             }
         }

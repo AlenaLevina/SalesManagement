@@ -1,0 +1,15 @@
+﻿@model SalesManagement.MvcApplication.ViewModels.Order.ClientsPartialViewModel
+
+<link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/_Clients.css"/>
+<div class="popupWindow">
+    <div class="post">
+        <h2 class="title"><a href="#">@Model.LastName, @Model.FirstName</a></h2>
+        <p class="meta"><span class="date">#@Model.UniqueId</span><span class="posted">+@Model.PhoneNumber</span></p>
+        <div style="clear: both;">&nbsp;</div>
+        <div class="entry">
+            <p>E-mail: @Model.Email</p>
+            <p>Address: @Model.Address</p>
+            <p class="links"><a href="#">← Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" title="b0x w">Next →</a></p>
+        </div>
+    </div>
+</div>

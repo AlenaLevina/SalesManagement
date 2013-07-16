@@ -15,7 +15,7 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
                 Phone = client.Phone,
                 Email = client.Email,
                 Address = client.Address,
-                ClientId = (client.ClientId == default(int)) ? (int?)null : client.ClientId,
+                ClientId = (client.UniqueId == default(int)) ? (int?)null : client.UniqueId,
                 ActionType = actionType
             };
         }
@@ -25,7 +25,7 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
             return new Client
                 {
                     Address = model.Address,
-                    ClientId = model.ClientId.Value,
+                    UniqueId = model.ClientId.Value,
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,

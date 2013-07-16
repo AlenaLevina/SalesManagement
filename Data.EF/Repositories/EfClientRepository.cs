@@ -10,14 +10,14 @@ namespace Data.EF.Repositories
         {
         }
 
-        public bool ClientIdExists(int id)
+        public bool UniqueIdExists(int id)
         {
-            return Context.Clients.Any(c => c.ClientId.Equals(id));
+            return Context.Clients.Any(c => c.UniqueId.Equals(id));
         }
 
-        public Client GetByClientId(int id)
+        public Client GetByUniqueId(int id)
         {
-            return Context.Clients.FirstOrDefault(e => e.ClientId.Equals(id));
+            return Context.Clients.FirstOrDefault(e => e.UniqueId.Equals(id));
         }
     }
 }

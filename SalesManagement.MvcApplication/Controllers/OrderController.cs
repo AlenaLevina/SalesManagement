@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Common.Helpers;
 using Contracts;
@@ -12,15 +13,7 @@ namespace SalesManagement.MvcApplication.Controllers
 {
     public class OrderController : Controller
     {
-        [HttpGet]
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
-        public ActionResult GenerateId()
-        {
-            var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var newId = service.GetNewId(GlobalConstants.ClientIdLength);
-            return Json(newId, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult Clients()
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
@@ -32,7 +25,6 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult CreateClient()
         {
-            var service = DependencyResolver.Current.Resolve<IOrderService>();
             return View("Client", ClientViewModelBuilder.Build(new Client(), ActionType.Create));
         }
 
@@ -57,7 +49,7 @@ namespace SalesManagement.MvcApplication.Controllers
         public ActionResult EditClient(int id)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var client = service.GetClientByClientId(id);
+            var client = service.GetClientByUniqueId(id);
             return View("Client", ClientViewModelBuilder.Build(client, ActionType.Edit));
         }
 
@@ -86,11 +78,79 @@ namespace SalesManagement.MvcApplication.Controllers
             return Redirect(Url.Action("Clients"));
         }
 
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult Orders()
+        {
+            //TODO create View "Orders"
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        public ActionResult Create()
+        {
+            return View("Order",OrderViewModelBuilder.Build(new Order(), ActionType.Create,null,null));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        public ActionResult Create(OrderViewModel model)
+        {
+            Validate(model);
+
+            if (ModelState.IsValid)
+            {
+                var service = DependencyResolver.Current.Resolve<IOrderService>();
+                var order = OrderViewModelBuilder.Build(model);
+                var sku = model.ProductSku.Value;
+                var clientUniqueId = model.ClientUniqueId.Value;
+                var employeeLogin = User.Identity.Name;
+                service.CreateOrder(order, sku, employeeLogin,clientUniqueId);
+                model.Success = true;
+            }
+            return View("Order",model);
+        }
+
+        //TODO Get and Post method for Edit()
+
+        #region JS actions
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
+        public ActionResult GenerateId()
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var newId = service.GetNewId(GlobalConstants.ClientIdLength);
+            return Json(newId, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult ClientUniqueIdExists(int uniqueId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var exists = service.UniqueIdExists(uniqueId);
+            return Json(exists,JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        public ActionResult GetClient(int uniqueId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var client = service.GetClientByUniqueId(uniqueId);
+            var model = ClientsPartialViewModelBuilder.Build(client);
+            return PartialView("_Clients", model);
+        }
+
+        #endregion
+
+
+        #region Validation methods
+
         private void Validate(ClientViewModel model)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             if (model.ClientId == null) ModelState.AddModelError("ClientId", "Please, generate client id");
-            else if (model.ActionType == ActionType.Create && service.ClientIdExists(model.ClientId.Value))
+            else if (model.ActionType == ActionType.Create && service.UniqueIdExists(model.ClientId.Value))
                 ModelState.AddModelError("ClientId", "Such client id already exists");
             if (model.FirstName == null) ModelState.AddModelError("FirstName", "First name is requiered");
             else if (model.FirstName.Length > Client.MaxLengthFor.FirstName)
@@ -99,7 +159,8 @@ namespace SalesManagement.MvcApplication.Controllers
             else if (model.LastName.Length > Client.MaxLengthFor.LastName)
                 ModelState.AddModelError("LastName", "Last name is too long");
             if (model.Phone == null) ModelState.AddModelError("Phone", "Phone number is requiered");
-            else if (!PhoneNumberHelper.IsPhoneNumber(model.Phone)) ModelState.AddModelError("Phone", "Phone number can contain only digits and hyphens \"-\"");
+            else if (!PhoneNumberHelper.IsPhoneNumber(model.Phone))
+                ModelState.AddModelError("Phone", "Phone number can contain only digits and hyphens \"-\"");
             else if (model.Phone.Length > Client.MaxLengthFor.Phone)
                 ModelState.AddModelError("Phone", "Phone number is too long");
             if (model.Address == null) ModelState.AddModelError("Address", "Address is requiered");
@@ -116,5 +177,35 @@ namespace SalesManagement.MvcApplication.Controllers
                 if (!regex.IsMatch(model.Email)) ModelState.AddModelError("Email", "Wrong e-mail format");
             }
         }
+
+        private void Validate(OrderViewModel model)
+        {
+            var orderService = DependencyResolver.Current.Resolve<IOrderService>();
+            var productService = DependencyResolver.Current.Resolve<IProductService>();
+
+            if (model.ClientUniqueId == null) ModelState.AddModelError("ClientUniqueId", "Client Id is requiered");
+            else if (model.ClientUniqueId.Value < 0) ModelState.AddModelError("ClientUniqueId", "Client Id is non-negative");
+            else if (!orderService.UniqueIdExists(model.ClientUniqueId.Value)) ModelState.AddModelError("ClientUniqueId", "There is no client with such id");
+
+            if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");
+            else if (model.ProductSku.Value < 0) ModelState.AddModelError("ProductSku", "Product SKU is non-negative");
+            else if (!productService.SkuExists(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "There is no product with such SKU");
+
+            if (model.Amount == null) ModelState.AddModelError("Amount", "Amount is requiered");
+            else if (model.Amount.Value < 0) ModelState.AddModelError("Amount", "Amount is non-negative");
+
+            if (model.DeliveryDate == null) ModelState.AddModelError("DeliveryDate", "Delivery date is requiered");
+            else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now);
+
+            if (model.DeliveryAddress == null) ModelState.AddModelError("DeliveryAddress", "Delivery address is requiered");
+            else if (model.DeliveryAddress.Length > Order.MaxLengthFor.DeliveryAddress) ModelState.AddModelError("DeliveryAddress", "Delivery address is too long");
+
+            if (model.ContactPhoneNumber == null) ModelState.AddModelError("ContactPhoneNumber", "Phone number is requiered");
+            else if (model.ContactPhoneNumber.Length > Order.MaxLengthFor.ContactPhoneNumber) ModelState.AddModelError("ContactPhoneNumber","Phone number is too long");
+            else if (!PhoneNumberHelper.IsPhoneNumber(model.ContactPhoneNumber)) ModelState.AddModelError("ContactPhoneNumber","Wrong formut of phone number");
+        }
+
+        #endregion
+
     }
 }

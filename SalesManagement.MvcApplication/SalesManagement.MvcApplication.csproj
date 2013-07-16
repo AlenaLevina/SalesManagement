@@ -123,24 +123,28 @@
     <Compile Include="StartDbHelper.cs" />
     <Compile Include="ViewModelBuilders\Account\EditProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Account\ViewProfileViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Order\ClientsPartialViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Order\ClientsViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Order\ClientViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Order\OrderViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
-    <Compile Include="ViewModelBuilders\Product\CharacteristicValuesViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\CharacteristicValuesPartialViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\ProductsViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\ProductViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\SignInViewModel.cs" />
     <Compile Include="ViewModels\Account\ViewProfileViewModel.cs" />
+    <Compile Include="ViewModels\Order\ClientsPartialViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientsViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientViewModel.cs" />
     <Compile Include="ViewModels\ActionType.cs" />
+    <Compile Include="ViewModels\Order\OrderViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoryCharacteristic.cs" />
     <Compile Include="ViewModels\Product\CategoryViewModel.cs" />
-    <Compile Include="ViewModels\Product\CharacteristicValuesViewModel.cs" />
+    <Compile Include="ViewModels\Product\CharacteristicValuesPartialViewModel.cs" />
     <Compile Include="ViewModels\Product\CreateCharacteristicViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductsViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductViewModel.cs" />
@@ -154,6 +158,8 @@
     <Content Include="App_Data\SalesManagement_log.ldf">
       <DependentUpon>SalesManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Images\check.png" />
+    <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\female.png" />
     <Content Include="Content\Images\img01.gif" />
     <Content Include="Content\Images\img02.jpg" />
@@ -163,12 +169,15 @@
     <Content Include="Content\Stylesheets\Account\ViewProfileStyle.css" />
     <Content Include="Content\Stylesheets\Order\Clients.css" />
     <Content Include="Content\Stylesheets\Order\CreateClient.css" />
+    <Content Include="Content\Stylesheets\Order\Order.css" />
+    <Content Include="Content\Stylesheets\Order\_Clients.css" />
     <Content Include="Content\Stylesheets\Product\Create.css" />
     <Content Include="Content\Stylesheets\Product\Products.css" />
     <Content Include="Content\Stylesheets\_Shared\_EntityList.css" />
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Order\CreateClient.js" />
+    <Content Include="Scripts\Order\Order.js" />
     <Content Include="Scripts\Product\Create.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -258,6 +267,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Product\Products.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Order.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\_Clients.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
