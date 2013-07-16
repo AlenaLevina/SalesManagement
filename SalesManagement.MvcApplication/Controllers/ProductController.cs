@@ -170,7 +170,7 @@ namespace SalesManagement.MvcApplication.Controllers
             return View(ProductsViewModelBuilder.Build(products));
         }
 
-        #region Json actions
+        #region JS actions
 
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult GetCharacteristics(int categoryId)

@@ -9,5 +9,12 @@ namespace SalesManagement.MvcApplication.Controllers
             return Redirect(Url.Action("ViewProfile", "Account"));
         }
 
+#if DEBUG
+        public ActionResult Home()
+        {
+            return View("Index");
+        }
+#endif
+
     }
 }

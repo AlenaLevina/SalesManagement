@@ -10,11 +10,11 @@ using Model;
 
 namespace Services
 {
-    public class ProductService:BaseService,IProductService
+    public class ProductService : BaseService, IProductService
     {
         public IEnumerable<Characteristic> GetAllCharacteristics()
         {
-            return GetRepository<ICharacteristicRepository>().GetAll().OrderBy(e=>e.Name);
+            return GetRepository<ICharacteristicRepository>().GetAll().OrderBy(e => e.Name);
         }
 
         public Category GetCategoryById(int id)
@@ -52,14 +52,14 @@ namespace Services
 
         public IEnumerable<Category> GetAllCategories()
         {
-            return GetRepository<ICategoryRepository>().GetAll().OrderBy(e=>e.Name);
+            return GetRepository<ICategoryRepository>().GetAll().OrderBy(e => e.Name);
         }
 
         public void CreateCharacteristic(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
 
-            GetRepository<ICharacteristicRepository>().Create(new Characteristic {Name = name});
+            GetRepository<ICharacteristicRepository>().Create(new Characteristic { Name = name });
         }
 
         public void DeleteCategory(int id)
@@ -85,8 +85,25 @@ namespace Services
 
         public IEnumerable<CharacteristicValue> GetCharacteristicValuesByProductSku(int productSku)
         {
-            var id = GetRepository<IProductRepository>().GetIdBySku(productSku);
-            return GetRepository<ICharacteristicValueRepository>().GetByProductId(id);
+            var productId = GetRepository<IProductRepository>().GetIdBySku(productSku);
+            var categoryId = GetRepository<IProductRepository>().Get(productId).CategoryId;
+            var characteristics = GetRepository<ICharacteristicRepository>().GetByCategoryId(categoryId).ToList();
+            var productCharacteristicValues = GetRepository<ICharacteristicValueRepository>().GetByProductId(productId).ToList();
+            var characteristicValues =
+                characteristics.Select(
+                    c =>
+                    {
+                        var productCharacteristicValue = productCharacteristicValues.FirstOrDefault(cV => cV.CharacteristicId.Equals(c.Id) && cV.ProductId.Equals(productId));
+                        return new CharacteristicValue
+                             {
+                                 CharacteristicId = c.Id,
+                                 Characteristic = characteristics.FirstOrDefault(characteristic => characteristic.Id.Equals(c.Id)),
+                                 ProductId = productId,
+                                 Value = productCharacteristicValue != null ?
+                                     productCharacteristicValue.Value : null
+                             };
+                    }).ToList();
+            return characteristicValues;
         }
 
         public bool SkuExists(int sku)
@@ -124,7 +141,7 @@ namespace Services
             return GetRepository<IProductRepository>().GetBySku(sku);
         }
 
-        public void EditProduct(Product product,IEnumerable<CharacteristicValue> characteristicValues)
+        public void EditProduct(Product product, IEnumerable<CharacteristicValue> characteristicValues)
         {
             if (product == null) throw new ArgumentNullException("product");
 
@@ -132,35 +149,20 @@ namespace Services
             var characteristicValueRepo = GetRepository<ICharacteristicValueRepository>();
             product.Category = GetRepository<ICategoryRepository>().Get(product.CategoryId);
             var oldProduct = productRepo.GetBySku(product.Sku);
-
-            bool categoryChanged = !oldProduct.CategoryId.Equals(product.CategoryId);
             var productId = GetRepository<IProductRepository>().GetIdBySku(product.Sku);
             oldProduct.CopyFrom(product);
             productRepo.Update(oldProduct);
-            if (!categoryChanged)
+            var oldCaharcteristicValues = characteristicValueRepo.GetByProductId(productId).ToList();
+            foreach (var characteristicValue in oldCaharcteristicValues)
             {
-                foreach (var characteristicValue in characteristicValues)
-                {
-                    characteristicValue.ProductId = productId;
-                    characteristicValue.Product = productRepo.Get(productId);
-                    var oldCharacteristicValue = characteristicValueRepo.Get(characteristicValue.Id);
-                    oldCharacteristicValue.CopyFrom(characteristicValue);
-                    characteristicValueRepo.Update(oldCharacteristicValue);
-                }
+                characteristicValueRepo.Delete(characteristicValue.Id);
             }
-            else
+            foreach (var characteristicValue in characteristicValues)
             {
-                var oldCaharcteristicValues = characteristicValueRepo.GetByProductId(productId).ToList();
-                foreach (var characteristicValue in oldCaharcteristicValues)
-                {
-                    characteristicValueRepo.Delete(characteristicValue.Id);
-                }
-                foreach (var characteristicValue in characteristicValues)
-                {
-                    characteristicValue.ProductId = productId;
-                    GetRepository<ICharacteristicValueRepository>().Create(characteristicValue);
-                }
+                characteristicValue.ProductId = productId;
+                GetRepository<ICharacteristicValueRepository>().Create(characteristicValue);
             }
+
         }
 
         public void DeleteProduct(int id)
@@ -176,9 +178,10 @@ namespace Services
             var characteristicRepo = GetRepository<ICharacteristicRepository>();
             var category = categoryRepo.GetByName(categoryName);
             var characteristic = characteristicRepo.Get(characteristicId);
-            if (category != null && characteristic!=null) {
+            if (category != null && characteristic != null)
+            {
                 if (category.Characteristics != null) category.Characteristics.Add(characteristic);
-                else category.Characteristics=new Collection<Characteristic>{characteristic};
+                else category.Characteristics = new Collection<Characteristic> { characteristic };
                 categoryRepo.Update(category);
             }
             else throw new DataException("Can't perform operation due to invalid data");
@@ -212,6 +215,6 @@ namespace Services
             }
             else throw new DataException("Can't perform operation due to invalid data");
         }
-        
+
     }
 }
