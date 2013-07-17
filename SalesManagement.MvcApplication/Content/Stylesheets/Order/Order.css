@@ -1,8 +1,13 @@
-﻿div#matchingClients {
+﻿div#matchingClients,div#matchingProducts {
     display: none;
 }
 
-img#uniqueIdExists {
+img#uniqueIdExists, img#skuExists {
     display: none;
     margin-bottom: -7px;
+}
+
+label#uniqueIdNotification, label#skuNotification {
+    display: none;
+    color: #E97069;
 }

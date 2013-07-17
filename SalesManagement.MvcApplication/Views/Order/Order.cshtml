@@ -32,58 +32,56 @@
 }
 @section Head
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Order.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Order.css" />
 }
 
 @section MainContent{
     <h2>
-        @if (Model == null || !Model.Success)
-        {
-            @notification
-        }
-        else
-        {
-            @notificationSuccessful
-        }
+        @notification
     </h2>
 
     @Html.ActionLink(linkText, "Orders")
     @using (Html.BeginForm(actionName, "Order", FormMethod.Post))
     {
         <div class="separate">
-            @Html.Label("Client's Unique Id")<br/>
-            @Html.TextBoxFor(m=>m.ClientUniqueId)<img id="uniqueIdExists" width="25" height="25" src="~/Content/Images/cross.png"/>
+            @Html.Label("Client's Unique Id")<br />
+            @Html.TextBoxFor(m => m.ClientUniqueId)
+            <img id="uniqueIdExists" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
+            <label id="uniqueIdNotification">Wrong client id</label>
             @Html.ValidationMessageFor(m => m.ClientUniqueId)
         </div>
         
         <div id="matchingClients"></div>
         <div class="separate">
-            @Html.Label("Product SKU")<br/>
-            @Html.TextBoxFor(m=>m.ProductSku)
+            @Html.Label("Product SKU")<br />
+            @Html.TextBoxFor(m => m.ProductSku)
+            <img id="skuExists" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
+            <label id="skuNotification">Wrong product SKU</label>
             @Html.ValidationMessageFor(m => m.ProductSku)
         </div>
+        <div id="matchingProducts"></div>
         
         <div class="separate">
-            @Html.Label("Amount")<br/>
-            @Html.TextBoxFor(m=>m.Amount)
+            @Html.Label("Amount")<br />
+            @Html.TextBoxFor(m => m.Amount)
             @Html.ValidationMessageFor(m => m.Amount)
         </div>
         
         <div class="separate">
-            @Html.Label("Delivery date")<br/>
-            @Html.TextBoxFor(m=>m.DeliveryDate)
+            @Html.Label("Delivery date")<br />
+            @Html.TextBoxFor(m => m.DeliveryDate)
             @Html.ValidationMessageFor(m => m.DeliveryDate)
         </div>
         
         <div class="separate">
-            @Html.Label("Delivery address")<br/>
-            @Html.TextBoxFor(m=>m.DeliveryAddress)
+            @Html.Label("Delivery address")<br />
+            @Html.TextBoxFor(m => m.DeliveryAddress)
             @Html.ValidationMessageFor(m => m.DeliveryAddress)
         </div>
         
         <div class="separate">
-            @Html.Label("Contact phone number")<br/>
-            +@Html.TextBoxFor(m=>m.ContactPhoneNumber)
+            @Html.Label("Contact phone number")<br />
+            +@Html.TextBoxFor(m => m.ContactPhoneNumber)
             @Html.ValidationMessageFor(m => m.ContactPhoneNumber)
         </div>
         

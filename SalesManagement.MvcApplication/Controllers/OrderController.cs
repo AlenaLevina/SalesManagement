@@ -107,8 +107,16 @@ namespace SalesManagement.MvcApplication.Controllers
                 var employeeLogin = User.Identity.Name;
                 service.CreateOrder(order, sku, employeeLogin,clientUniqueId);
                 model.Success = true;
+                return Redirect(Url.Action("Confirm", model));
             }
-            return View("Order",model);
+            return View("Order", model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        public ActionResult Confirm(OrderViewModel model)
+        {
+            return View(model);
         }
 
         //TODO Get and Post method for Edit()
@@ -125,10 +133,10 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [Authorize(Roles = RoleNames.AllRoleNames)]
-        public ActionResult ClientUniqueIdExists(int uniqueId)
+        public ActionResult ClientUniqueIdExists(int parameter)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var exists = service.UniqueIdExists(uniqueId);
+            var exists = service.UniqueIdExists(parameter);
             return Json(exists,JsonRequestBehavior.AllowGet);
         }
 
@@ -137,8 +145,26 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var client = service.GetClientByUniqueId(uniqueId);
-            var model = ClientsPartialViewModelBuilder.Build(client);
-            return PartialView("_Clients", model);
+            var model = ClientPartialViewModelBuilder.Build(client);
+            return PartialView("_Client", model);
+        }
+        
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetClientAddress(int uniqueId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var client = service.GetClientByUniqueId(uniqueId);
+            if (client != null) return Json(client.Address, JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetClientPhone(int uniqueId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var client = service.GetClientByUniqueId(uniqueId);
+            if (client != null) return Json(client.Phone, JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

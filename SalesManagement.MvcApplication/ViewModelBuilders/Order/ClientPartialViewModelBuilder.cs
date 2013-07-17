@@ -3,11 +3,11 @@ using SalesManagement.MvcApplication.ViewModels.Order;
 
 namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
 {
-    public class ClientsPartialViewModelBuilder
+    public class ClientPartialViewModelBuilder
     {
-        public static ClientsPartialViewModel Build(Client client)
+        public static ClientPartialViewModel Build(Client client)
         {
-            return new ClientsPartialViewModel
+            return new ClientPartialViewModel
                 {
                     Address = client.Address,
                     Email = client.Email,

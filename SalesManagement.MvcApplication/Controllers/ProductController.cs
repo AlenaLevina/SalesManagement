@@ -190,6 +190,14 @@ namespace SalesManagement.MvcApplication.Controllers
             return Json(newSku, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult ProductSkuExists(int parameter)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var exists = service.SkuExists(parameter);
+            return Json(exists, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Validation methods

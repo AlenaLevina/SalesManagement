@@ -1,6 +1,6 @@
 ﻿namespace SalesManagement.MvcApplication.ViewModels.Order
 {
-    public class ClientsPartialViewModel
+    public class ClientPartialViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

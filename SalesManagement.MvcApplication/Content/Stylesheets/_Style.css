@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    /*background: #FFFFFF url(../Images/img01.gif) repeat-x left top;*/
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     color: #6F6966;
@@ -210,12 +209,15 @@ a:hover {
 }
 
 .post {
-	margin-bottom: 40px;
-	border-bottom: 1px dotted #E7E2DC;
+    margin-top: 20px;
+    border-bottom: 1px dotted #E7E2DC;
+    background-color: #FFEEDF;
+    border-radius: 10px;
+    border: 1px dotted #6F6966;
 }
 
 .post .title {
-	height: 41px;
+    margin-bottom: 5px;
 	padding: 7px 0px 0px 30px;
 	letter-spacing: -.5px;
 }
@@ -250,6 +252,10 @@ a:hover {
 	padding: 0px 30px 20px 30px;
 	padding-bottom: 20px;
 	text-align: justify;
+}
+
+.post .entry p {
+    margin: 0;
 }
 
 .links {
