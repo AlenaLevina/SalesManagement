@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using System.Collections.Generic;
+using Model;
 
 namespace Data.Repositories
 {
@@ -6,5 +7,6 @@ namespace Data.Repositories
     {
         bool UniqueIdExists(int id);
         Client GetByUniqueId(int id);
+        IEnumerable<Client> GetByFullName(string firstName, string lastName);
     }
 }

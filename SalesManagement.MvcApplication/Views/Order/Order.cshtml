@@ -6,7 +6,6 @@
     string title = null;
     string actionName = null;
     string notification = null;
-    string notificationSuccessful = null;
     string buttonTitle = null;
     string linkText = String.Empty;
     switch (Model.ActionType)
@@ -15,7 +14,6 @@
             title = "Register order";
             actionName = "Create";
             notification = "Order registration";
-            notificationSuccessful = "Order is successfully registered";
             buttonTitle = "Register";
             linkText = "← To the orders list";
             break;
@@ -23,7 +21,6 @@
             title = "Edit order";
             actionName = "Edit";
             notification = "Order editing";
-            notificationSuccessful = "Order is successfully changed";
             buttonTitle = "Save";
             linkText = "← Back to the orders list";
             break;
@@ -33,6 +30,7 @@
 @section Head
 {
     <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Order.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/_Client.css"/>
 }
 
 @section MainContent{
@@ -43,7 +41,7 @@
     @Html.ActionLink(linkText, "Orders")
     @using (Html.BeginForm(actionName, "Order", FormMethod.Post))
     {
-        <div class="separate">
+        <div class="separate left">
             @Html.Label("Client's Unique Id")<br />
             @Html.TextBoxFor(m => m.ClientUniqueId)
             <img id="uniqueIdExists" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
@@ -51,7 +49,18 @@
             @Html.ValidationMessageFor(m => m.ClientUniqueId)
         </div>
         
+        <div class="separate right">
+            @Html.Label("Full name")<br/>
+            @Html.Label("First name")
+            <input type="text" id="clientFirstName"/><br/>
+            @Html.Label("Last name")
+            <input type="text" id="clientLastName"/>
+            <button id="getClientsByFullName"type="button">Show suitable clients</button>
+        </div>
+        
+        <div class="clearBoth">&nbsp;</div>
         <div id="matchingClients"></div>
+        
         <div class="separate">
             @Html.Label("Product SKU")<br />
             @Html.TextBoxFor(m => m.ProductSku)

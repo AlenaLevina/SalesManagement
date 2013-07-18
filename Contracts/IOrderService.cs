@@ -13,5 +13,6 @@ namespace Contracts
         void EditClient(Client client);
         void DeleteClient(int id);
         void CreateOrder(Order order, int productSku, string employeeLogin,int clientUniqueId);
+        IEnumerable<Client> GetClientsByFullName(string firstName, string lastName);
     }
 }

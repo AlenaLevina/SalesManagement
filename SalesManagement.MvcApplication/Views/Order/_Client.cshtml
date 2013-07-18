@@ -1,15 +1,30 @@
 ﻿@model SalesManagement.MvcApplication.ViewModels.Order.ClientPartialViewModel
-
-<link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/_Client.css"/>
-<div class="popupWindow">
+@{
+    var currentClient = Model.Clients.ElementAt(Model.CurrentClientPosition-1);
+    var totalClientAmount = Model.Clients.Count();
+}
+<div id="clientInfo" class="popupWindow">
     <div class="post">
-        <h2 class="title"><a href="#">@Model.LastName, @Model.FirstName</a></h2>
-        <p class="meta"><span class="date">#@Model.UniqueId</span><span class="posted">+@Model.PhoneNumber</span></p>
-        <div style="clear: both;">&nbsp;</div>
+        <img id="chooseThisClient" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
+        <h2 class="title"><a href="#">@currentClient.LastName, @currentClient.FirstName</a></h2>
+        <div class="clearBoth">&nbsp;</div>
+        <p class="meta"><span class="date">#@currentClient.UniqueId</span><span class="posted">+@currentClient.PhoneNumber</span></p>
+        <div class="clearBoth">&nbsp;</div>
         <div class="entry">
-            <p>E-mail: @Model.Email</p>
-            <p>Address: @Model.Address</p>
-            <p class="links"><a href="#">← Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" title="b0x w">Next →</a></p>
+            <p>E-mail: @currentClient.Email</p>
+            <p>Address: @currentClient.Address</p>
+            <p class="links">
+                <a id="previousClient" href="#"><span class="narrow">←</span> Prev</a>
+                <a id="clientIterator">
+                    <span id="currentClientPosition">@Model.CurrentClientPosition</span > 
+                    of 
+                    <span id="totalClientAmount">@totalClientAmount</span>
+                </a>
+                <a id="nextClient"href="#" >Next <span class="narrow">→</span></a>
+            </p>
+            <div class="clearBoth">&nbsp;</div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="~/Scripts/Order/_Client.js"></script>

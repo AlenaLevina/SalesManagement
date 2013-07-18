@@ -141,6 +141,7 @@
     <Compile Include="ViewModels\Order\ClientsViewModel.cs" />
     <Compile Include="ViewModels\Order\ClientViewModel.cs" />
     <Compile Include="ViewModels\ActionType.cs" />
+    <Compile Include="ViewModels\Order\OrderClient.cs" />
     <Compile Include="ViewModels\Order\OrderPartialViewModel.cs" />
     <Compile Include="ViewModels\Order\OrderViewModel.cs" />
     <Compile Include="ViewModels\Product\CategoriesViewModel.cs" />
@@ -161,6 +162,7 @@
       <DependentUpon>SalesManagement.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Images\check.png" />
+    <Content Include="Content\Images\chosen.png" />
     <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\female.png" />
     <Content Include="Content\Images\img01.gif" />
@@ -169,6 +171,7 @@
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\male.png" />
     <Content Include="Content\Images\noimage.png" />
+    <Content Include="Content\Images\notchosen.png" />
     <Content Include="Content\Stylesheets\Account\ViewProfileStyle.css" />
     <Content Include="Content\Stylesheets\Order\Clients.css" />
     <Content Include="Content\Stylesheets\Order\CreateClient.css" />
@@ -182,6 +185,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Order\CreateClient.js" />
     <Content Include="Scripts\Order\Order.js" />
+    <Content Include="Scripts\Order\_Client.js" />
     <Content Include="Scripts\Product\Create.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

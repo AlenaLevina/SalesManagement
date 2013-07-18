@@ -75,5 +75,10 @@ namespace Services
             order.Status = OrderStatus.Unpaid;
             GetRepository<IOrderRepository>().Create(order);
         }
+
+        public IEnumerable<Client> GetClientsByFullName(string firstName, string lastName)
+        {
+            return GetRepository<IClientRepository>().GetByFullName(firstName, lastName);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Common.Helpers;
@@ -136,8 +137,8 @@ namespace SalesManagement.MvcApplication.Controllers
         public ActionResult ClientUniqueIdExists(int parameter)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var exists = service.UniqueIdExists(parameter);
-            return Json(exists,JsonRequestBehavior.AllowGet);
+            var idExists = service.UniqueIdExists(parameter);
+            return Json(new {result=idExists},JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
@@ -145,7 +146,16 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var client = service.GetClientByUniqueId(uniqueId);
-            var model = ClientPartialViewModelBuilder.Build(client);
+            var model = ClientPartialViewModelBuilder.Build(new List<Client>{client}, 1);
+            return PartialView("_Client", model);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetClientsByFullName(string firstName, string lastName,int position)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var clients = service.GetClientsByFullName(firstName, lastName);
+            var model = ClientPartialViewModelBuilder.Build(clients, position);
             return PartialView("_Client", model);
         }
         
