@@ -1,0 +1,13 @@
+﻿@model SalesManagement.MvcApplication.ViewModels.Order.OrderPartialViewModel 
+
+<div class="post">
+    <h3 class="title"><a href="#">Order</a></h3>
+    <p class="meta"><span class="date">Client: @Model.ClientUniqueId</span><span class="posted">Product: @Model.ProductSku</span></p>
+    <div class="clearBoth">&nbsp;</div>
+    <div class="entry">
+        <p>Amount: @Model.Amount</p>
+        <p>Contact phone: @Model.ContactPhoneNumber</p>
+        <p>Delivery date: @Model.DeliveryDate</p>
+        <p>Delivery address: @Model.DeliveryAddress</p>
+    </div>
+</div>

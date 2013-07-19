@@ -1,30 +1,60 @@
 ﻿@model SalesManagement.MvcApplication.ViewModels.Order.ClientPartialViewModel
 @{
-    var currentClient = Model.Clients.ElementAt(Model.CurrentClientPosition-1);
     var totalClientAmount = Model.Clients.Count();
+    var divClass = totalClientAmount==0 ? "post centered" : "post";
 }
-<div id="clientInfo" class="popupWindow">
-    <div class="post">
-        <img id="chooseThisClient" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
+<div id="clientInfo" class="entityInfo">
+    <div class="@divClass">
+    @if (totalClientAmount == 0)
+    {
+        <span class="noItemsFound">
+            No<br/> clients<br/> found
+        </span>
+    }
+    else
+    {
+        var currentClient = Model.Clients.ElementAt(Model.CurrentClientPosition - 1);
+    
+        <img id="chooseThisClient" class="chooseThisEntity" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
         <h2 class="title"><a href="#">@currentClient.LastName, @currentClient.FirstName</a></h2>
         <div class="clearBoth">&nbsp;</div>
-        <p class="meta"><span class="date">#@currentClient.UniqueId</span><span class="posted">+@currentClient.PhoneNumber</span></p>
+        <p class="meta">
+            <span class="date">#<span id="currentClientUniqueId">@currentClient.UniqueId</span></span>
+            <span class="posted">+@currentClient.PhoneNumber</span>
+        </p>
         <div class="clearBoth">&nbsp;</div>
         <div class="entry">
             <p>E-mail: @currentClient.Email</p>
             <p>Address: @currentClient.Address</p>
             <p class="links">
-                <a id="previousClient" href="#"><span class="narrow">←</span> Prev</a>
-                <a id="clientIterator">
+                @{
+                    var linkClass = "";
+                }
+                @if (totalClientAmount != 1)
+                {
+
+                    <a id="previousClient" class="previousEntity" href="#"><span class="narrow">←</span> Prev</a>
+                }
+                else
+                {
+                    linkClass = "oneOfOne";
+                }
+                
+                <a id="clientIterator" class="entityIterator @linkClass">
                     <span id="currentClientPosition">@Model.CurrentClientPosition</span > 
                     of 
                     <span id="totalClientAmount">@totalClientAmount</span>
                 </a>
-                <a id="nextClient"href="#" >Next <span class="narrow">→</span></a>
+                @if (totalClientAmount != 1)
+                {
+                    <a id="nextClient" class="nextEntity" href="#" >Next <span class="narrow">→</span></a>
+                }
             </p>
             <div class="clearBoth">&nbsp;</div>
         </div>
+
+    
+    }
     </div>
 </div>
-
 <script type="text/javascript" src="~/Scripts/Order/_Client.js"></script>

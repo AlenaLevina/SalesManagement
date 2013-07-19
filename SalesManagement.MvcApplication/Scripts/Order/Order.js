@@ -1,29 +1,40 @@
 ﻿$(document).ready(function () {
-    bindEvents();
-    $("#ProductSku").bind("keyup", productSkuChanged);
-    $("#ProductSku").bind("change", productSkuChanged);
-    $("#DeliveryAddress").focus(getClientAddress);
-    $("#ContactPhoneNumber").focus(getClientPhone);
-    $("#getClientsByFullName").bind("click",getClients);
+    bindEventsToUniqueIdInput();
+    bindEventsToFullNameInputs();
+    bindEventsToSkuInput();
 });
 
-function bindEvents() {
+function bindEventsToUniqueIdInput() {
     $("#ClientUniqueId").bind("keyup", clientUniqueIdChanged);
-    $("#ClientUniqueId").bind("change", clientUniqueIdChanged);
 }
 
-function unbindEvents () {
-    $("#ClientUniqueId").unbind("keyup", clientUniqueIdChanged);
-    $("#ClientUniqueId").unbind("change", clientUniqueIdChanged);
+function bindEventsToClientInfoInputs () {
+    $("#DeliveryAddress").focus(getClientAddress);
+    $("#ContactPhoneNumber").focus(getClientPhone);
 }
 
-function clientUniqueIdChanged() {
-    validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification",loadClient);
+function unbindEventsToClientInfoInputs() {
+    $("#DeliveryAddress").unbind("focus",getClientAddress);
+    $("#ContactPhoneNumber").unbind("focus",getClientPhone);
+}
+
+function bindEventsToFullNameInputs() {
+    $("#clientFirstName").bind("keyup", getClients);
+    $("#clientLastName").bind("keyup", getClients);
+}
+
+function bindEventsToSkuInput() {
+    $("#ProductSku").bind("keyup", productSkuChanged);
+}
+
+function clientUniqueIdChanged(e) {
+    if (e.keyCode != 27) {
+        validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClient);
+    }
 }
 
 function loadClient() {
-    unbindEvents();
-    var url = "/Order/GetClient";
+    var url = "/Order/GetClientByUniqueId";
     var clientUniqueId = document.getElementById("ClientUniqueId").value;
     $("#matchingClients").load(url, { "uniqueId": clientUniqueId },showClient);
 }
@@ -32,32 +43,48 @@ function showClient() {
     $("#matchingClients").fadeIn();
 }
 
-function productSkuChanged() {
-    validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification");
+function productSkuChanged(e) {
+    if (e.keyCode != 27) {
+        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProduct);
+    }
 }
 
-function validate(validationUrl, inputId, imgSelector, notificationSelector,callbackIfValid) {
+function loadProduct() {
+    var url = "/Product/GetProductBySku";
+    var productSku = document.getElementById("ProductSku").value;
+    $("#matchingProducts").load(url, { "sku": productSku }, showProduct);
+}
+
+function showProduct() {
+    $("#matchingProducts").fadeIn();
+}
+
+function validate(validationUrl, inputId, imgSelector, notificationSelector,placeholderSelector,callbackIfValid) {
     var parameterValue = document.getElementById(inputId).value;
     var invalidPath = "/Content/Images/cross.png";
     var validPath = "/Content/Images/check.png";
     function getDone(data) {
         if (data.result == false) {
-            $(imgSelector).attr("src", invalidPath);
-            $(imgSelector).show();
-            $(notificationSelector).show();
+            validationFailed();
         } else if (data.result == true) {
             $(imgSelector).attr("src", validPath);
             $(imgSelector).show();
             $(notificationSelector).hide();
-            callbackIfValid();
+            if (inputId == "ClientUniqueId") bindEventsToClientInfoInputs();
+            if (callbackIfValid!=undefined) callbackIfValid();
         }
     }
-    function getFail() {
+    function validationFailed() {
         $(imgSelector).attr("src", invalidPath);
         $(imgSelector).show();
         $(notificationSelector).show();
+        $(placeholderSelector).fadeOut(600);
+        if (inputId == "ClientUniqueId") unbindEventsToClientInfoInputs();
     }
-    $.get(validationUrl, { "parameter": parameterValue },null,"json")
+    function getFail() {
+        validationFailed();
+    }
+    $.get(validationUrl, { "parameter": parameterValue }, null, "json")
         .done(getDone)
         .fail(getFail);
 }
@@ -78,10 +105,12 @@ function getClientPhone() {
     }, "json");
 }
 
-function getClients() {
-    var firstName = document.getElementById("clientFirstName");
-    var lastName = document.getElementById("clientLastName");
-    var url = "/Order/GetClientsByFullName";
-    $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName },showClient);
+function getClients(e) {
+    if (e.keyCode != 27) {
+        var firstName = document.getElementById("clientFirstName").value;
+        var lastName = document.getElementById("clientLastName").value;
+        var url = "/Order/GetClientsByFullName";
+        $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName, "position": 1 }, showClient);
+    }
 }
 

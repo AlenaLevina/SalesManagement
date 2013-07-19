@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Contracts;
 using Model;
 using SalesManagement.MvcApplication.ViewModelBuilders.Product;
@@ -195,7 +196,16 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
             var exists = service.SkuExists(parameter);
-            return Json(exists, JsonRequestBehavior.AllowGet);
+            return Json(new {result=exists}, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetProductBySku(int sku)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var product = service.GetProductBySku(sku);
+            var model = ProductPartialViewModelBuilder.Build(new List<Product> {product}, 1);
+            return PartialView("_Product", model);
         }
 
         #endregion

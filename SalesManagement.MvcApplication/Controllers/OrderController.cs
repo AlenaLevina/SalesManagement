@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Common.Helpers;
@@ -142,7 +143,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
-        public ActionResult GetClient(int uniqueId)
+        public ActionResult GetClientByUniqueId(int uniqueId)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var client = service.GetClientByUniqueId(uniqueId);
@@ -154,7 +155,7 @@ namespace SalesManagement.MvcApplication.Controllers
         public ActionResult GetClientsByFullName(string firstName, string lastName,int position)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var clients = service.GetClientsByFullName(firstName, lastName);
+            var clients = service.GetClientsByFullName(firstName, lastName).ToList();
             var model = ClientPartialViewModelBuilder.Build(clients, position);
             return PartialView("_Client", model);
         }

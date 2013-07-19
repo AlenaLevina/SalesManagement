@@ -1,0 +1,105 @@
+﻿span.noItemsFound {
+    font-size: 3.8em;
+    /*text-align: center;*/
+}
+
+div.entityInfo div.post.centered {
+    text-align: center;
+}
+
+div.entityInfo {
+    position: absolute;
+    width: 400px;
+    top: -10px;
+}
+
+div.entityInfo span.narrow {
+    font-size: 15px;
+}
+
+div.entityInfo div.post {
+    border: 3px double #B55100;
+    margin: 0;
+    padding: 10px 10px 5px 10px;
+}
+
+div.entityInfo p.links {
+    margin-top: 10px;
+    padding: 5px 10px 0 10px;
+    float: left;
+    width: 100%;
+    margin-right: -10px;
+    margin-left: -10px;
+    border-top-style: double;
+    border-top-width: 3px;
+    border-top-color: #B55100;
+}
+
+div.entityInfo div.entry {
+    padding: 0;
+}
+
+div.entityInfo a {
+    text-decoration: none;
+}
+
+div.entityInfo h2 a {
+    cursor: default;
+}
+
+div.entityInfo h2.title {
+    padding: 0;
+    /*float: left;*/
+}
+
+div.entityInfo .post .meta {
+    padding: 0;
+    float: left;
+    width: 100%;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6966;
+    margin-bottom: 10px;
+}
+
+/* Entity settings*/
+
+a.previousEntity, a.nextEntity {
+    padding: 5px;
+    background-color: #FFE3CA;
+    border-radius: 5px;
+}
+
+a.previousEntity {
+    float: left;
+}
+
+a.nextEntity {
+    float: right;
+}
+
+a.previousEntity:hover, a.nextEntity:hover {
+    background-color: #FFC895;
+}
+
+a.entityIterator {
+    padding: 5px;
+    font-size: 15px;
+    float: left;
+    margin-left: 109px;
+    margin-right: 109px;
+}
+
+a.entityIterator.oneOfOne {
+    margin-left: 163px;
+    margin-right: 163px;
+}
+
+img.chooseThisEntity {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+div.withImage {
+    float: left;
+}

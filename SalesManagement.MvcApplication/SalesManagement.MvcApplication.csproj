@@ -131,6 +131,7 @@
     <Compile Include="ViewModelBuilders\Product\CategoriesViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CategoryViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\CharacteristicValuesPartialViewModelBuilder.cs" />
+    <Compile Include="ViewModelBuilders\Product\ProductPartialViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\ProductsViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Product\ProductViewModelBuilder.cs" />
     <Compile Include="ViewModels\Account\EditProfileViewModel.cs" />
@@ -149,6 +150,8 @@
     <Compile Include="ViewModels\Product\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Product\CharacteristicValuesPartialViewModel.cs" />
     <Compile Include="ViewModels\Product\CreateCharacteristicViewModel.cs" />
+    <Compile Include="ViewModels\Product\OrderProduct.cs" />
+    <Compile Include="ViewModels\Product\ProductPartialViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductsViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductCharacteristicValue.cs" />
@@ -176,11 +179,11 @@
     <Content Include="Content\Stylesheets\Order\Clients.css" />
     <Content Include="Content\Stylesheets\Order\CreateClient.css" />
     <Content Include="Content\Stylesheets\Order\Order.css" />
-    <Content Include="Content\Stylesheets\Order\_Client.css" />
     <Content Include="Content\Stylesheets\Order\_Order.css" />
     <Content Include="Content\Stylesheets\Product\Create.css" />
     <Content Include="Content\Stylesheets\Product\Products.css" />
     <Content Include="Content\Stylesheets\_Shared\_EntityList.css" />
+    <Content Include="Content\Stylesheets\_Shared\_PopupWindow.css" />
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Order\CreateClient.js" />
@@ -287,6 +290,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\_Order.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\_Product.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

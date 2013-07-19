@@ -1,0 +1,36 @@
+﻿@using SalesManagement.MvcApplication
+@using SalesManagement.MvcApplication.ViewModelBuilders.Order
+@using SalesManagement.MvcApplication.ViewModels
+@model SalesManagement.MvcApplication.ViewModels.Order.OrderViewModel
+@{
+    string title = null;
+    string notification = null;
+    string linkText = String.Empty;
+    string linkAction = String.Empty;
+    switch (Model.ActionType)
+    {
+        case ActionType.Create:
+            title = "Register order";
+            notification = "Order is succesfully registered";
+            linkText = "← Back to the creation";
+            linkAction = "Create";
+            break;
+        case ActionType.Edit:
+            title = "Edit order";
+            notification = "Order is succesfully changed";
+            linkText = "← Back to the orders list";
+            linkAction = "Orders";
+            break;
+    }
+    ViewBag.Title = GlobalConstants.TitlePrefix + title;
+}
+
+@section MainContent
+{
+    <h2>
+        @notification
+    </h2>
+    @Html.ActionLink(linkText, linkAction)
+
+    @Html.Partial("_Order",OrderPartialViewModelBuilder.Build(OrderViewModelBuilder.Build(Model), Model.ClientUniqueId.Value, Model.ProductSku.Value))
+}
