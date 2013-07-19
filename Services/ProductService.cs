@@ -170,6 +170,11 @@ namespace Services
             GetRepository<IProductRepository>().Delete(id);
         }
 
+        public IEnumerable<Product> GetProductsByName(string name)
+        {
+            return GetRepository<IProductRepository>().GetByName(name);
+        }
+
 
         public void AddCharacteristicToCategory(string categoryName, int characteristicId)
         {

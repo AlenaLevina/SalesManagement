@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using System.Collections.Generic;
+using Model;
 
 namespace Data.Repositories
 {
@@ -7,5 +8,6 @@ namespace Data.Repositories
         bool SkuExists(int sku);
         int GetIdBySku(int sku);
         Product GetBySku(int sku);
+        IEnumerable<Product> GetByName(string name);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Data.Exceptions;
 using Data.Repositories;
 using Model;
@@ -26,6 +28,12 @@ namespace Data.EF.Repositories
         public Product GetBySku(int sku)
         {
             return Context.Products.FirstOrDefault(e => e.Sku.Equals(sku));
+        }
+
+        public IEnumerable<Product> GetByName(string name)
+        {
+            if (String.IsNullOrEmpty(name)) return Context.Products.ToList();
+            return Context.Products.Where(p => p.Name.ToUpper().Contains(name.ToUpper()));
         }
     }
 }

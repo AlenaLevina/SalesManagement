@@ -1,10 +1,12 @@
 ﻿$(document).ready(function () {
-    bindEventsToUniqueIdInput();
-    bindEventsToFullNameInputs();
-    bindEventsToSkuInput();
+    bindEventsToClientUniqueIdInput();
+    bindEventsToClientFullNameInputs();
+    bindEventsToProductSkuInput();
+    bindEventsToProductNameInput();
+    $(document).keydown(keyPressed);
 });
 
-function bindEventsToUniqueIdInput() {
+function bindEventsToClientUniqueIdInput() {
     $("#ClientUniqueId").bind("keyup", clientUniqueIdChanged);
 }
 
@@ -18,22 +20,27 @@ function unbindEventsToClientInfoInputs() {
     $("#ContactPhoneNumber").unbind("focus",getClientPhone);
 }
 
-function bindEventsToFullNameInputs() {
+function bindEventsToClientFullNameInputs() {
     $("#clientFirstName").bind("keyup", getClients);
     $("#clientLastName").bind("keyup", getClients);
 }
 
-function bindEventsToSkuInput() {
+function bindEventsToProductSkuInput() {
     $("#ProductSku").bind("keyup", productSkuChanged);
+}
+
+function bindEventsToProductNameInput () {
+    $("#productName").bind("keyup", getProducts);
 }
 
 function clientUniqueIdChanged(e) {
     if (e.keyCode != 27) {
-        validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClient);
+        //setPopupWindowSettings(clientPopupWindowSettings);
+        validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClientByUniqueId);
     }
 }
 
-function loadClient() {
+function loadClientByUniqueId() {
     var url = "/Order/GetClientByUniqueId";
     var clientUniqueId = document.getElementById("ClientUniqueId").value;
     $("#matchingClients").load(url, { "uniqueId": clientUniqueId },showClient);
@@ -45,11 +52,12 @@ function showClient() {
 
 function productSkuChanged(e) {
     if (e.keyCode != 27) {
-        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProduct);
+        //setPopupWindowSettings(productPopupWindowSettings);
+        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProductBySku);
     }
 }
 
-function loadProduct() {
+function loadProductBySku() {
     var url = "/Product/GetProductBySku";
     var productSku = document.getElementById("ProductSku").value;
     $("#matchingProducts").load(url, { "sku": productSku }, showProduct);
@@ -107,10 +115,34 @@ function getClientPhone() {
 
 function getClients(e) {
     if (e.keyCode != 27) {
-        var firstName = document.getElementById("clientFirstName").value;
-        var lastName = document.getElementById("clientLastName").value;
-        var url = "/Order/GetClientsByFullName";
-        $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName, "position": 1 }, showClient);
+        //setPopupWindowSettings(clientPopupWindowSettings);
+        loadClientByFullName(1);
     }
 }
 
+function keyPressed(e) {
+    if (e.keyCode == 27) {
+        $("#matchingClients").fadeOut(600/*, finishChooseClient*/);
+        $("#matchingProducts").fadeOut(600/*, finishChooseClient*/);
+    }
+}
+
+function getProducts(e) {
+    if (e.keyCode != 27) {
+        //setPopupWindowSettings(productPopupWindowSettings);
+        loadProductByName(1);
+    }
+}
+
+function loadClientByFullName(position) {
+    var firstName = document.getElementById("clientFirstName").value;
+    var lastName = document.getElementById("clientLastName").value;
+    var url = "/Order/GetClientsByFullName";
+    $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName, "position": position }, showClient);
+}
+
+function loadProductByName(position) {
+    var name = document.getElementById("productName").value;
+    var url = "/Product/GetProductsByName";
+    $("#matchingProducts").load(url, { "name": name, "position": position }, showProduct);
+}

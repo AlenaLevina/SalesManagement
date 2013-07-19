@@ -10,10 +10,10 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
         {
             return new ProductPartialViewModel
                 {
-                    Products=products.Select(p=>new OrderProduct
+                    Products=products.ToList().Select(p=>new OrderProduct
                         {
                             CategoryName = p.Category.Name,
-                            CharacteristicValues = p.CharacteristicValues.Select(cv=>new ProductCharacteristicValue
+                            CharacteristicValues = p.CharacteristicValues.ToList().Select(cv=>new ProductCharacteristicValue
                                 {
                                     CharacteristicId = cv.CharacteristicId,
                                     CharacteristicName = cv.Characteristic.Name,

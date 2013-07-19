@@ -22,5 +22,6 @@ namespace Contracts
         Product GetProductBySku(int sku);
         void EditProduct(Product product,IEnumerable<CharacteristicValue> characteristicValues);
         void DeleteProduct(int id);
+        IEnumerable<Product> GetProductsByName(string name);
     }
 }

@@ -182,6 +182,7 @@
     <Content Include="Content\Stylesheets\Order\_Order.css" />
     <Content Include="Content\Stylesheets\Product\Create.css" />
     <Content Include="Content\Stylesheets\Product\Products.css" />
+    <Content Include="Content\Stylesheets\Product\_Product.css" />
     <Content Include="Content\Stylesheets\_Shared\_EntityList.css" />
     <Content Include="Content\Stylesheets\_Shared\_PopupWindow.css" />
     <Content Include="Content\Stylesheets\_Style.css" />
@@ -190,6 +191,8 @@
     <Content Include="Scripts\Order\Order.js" />
     <Content Include="Scripts\Order\_Client.js" />
     <Content Include="Scripts\Product\Create.js" />
+    <Content Include="Scripts\Product\_Product.js" />
+    <Content Include="Scripts\_Shared\_PopupWindow.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

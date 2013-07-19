@@ -208,6 +208,15 @@ namespace SalesManagement.MvcApplication.Controllers
             return PartialView("_Product", model);
         }
 
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetProductsByName(string name, int position)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var products = service.GetProductsByName(name);
+            var model = ProductPartialViewModelBuilder.Build(products, position);
+            return PartialView("_Product", model);
+        }
+
         #endregion
 
         #region Validation methods
