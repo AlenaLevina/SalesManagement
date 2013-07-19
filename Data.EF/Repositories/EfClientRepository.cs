@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data.Repositories;
 using Model;
@@ -23,13 +24,13 @@ namespace Data.EF.Repositories
 
         public IEnumerable<Client> GetByFullName(string firstName, string lastName)
         {
-            if (firstName == null && lastName == null) return Context.Clients.ToList();
-            if (firstName != null && lastName != null) return Context.Clients.Where(c => c.FirstName.Contains(firstName) && c.LastName.Contains(lastName));
-            if (firstName != null)
+            if (String.IsNullOrEmpty(firstName) && String.IsNullOrEmpty(lastName)) return Context.Clients.ToList();
+            if (!String.IsNullOrEmpty(firstName)  && !String.IsNullOrEmpty(lastName)) return Context.Clients.Where(c => c.FirstName.ToUpper().Contains(firstName.ToUpper()) && c.LastName.ToUpper().Contains(lastName.ToUpper()));
+            if (!String.IsNullOrEmpty(firstName))
             {
-                return Context.Clients.Where(c => c.FirstName.Contains(firstName));
+                return Context.Clients.Where(c => c.FirstName.ToUpper().Contains(firstName.ToUpper()));
             }
-            return Context.Clients.Where(c => c.LastName.Contains(lastName));
+            return Context.Clients.Where(c => c.LastName.ToUpper().Contains(lastName.ToUpper()));
         }
     }
 }
