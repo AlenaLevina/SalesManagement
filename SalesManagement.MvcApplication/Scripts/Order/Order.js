@@ -3,7 +3,7 @@
     bindEventsToClientFullNameInputs();
     bindEventsToProductSkuInput();
     bindEventsToProductNameInput();
-    $(document).keydown(keyPressed);
+    
 });
 
 function bindEventsToClientUniqueIdInput() {
@@ -35,7 +35,6 @@ function bindEventsToProductNameInput () {
 
 function clientUniqueIdChanged(e) {
     if (e.keyCode != 27) {
-        //setPopupWindowSettings(clientPopupWindowSettings);
         validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClientByUniqueId);
     }
 }
@@ -120,12 +119,7 @@ function getClients(e) {
     }
 }
 
-function keyPressed(e) {
-    if (e.keyCode == 27) {
-        $("#matchingClients").fadeOut(600/*, finishChooseClient*/);
-        $("#matchingProducts").fadeOut(600/*, finishChooseClient*/);
-    }
-}
+
 
 function getProducts(e) {
     if (e.keyCode != 27) {

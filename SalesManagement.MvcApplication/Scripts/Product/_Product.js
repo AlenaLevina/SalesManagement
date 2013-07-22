@@ -12,11 +12,12 @@
     placeholderSelector: "#matchingProducts",
     currentEntityPositionElementId: "currentProductPosition",
     totalEntityAmountElementId: "totalProductAmount",
-    loadEntityFunction: loadProductByName
+    loadEntityFunction: loadProductByName,
+    closeEntityWindowSelector: "#closeProductWindow"
 };
 
 $(document).ready(function () {
-    setPopupWindowSettings(productPopupWindowSettings);
+    configuratePopupWindow(productPopupWindowSettings);
 });
 
 

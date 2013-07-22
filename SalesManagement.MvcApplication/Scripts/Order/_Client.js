@@ -12,11 +12,12 @@
     placeholderSelector: "#matchingClients",
     currentEntityPositionElementId: "currentClientPosition",
     totalEntityAmountElementId: "totalClientAmount",
-    loadEntityFunction: loadClientByFullName
+    loadEntityFunction: loadClientByFullName,
+    closeEntityWindowSelector: "#closeClientWindow"
 };
 
 $(document).ready(function () {
-    setPopupWindowSettings(clientPopupWindowSettings);
+    configuratePopupWindow(clientPopupWindowSettings);
 });
 
 

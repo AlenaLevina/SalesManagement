@@ -1,65 +1,73 @@
 ﻿@model SalesManagement.MvcApplication.ViewModels.Product.ProductPartialViewModel
 @{
     var totalProductAmount = Model.Products.Count();
-    var divClass = totalProductAmount==0 ? "post centered" : "post";
+    var notFound = totalProductAmount == 0;
+    var divClass = notFound ? "post notFound" : "post";
+    var imgClass = notFound ? "closeEntityWindow notFound" : "closeEntityWindow";
 }
 <div id="productInfo" class="entityInfo">
     <div class="@divClass">
-    @if (totalProductAmount == 0)
-    {
-        <span class="noItemsFound">
-            No<br/> clients<br/> found
-        </span>
-    }
-    else
-    {
-        var currentProduct = Model.Products.ElementAt(Model.CurrentProductPosition - 1);
-    
-        <img id="chooseThisProduct" class="chooseThisEntity" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
-        <h2 class="title"><a href="#">@currentProduct.CategoryName → @currentProduct.Name</a></h2>
-        <div class="clearBoth">&nbsp;</div>
-        <p class="meta">
-            <span class="date">#<span id="currentProductSku">@currentProduct.Sku</span></span>
-            <span class="posted">$@currentProduct.Price</span>
-        </p>
-        <div class="clearBoth">&nbsp;</div>
-        <div class="entry">
-            <p>
-                Characteristics:
-                @foreach (var characteristic in currentProduct.CharacteristicValues)
-                {
-                    <span class="currentProductCharacteristic">
-                        @characteristic.CharacteristicName: @characteristic.Value
-                    </span>
-                }
-            </p>
-            <p>Description: @currentProduct.Description</p>
-            <p class="links">
-                @{
-                    var linkClass = "";
-                }
-                @if (totalProductAmount != 1)
-                {
-                    <a id="previousProduct" class="previousEntity" href="#"><span class="narrow">←</span> Prev</a>
-                }
-                else
-                {
-                    linkClass = "oneOfOne";
-                }
-                
-                <a id="productIterator" class="entityIterator @linkClass">
-                    <span id="currentProductPosition">@Model.CurrentProductPosition</span > 
-                    of 
-                    <span id="totalProductAmount">@totalProductAmount</span>
+        <img id="closeProductWindow" class="@imgClass" width="20" height="20" alt="" src="~/Content/Images/close.png"/>
+        @if (notFound)
+        {
+            <span class="noItemsFound">
+                No<br/> products<br/> found
+            </span>
+        }
+        else
+        {   
+            var currentProduct = Model.Products.ElementAt(Model.CurrentProductPosition - 1);
+            <img id="chooseThisProduct" class="chooseThisEntity" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
+            <h2 class="title">
+                <a href="#">
+                    <span class="categoryName">@currentProduct.CategoryName →</span> 
+                    <span class="productName">@currentProduct.Name</span>
                 </a>
-                @if (totalProductAmount != 1)
-                {
-                    <a id="nextProduct" class="nextEntity" href="#" >Next <span class="narrow">→</span></a>
-                }
+            </h2>
+        
+            <div class="clearBoth">&nbsp;</div>
+            <p class="meta">
+                <span class="date">#<span id="currentProductSku">@currentProduct.Sku</span></span>
+                <span class="posted">$@currentProduct.Price</span>
             </p>
             <div class="clearBoth">&nbsp;</div>
-        </div>
-    }
+            <div class="entry">
+                <p>
+                    Characteristics:
+                    @foreach (var characteristic in currentProduct.CharacteristicValues)
+                    {
+                        <span class="currentProductCharacteristic">
+                            @characteristic.CharacteristicName: @characteristic.Value
+                        </span>
+                    }
+                </p>
+                <p>Description: @currentProduct.Description</p>
+                <p class="links">
+                    @{
+                        var linkClass = "";
+                    }
+                    @if (totalProductAmount != 1)
+                    {
+                        <a id="previousProduct" class="previousEntity" href="#"><span class="narrow">←</span> Prev</a>
+                    }
+                    else
+                    {
+                        linkClass = "oneOfOne";
+                    }
+                
+                    <a id="productIterator" class="entityIterator @linkClass">
+                        <span id="currentProductPosition">@Model.CurrentProductPosition</span > 
+                        of 
+                        <span id="totalProductAmount">@totalProductAmount</span>
+                    </a>
+                    @if (totalProductAmount != 1)
+                    {
+                        <a id="nextProduct" class="nextEntity" href="#" >Next <span class="narrow">→</span></a>
+                    }
+                </p>
+                <div class="clearBoth">&nbsp;</div>
+            </div>
+        }
     </div>
 </div>
 <script type="text/javascript" src="~/Scripts/_Shared/_PopupWindow.js"></script>

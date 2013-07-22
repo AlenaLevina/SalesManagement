@@ -1,3 +1,7 @@
 ﻿div#matchingProducts h2.title {
     font-size: 20px;
 }
+
+span.productName {
+    color: #6F6966;
+}
