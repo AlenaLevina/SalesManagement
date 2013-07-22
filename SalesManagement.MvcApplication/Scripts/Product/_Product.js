@@ -6,7 +6,7 @@
     nextEntityLinkSelector: "#nextProduct",
     currentEntityUniqueIdElementId: "currentProductSku",
     entityUniqueIdInputId: "ProductSku",
-    uniqueIdValidationUrl: "/Product/ProductSkuExists",
+    uniqueIdValidationUrl: "/Product/ProductSkuExists", 
     validationImageSelector: "#skuExists",
     validationNotificationSelector: "#skuNotification",
     placeholderSelector: "#matchingProducts",

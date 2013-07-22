@@ -47,8 +47,8 @@
             <div class="separate left half">
                 <h4>by Unique Id</h4>
                 @Html.TextBoxFor(m => m.ClientUniqueId)
-                <img id="uniqueIdExists" width="25" height="25" src="~/Content/Images/cross.png" alt="" />
-                <label id="uniqueIdNotification">Wrong client id</label>
+                <img id="uniqueIdExists"  class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt="" />
+                <label id="uniqueIdNotification" class="validation">Wrong client id</label>
                 @Html.ValidationMessageFor(m => m.ClientUniqueId)
             </div>
             
@@ -68,8 +68,8 @@
             <div class="separate left half">
                 <h4>by SKU</h4>
                 @Html.TextBoxFor(m => m.ProductSku)
-                <img id="skuExists" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
-                <label id="skuNotification">Wrong product SKU</label>
+                <img id="skuExists"  class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
+                <label id="skuNotification" class="validation">Wrong product SKU</label>
                 @Html.ValidationMessageFor(m => m.ProductSku)
             </div>
             <div class="separate right half">
@@ -84,6 +84,9 @@
             <h3>Specify amount</h3>
             <div class="separate left">
                 @Html.TextBoxFor(m => m.Amount)
+                <img id="amountLeftWarning" class="validation" width="25" height="25" src="~/Content/Images/attention.png" alt=""/>
+                <label id="amountLeftNotification" class="validation">Only <span id="amountLeftNumber"></span> left</label>
+                
                 @Html.ValidationMessageFor(m => m.Amount)
             </div>
         </div>

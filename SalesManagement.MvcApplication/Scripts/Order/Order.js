@@ -3,7 +3,13 @@
     bindEventsToClientFullNameInputs();
     bindEventsToProductSkuInput();
     bindEventsToProductNameInput();
-    
+    $("#DeliveryAddress").keypress(function() {
+        $("#DeliveryAddress").unbind("focus", getClientAddress);
+    });
+    $("#ContactPhoneNumber").keypress(function () {
+        $("#ContactPhoneNumber").unbind("focus", getClientPhone);
+    });
+   
 });
 
 function bindEventsToClientUniqueIdInput() {
@@ -33,6 +39,37 @@ function bindEventsToProductNameInput () {
     $("#productName").bind("keyup", getProducts);
 }
 
+function bindEventsToAmountInput() {
+    var availableAmount;
+    $("#Amount").focus(function () {
+        var url = "/Product/GetProductAmount";
+        var productSku = document.getElementById("ProductSku").value;
+        $.get(url, { "sku": productSku }, function(data) {
+            availableAmount = data.amount;
+            document.getElementById("amountLeftNumber").innerText = availableAmount;
+            $("#amountLeftWarning").attr("src", "/Content/Images/attention.png");
+            $("#amountLeftWarning").show();
+            $("#amountLeftNotification").show();
+        }, "json");
+    });
+    $("#Amount").keyup(function () {
+        var invalidPath = "/Content/Images/cross.png";
+        var validPath = "/Content/Images/check.png";
+        var chosenAmount = parseInt(document.getElementById("Amount").value);
+        if (isNaN(chosenAmount)) {
+            $("#amountLeftWarning").attr("src", invalidPath);
+            document.getElementById("amountLeftNotification").innerText = "Amount can contain only numbers";
+            $("#amountLeftNotification").show();
+        } else if (availableAmount < chosenAmount) {
+            $("#amountLeftWarning").attr("src", invalidPath);
+            $("#amountLeftNotification").show();
+        } else {
+            $("#amountLeftWarning").attr("src", validPath);
+            $("#amountLeftNotification").hide();
+        }
+    });
+}
+
 function clientUniqueIdChanged(e) {
     if (e.keyCode != 27) {
         validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClientByUniqueId);
@@ -52,7 +89,7 @@ function showClient() {
 function productSkuChanged(e) {
     if (e.keyCode != 27) {
         //setPopupWindowSettings(productPopupWindowSettings);
-        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProductBySku);
+        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProductBySku); 
     }
 }
 
@@ -78,6 +115,7 @@ function validate(validationUrl, inputId, imgSelector, notificationSelector,plac
             $(imgSelector).show();
             $(notificationSelector).hide();
             if (inputId == "ClientUniqueId") bindEventsToClientInfoInputs();
+            if (inputId == "ProductSku") bindEventsToAmountInput();
             if (callbackIfValid!=undefined) callbackIfValid();
         }
     }
@@ -139,4 +177,11 @@ function loadProductByName(position) {
     var name = document.getElementById("productName").value;
     var url = "/Product/GetProductsByName";
     $("#matchingProducts").load(url, { "name": name, "position": position }, showProduct);
+}
+
+function delPressed(e) {
+    $("#"+e.target.id).unbind()
+    if (e.keyCode==46) {
+        unbindEventsToClientInfoInputs();
+    }
 }

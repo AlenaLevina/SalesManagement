@@ -196,9 +196,11 @@ namespace SalesManagement.MvcApplication.Controllers
         public ActionResult ProductSkuExists(int parameter)
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
-            var exists = service.SkuExists(parameter);
+            var exists = service.ProductIsAvailable(parameter);
             return Json(new {result=exists}, JsonRequestBehavior.AllowGet);
         }
+
+
 
         [Authorize(Roles = RoleNames.AllRoleNames)]
         public ActionResult GetProductBySku(int sku)
@@ -212,24 +214,18 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.AllRoleNames)]
         public ActionResult GetProductsByName(string name, int position)
         {
-            try
-            {
-                var service = DependencyResolver.Current.Resolve<IProductService>();
-                var products = service.GetProductsByName(name);
-                var model = ProductPartialViewModelBuilder.Build(products, position);
-                return PartialView("_Product", model);
-            }
-            catch (Exception e)
-            {
-                return
-                    Json(
-                        new
-                            {
-                                message = e.Message,
-                                innerException = e.InnerException == null ? "no inner exception" : e.InnerException.Message
-                            },
-                        JsonRequestBehavior.AllowGet);
-            }
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var products = service.GetAvailableProductsByName(name);
+            var model = ProductPartialViewModelBuilder.Build(products, position);
+            return PartialView("_Product", model);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetProductAmount(int sku)
+        {
+            var service = DependencyResolver.Current.Resolve<IProductService>();
+            var product = service.GetProductBySku(sku);
+            return Json(new {amount = product.Amount}, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

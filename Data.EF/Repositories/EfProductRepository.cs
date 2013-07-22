@@ -30,10 +30,10 @@ namespace Data.EF.Repositories
             return Context.Products.FirstOrDefault(e => e.Sku.Equals(sku));
         }
 
-        public IEnumerable<Product> GetByName(string name)
+        public IEnumerable<Product> GetAvailableByName(string name)
         {
-            if (String.IsNullOrEmpty(name)) return Context.Products.ToList();
-            return Context.Products.Where(p => p.Name.ToUpper().Contains(name.ToUpper()));
+            if (String.IsNullOrEmpty(name)) return Context.Products.Where(p=>p.Status==ProductStatus.Available);
+            return Context.Products.Where(p => p.Name.ToUpper().Contains(name.ToUpper())&&p.Status==ProductStatus.Available);
         }
     }
 }

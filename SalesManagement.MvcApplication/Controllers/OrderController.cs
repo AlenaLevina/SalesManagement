@@ -226,10 +226,11 @@ namespace SalesManagement.MvcApplication.Controllers
 
             if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");
             else if (model.ProductSku.Value < 0) ModelState.AddModelError("ProductSku", "Product SKU is non-negative");
-            else if (!productService.SkuExists(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "There is no product with such SKU");
+            else if (!productService.ProductIsAvailable(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "There is no available product with such SKU");
 
             if (model.Amount == null) ModelState.AddModelError("Amount", "Amount is requiered");
             else if (model.Amount.Value < 0) ModelState.AddModelError("Amount", "Amount is non-negative");
+            else if(model.ProductSku != null && !productService.ProductItemsAvailable(model.ProductSku.Value,model.Amount.Value)) ModelState.AddModelError("Amount","There is no so much items available");
 
             if (model.DeliveryDate == null) ModelState.AddModelError("DeliveryDate", "Delivery date is requiered");
             else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now);

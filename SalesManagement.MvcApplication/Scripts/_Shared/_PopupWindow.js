@@ -1,8 +1,4 @@
-﻿
-//function setPopupWindowSettings(settingsObject) {
-//    popupWindowSettings = settingsObject;
-//}
-function configuratePopupWindow(popupWindowSettings) {
+﻿function configuratePopupWindow(popupWindowSettings) {
     $(document).ready(function () {
         $(popupWindowSettings.checkmarkImageSelector).bind("click", chooseEntity);
         $(popupWindowSettings.previousEntityLinkSelector).click(function(e) {
@@ -63,7 +59,7 @@ function configuratePopupWindow(popupWindowSettings) {
     }
     
     function keyPressed(e) {
-        console.log(e.keyCode);
+        //console.log(e.keyCode);
         switch(e.keyCode) {
             case 27:
                 closePopupWindow();

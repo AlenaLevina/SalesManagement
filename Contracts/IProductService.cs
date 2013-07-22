@@ -22,6 +22,9 @@ namespace Contracts
         Product GetProductBySku(int sku);
         void EditProduct(Product product,IEnumerable<CharacteristicValue> characteristicValues);
         void DeleteProduct(int id);
-        IEnumerable<Product> GetProductsByName(string name);
+        IEnumerable<Product> GetAvailableProductsByName(string name);
+        bool ProductIsAvailable(int sku);
+        bool ProductItemsAvailable(int productSku,int itemsAmount);
+        //bool IsEnoughAmount(int productId,int )
     }
 }

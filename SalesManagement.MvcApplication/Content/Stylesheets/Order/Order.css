@@ -3,14 +3,18 @@
     display: none;
 }
 
-img#uniqueIdExists, img#skuExists {
+img.validation {
     display: none;
     margin-bottom: -7px;
 }
 
-label#uniqueIdNotification, label#skuNotification {
+label.validation {
     display: none;
     color: #E97069;
+}
+
+label#amountLeftNotification {
+    color: #FE9A2C;
 }
 
 div.left {

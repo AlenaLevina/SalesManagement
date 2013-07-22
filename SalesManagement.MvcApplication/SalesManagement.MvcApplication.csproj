@@ -164,6 +164,7 @@
     <Content Include="App_Data\SalesManagement_log.ldf">
       <DependentUpon>SalesManagement.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Images\attention.png" />
     <Content Include="Content\Images\check.png" />
     <Content Include="Content\Images\chosen.png" />
     <Content Include="Content\Images\close_frame .png" />

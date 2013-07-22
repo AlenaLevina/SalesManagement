@@ -8,6 +8,6 @@ namespace Data.Repositories
         bool SkuExists(int sku);
         int GetIdBySku(int sku);
         Product GetBySku(int sku);
-        IEnumerable<Product> GetByName(string name);
+        IEnumerable<Product> GetAvailableByName(string name);
     }
 }
