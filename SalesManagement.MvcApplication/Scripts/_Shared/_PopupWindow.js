@@ -28,7 +28,8 @@
             popupWindowSettings.entityUniqueIdInputId,
             popupWindowSettings.validationImageSelector,
             popupWindowSettings.validationNotificationSelector);
-        $(popupWindowSettings.placeholderSelector).fadeOut(600);
+        //$(popupWindowSettings.placeholderSelector).fadeOut(600);
+        closePopupWindow();
     }
 
     function switchEntity(direction) {

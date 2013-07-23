@@ -1,13 +1,58 @@
 ﻿@model SalesManagement.MvcApplication.ViewModels.Order.OrderPartialViewModel 
 
-<div class="post">
-    <h3 class="title"><a href="#">Order</a></h3>
-    <p class="meta"><span class="date">Client: @Model.ClientUniqueId</span><span class="posted">Product: @Model.ProductSku</span></p>
-    <div class="clearBoth">&nbsp;</div>
-    <div class="entry">
-        <p>Amount: @Model.Amount</p>
-        <p>Contact phone: @Model.ContactPhoneNumber</p>
-        <p>Delivery date: @Model.DeliveryDate</p>
-        <p>Delivery address: @Model.DeliveryAddress</p>
+<div class="summary">
+    <div class="summary-items">
+        <div class="summary-item">
+            <span class="summary-item-title">Client →</span>
+            <span class="summary-item-value">@Model.ClientFullName (#@Model.ClientUniqueId)</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Product →</span>
+            <span class="summary-item-value">@Model.ProductName (#@Model.ProductSku)</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Amount →</span>
+            <span class="summary-item-value">@Model.Amount</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Price →</span>
+            <span class="summary-item-value">@Model.Price $</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Total →</span>
+            <span class="summary-item-value">@Model.TotalPrice $</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Delivery date →</span>
+            <span class="summary-item-value">@Model.DeliveryDate.ToString("dd MMM yyyy")</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Delivery address →</span>
+            <span class="summary-item-value">@Model.DeliveryAddress</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-item-title">Contact phone →</span>
+            <span class="summary-item-value">+@Model.ContactPhoneNumber</span>
+        </div>
     </div>
+    @if (Model.HasButtons)
+    {
+        <div class="summary-buttons">
+            <a href="#" class="summary-button-ok">Ok</a>
+            <a href="#" class="summary-button-cancel">Cancel</a>
+        </div>
+    }
 </div>
+<script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/Order/_Order.css")"/>').appendTo('head');
+    });
+</script>

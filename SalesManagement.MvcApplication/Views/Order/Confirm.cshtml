@@ -1,7 +1,7 @@
 ﻿@using SalesManagement.MvcApplication
 @using SalesManagement.MvcApplication.ViewModelBuilders.Order
 @using SalesManagement.MvcApplication.ViewModels
-@model SalesManagement.MvcApplication.ViewModels.Order.OrderViewModel
+@model SalesManagement.MvcApplication.ViewModels.Order.ConfirmViewModel
 @{
     string title = null;
     string notification = null;
@@ -10,13 +10,13 @@
     switch (Model.ActionType)
     {
         case ActionType.Create:
-            title = "Register order";
+            title = "Order is registered";
             notification = "Order is succesfully registered";
             linkText = "← Back to the creation";
             linkAction = "Create";
             break;
         case ActionType.Edit:
-            title = "Edit order";
+            title = "Order is edited";
             notification = "Order is succesfully changed";
             linkText = "← Back to the orders list";
             linkAction = "Orders";
@@ -32,5 +32,7 @@
     </h2>
     @Html.ActionLink(linkText, linkAction)
 
-    @Html.Partial("_Order",OrderPartialViewModelBuilder.Build(OrderViewModelBuilder.Build(Model), Model.ClientUniqueId.Value, Model.ProductSku.Value))
+    @Html.Partial("_Order",Model.OrderPartialViewModel)
+
+    
 }

@@ -32,3 +32,6 @@ span.unavailable {
     color: #CC0000;
 }
 
+div.entityListItem h4 a:hover span.status.temporaryUnavailable {
+    color: #FFE991;
+}

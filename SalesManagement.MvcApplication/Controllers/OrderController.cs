@@ -118,7 +118,18 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
         public ActionResult Confirm(OrderViewModel model)
         {
-            return View(model);
+            var orderService = DependencyResolver.Current.Resolve<IOrderService>();
+            var productService = DependencyResolver.Current.Resolve<IProductService>();
+            var client = orderService.GetClientByUniqueId(model.ClientUniqueId.Value);
+            var clientFullName = client.FirstName + " " + client.LastName;
+            var product = productService.GetProductBySku(model.ProductSku.Value);
+            var productName = product.Name;
+            var productPrice = product.Price;
+            var order = OrderViewModelBuilder.Build(model);
+            var orderPartialViewModel = OrderPartialViewModelBuilder.Build(order, model.ClientUniqueId.Value,
+                                                                           model.ProductSku.Value, clientFullName,
+                                                                           productName, productPrice);
+            return View(ConfirmViewModelBuilder.Build(orderPartialViewModel,model.ActionType));
         }
 
         //TODO Get and Post method for Edit()
@@ -226,7 +237,7 @@ namespace SalesManagement.MvcApplication.Controllers
 
             if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");
             else if (model.ProductSku.Value < 0) ModelState.AddModelError("ProductSku", "Product SKU is non-negative");
-            else if (!productService.ProductIsAvailable(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "There is no available product with such SKU");
+            else if (!productService.ProductIsAvailable(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "This product is not available");
 
             if (model.Amount == null) ModelState.AddModelError("Amount", "Amount is requiered");
             else if (model.Amount.Value < 0) ModelState.AddModelError("Amount", "Amount is non-negative");

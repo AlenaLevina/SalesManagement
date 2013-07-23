@@ -5,3 +5,16 @@
 span.productName {
     color: #6F6966;
 }
+
+span.categoryName {
+    font-size: 12px;
+    display: block;
+}
+
+div.entry p span.subtitle {
+    font-weight: bold;
+}
+
+span.currentProductCharacteristic {
+    padding-right: 10px;
+}

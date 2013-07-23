@@ -20,8 +20,8 @@
             <img id="chooseThisProduct" class="chooseThisEntity" width="40" height="40" alt="" src="~/Content/Images/notchosen.png" />
             <h2 class="title">
                 <a href="#">
-                    <span class="categoryName">@currentProduct.CategoryName →</span> 
                     <span class="productName">@currentProduct.Name</span>
+                    <span class="categoryName">@currentProduct.CategoryName</span> 
                 </a>
             </h2>
         
@@ -33,15 +33,15 @@
             <div class="clearBoth">&nbsp;</div>
             <div class="entry">
                 <p>
-                    Characteristics:
+                    <span class="subtitle"> Characteristics: </span>
                     @foreach (var characteristic in currentProduct.CharacteristicValues)
                     {
                         <span class="currentProductCharacteristic">
-                            @characteristic.CharacteristicName: @characteristic.Value
+                            @characteristic.CharacteristicName:&nbsp;@characteristic.Value,
                         </span>
                     }
                 </p>
-                <p>Description: @currentProduct.Description</p>
+                <p><span class="subtitle">Description: </span>@currentProduct.Description</p>
                 <p class="links">
                     @{
                         var linkClass = "";
@@ -72,5 +72,9 @@
 </div>
 <script type="text/javascript" src="~/Scripts/_Shared/_PopupWindow.js"></script>
 <script type="text/javascript" src="~/Scripts/Product/_Product.js"></script>
-
+<script>
+    $(document).ready(function () {
+        $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/Product/_Product.css")"/>').appendTo('head');
+    });
+</script>
 

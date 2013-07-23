@@ -9,7 +9,7 @@
     $("#ContactPhoneNumber").keypress(function () {
         $("#ContactPhoneNumber").unbind("focus", getClientPhone);
     });
-   
+    $("#DeliveryDate").datepicker({dateFormat: "dd/mm/yy"});
 });
 
 function bindEventsToClientUniqueIdInput() {
@@ -42,32 +42,68 @@ function bindEventsToProductNameInput () {
 function bindEventsToAmountInput() {
     var availableAmount;
     $("#Amount").focus(function () {
-        var url = "/Product/GetProductAmount";
-        var productSku = document.getElementById("ProductSku").value;
-        $.get(url, { "sku": productSku }, function(data) {
-            availableAmount = data.amount;
-            document.getElementById("amountLeftNumber").innerText = availableAmount;
-            $("#amountLeftWarning").attr("src", "/Content/Images/attention.png");
-            $("#amountLeftWarning").show();
-            $("#amountLeftNotification").show();
-        }, "json");
-    });
-    $("#Amount").keyup(function () {
-        var invalidPath = "/Content/Images/cross.png";
-        var validPath = "/Content/Images/check.png";
-        var chosenAmount = parseInt(document.getElementById("Amount").value);
-        if (isNaN(chosenAmount)) {
-            $("#amountLeftWarning").attr("src", invalidPath);
-            document.getElementById("amountLeftNotification").innerText = "Amount can contain only numbers";
-            $("#amountLeftNotification").show();
-        } else if (availableAmount < chosenAmount) {
-            $("#amountLeftWarning").attr("src", invalidPath);
-            $("#amountLeftNotification").show();
-        } else {
-            $("#amountLeftWarning").attr("src", validPath);
-            $("#amountLeftNotification").hide();
+        var enteredValue = document.getElementById("Amount").value;
+        if (enteredValue == "") {
+            var url = "/Product/GetProductAmount";
+            var productSku = document.getElementById("ProductSku").value;
+            $.get(url, { "sku": productSku }, function(data) {
+                availableAmount = data.amount;
+                showAmountWarning();
+            }, "json");
         }
     });
+    $("#Amount").keyup(function () {
+        var enteredValue = document.getElementById("Amount").value;
+        if (enteredValue == "") hideAmountAll();
+        else {
+            var chosenAmount = parseInt(enteredValue);
+            if (isNaN(chosenAmount)) {
+                showAmountError("Amount should be a number");
+            } else if (availableAmount < chosenAmount) {
+                showAmountError("Max available " + availableAmount + " items");
+            } else {
+                showAmountOk();
+            }
+        }
+    });
+    function showAmountWarning() {
+        $("#amountLeftWarning").attr("src", "/Content/Images/attention.png");
+        $("#amountLeftWarning").show();
+        document.getElementById("amountLeftNumber").innerText = availableAmount;
+        $("#amountLeftNotification").show();
+        $("#amountWrongNotification").hide();
+    }
+
+    function showAmountError(message) {
+        var invalidPath = "/Content/Images/cross.png";
+        $("#amountLeftWarning").attr("src", invalidPath);
+        $("#amountLeftWarning").show();
+        document.getElementById("amountWrongNotification").innerText = message;
+        $("#amountWrongNotification").show();
+        $("#amountLeftNotification").hide();
+    }
+
+    function showAmountOk() {
+        var validPath = "/Content/Images/check.png";
+        $("#amountLeftWarning").attr("src", validPath);
+        $("#amountLeftWarning").show();
+        $("#amountWrongNotification").hide();
+        $("#amountLeftNotification").hide();
+    }
+}
+
+function unbindEventsToAmountInput() {
+    $("#Amount").unbind("focus");
+    $("#Amount").unbind("keyup");
+}
+
+
+
+
+function hideAmountAll() {
+    $("#amountLeftWarning").hide();
+    $("#amountWrongNotification").hide();
+    $("#amountLeftNotification").hide();
 }
 
 function clientUniqueIdChanged(e) {
@@ -89,7 +125,8 @@ function showClient() {
 function productSkuChanged(e) {
     if (e.keyCode != 27) {
         //setPopupWindowSettings(productPopupWindowSettings);
-        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification","#matchingProducts",loadProductBySku); 
+        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification", "#matchingProducts", loadProductBySku);
+        hideAmountAll();
     }
 }
 
@@ -103,10 +140,17 @@ function showProduct() {
     $("#matchingProducts").fadeIn();
 }
 
-function validate(validationUrl, inputId, imgSelector, notificationSelector,placeholderSelector,callbackIfValid) {
+function validate(validationUrl, inputId, imgSelector, notificationSelector, placeholderSelector, callbackIfValid) {
     var parameterValue = document.getElementById(inputId).value;
     var invalidPath = "/Content/Images/cross.png";
     var validPath = "/Content/Images/check.png";
+    if (parameterValue == "") {
+        validationFailed();
+    } else {
+        $.get(validationUrl, { "parameter": parameterValue }, null, "json")
+            .done(getDone)
+            .fail(getFail);
+    }
     function getDone(data) {
         if (data.result == false) {
             validationFailed();
@@ -116,7 +160,7 @@ function validate(validationUrl, inputId, imgSelector, notificationSelector,plac
             $(notificationSelector).hide();
             if (inputId == "ClientUniqueId") bindEventsToClientInfoInputs();
             if (inputId == "ProductSku") bindEventsToAmountInput();
-            if (callbackIfValid!=undefined) callbackIfValid();
+            if (callbackIfValid != undefined) callbackIfValid();
         }
     }
     function validationFailed() {
@@ -125,13 +169,11 @@ function validate(validationUrl, inputId, imgSelector, notificationSelector,plac
         $(notificationSelector).show();
         $(placeholderSelector).fadeOut(600);
         if (inputId == "ClientUniqueId") unbindEventsToClientInfoInputs();
+        if (inputId == "ProductSku") unbindEventsToAmountInput();
     }
     function getFail() {
         validationFailed();
     }
-    $.get(validationUrl, { "parameter": parameterValue }, null, "json")
-        .done(getDone)
-        .fail(getFail);
 }
 
 function getClientAddress() {
@@ -169,18 +211,26 @@ function getProducts(e) {
 function loadClientByFullName(position) {
     var firstName = document.getElementById("clientFirstName").value;
     var lastName = document.getElementById("clientLastName").value;
-    var url = "/Order/GetClientsByFullName";
-    $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName, "position": position }, showClient);
+    if (!(firstName == "" && lastName == "")) {
+        var url = "/Order/GetClientsByFullName";
+        $("#matchingClients").load(url, { "firstName": firstName, "lastName": lastName, "position": position }, showClient);
+    } else {
+        $("#matchingClients").fadeOut(600);
+    }
 }
 
 function loadProductByName(position) {
     var name = document.getElementById("productName").value;
-    var url = "/Product/GetProductsByName";
-    $("#matchingProducts").load(url, { "name": name, "position": position }, showProduct);
+    if (name != "") {
+        var url = "/Product/GetProductsByName";
+        $("#matchingProducts").load(url, { "name": name, "position": position }, showProduct);
+    } else {
+        $("#matchingProducts").fadeOut(600);
+    }
 }
 
 function delPressed(e) {
-    $("#"+e.target.id).unbind()
+    $("#" + e.target.id).unbind();
     if (e.keyCode==46) {
         unbindEventsToClientInfoInputs();
     }

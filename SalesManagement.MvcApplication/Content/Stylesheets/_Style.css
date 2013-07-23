@@ -413,3 +413,7 @@ div.clearBoth {
     clear: both;
     font-size: 0;
 }
+
+span.field-validation-error {
+    color: #FF4848;
+}

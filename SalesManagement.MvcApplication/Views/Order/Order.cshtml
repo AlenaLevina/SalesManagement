@@ -31,7 +31,7 @@
 {
     <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Order.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_PopupWindow.css"/>
-    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Product/_Product.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/jquery-ui-1.10.3.custom.css"/>
 }
 
 @section MainContent{
@@ -86,7 +86,7 @@
                 @Html.TextBoxFor(m => m.Amount)
                 <img id="amountLeftWarning" class="validation" width="25" height="25" src="~/Content/Images/attention.png" alt=""/>
                 <label id="amountLeftNotification" class="validation">Only <span id="amountLeftNumber"></span> left</label>
-                
+                <label id="amountWrongNotification" class="validation"></label>
                 @Html.ValidationMessageFor(m => m.Amount)
             </div>
         </div>
@@ -95,7 +95,9 @@
             <h3>Specify delivery information</h3>
             <div class="separate left">
                 @Html.Label("Delivery date")<br />
-                @Html.TextBoxFor(m => m.DeliveryDate)
+                @Html.TextBoxFor(m => m.DeliveryDate,new {@Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("MM/dd/yyyy")})
+                <img id="dateIsAfterYesterday" class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
+                <label id="dateNotification" class="validation">Delivery date can't be before today</label>
                 @Html.ValidationMessageFor(m => m.DeliveryDate)
             </div>
         
@@ -120,6 +122,7 @@
         </div>
     }
     <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jQuery-ui.1.10.3.js"></script>
     <script type="text/javascript" src="~/Scripts/Order/Order.js"></script>
 @*    <script type="text/javascript" src="~/Scripts/Order/_Client.js"></script>
     <script type="text/javascript" src="~/Scripts/Product/_Product.js"></script>

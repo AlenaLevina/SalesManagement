@@ -20,6 +20,7 @@ div.entityListItem div.name {
 div.editLink, div.deleteLink {
     text-align: right;
 }
+
 div.entityListItem div a {
     display: block;
 }
@@ -39,6 +40,8 @@ div.entityListItem h4 a:hover {
     background-color: #FFC895;
     border-radius: 5px;
 }
+
+
 
 div.deleteLink {
     width: 50px;

@@ -39,6 +39,12 @@ div.half {
     width: 46%;
 }
 
+div.half span.field-validation-error {
+    width: 130px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 div.chooseArea {
     float: left;
     width: 100%;

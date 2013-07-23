@@ -6,6 +6,11 @@
     ViewBag.Title = GlobalConstants.TitlePrefix+"Edit Profile";
 }
 
+@section Head
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/jquery-ui-1.10.3.custom.css"/>
+}
+
 @section MainContent{
     <h2>Profile editing</h2>
     @using (Html.BeginForm("EditProfile","Account",FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -34,7 +39,7 @@
         
         <div class="separate">
             @Html.Label("Date of birth")<br/>
-            @Html.EditorFor(p=>p.DateOfBirth)
+            @Html.TextBoxFor(p=>p.DateOfBirth,new {@Value=Model.DateOfBirth==null?null: Model.DateOfBirth.Value.ToString("MM/dd/yyyy")})
         </div>
         
         <div class="separate">
@@ -47,4 +52,9 @@
             <button type="submit">Save</button>
         </div>
     }
+    
+    <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jQuery-ui.1.10.3.js"></script>
+    
+    <script type="text/javascript" src="~/Scripts/Account/EditProfile.js"></script>
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.Helpers;
 using Contracts;
+using Data.Exceptions;
 using Data.Repositories;
 using Model;
 
@@ -66,7 +67,8 @@ namespace Services
             var productId = productRepo.GetIdBySku(productSku);
             var clientId = GetRepository<IClientRepository>().GetByUniqueId(clientUniqueId).Id;
             var employeeId = GetRepository<IUserRepository>().GetByLogin(employeeLogin).Id;
-            var price = productRepo.Get(productId).Price;
+            var product = productRepo.Get(productId);
+            var price = product.Price;
             order.ClientId = clientId;
             order.ProductId = productId;
             order.EmployeeId = employeeId;
@@ -74,6 +76,16 @@ namespace Services
             order.Price = price;
             order.Status = OrderStatus.Unpaid;
             GetRepository<IOrderRepository>().Create(order);
+            if (product.Amount < order.Amount)
+            {
+                throw new DataException("Can't perform operation due to invalid data"); 
+            }
+            if (product.Amount == order.Amount)
+            {
+                product.Status = ProductStatus.TemporaryUnavailable;
+            }
+            product.Amount -= order.Amount;
+            productRepo.Update(product);
         }
 
         public IEnumerable<Client> GetClientsByFullName(string firstName, string lastName)
