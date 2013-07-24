@@ -6,6 +6,7 @@
     border: 3px double #B55100;
     font-size: 20px;
     background-color: #FFEEDF;
+    text-align: left;
 }
 
 div.summary-item {
@@ -15,4 +16,27 @@ div.summary-item {
 
 span.summary-item-title {
     font-weight: bold;
+}
+
+div.summary-buttons {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+div.summary-buttons a {
+    padding: 5px;
+    width: 70px;
+    display: inline-block;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 20px;
+}
+
+a.summary-button-ok {
+    background-color: #CFE3B9;
+}
+
+a.summary-button-cancel {
+    background-color: #E3B9B9;
 }

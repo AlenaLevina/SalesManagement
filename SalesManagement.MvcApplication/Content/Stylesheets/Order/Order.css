@@ -1,6 +1,5 @@
-﻿div#matchingClients, div#matchingProducts {
+﻿div#matchingClients, div#matchingProducts,div#popupSummaryWrapper {
     position: relative;
-    display: none;
 }
 
 img.validation {

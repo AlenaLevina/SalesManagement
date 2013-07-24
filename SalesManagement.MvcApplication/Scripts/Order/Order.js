@@ -9,7 +9,9 @@
     $("#ContactPhoneNumber").keypress(function () {
         $("#ContactPhoneNumber").unbind("focus", getClientPhone);
     });
-    $("#DeliveryDate").datepicker({dateFormat: "dd/mm/yy"});
+    $("#DeliveryDate").datepicker({ dateFormat: "dd/MM/yy" });
+    $("#submit").click(summary);
+    
 });
 
 function bindEventsToClientUniqueIdInput() {
@@ -233,5 +235,39 @@ function delPressed(e) {
     $("#" + e.target.id).unbind();
     if (e.keyCode==46) {
         unbindEventsToClientInfoInputs();
+    }
+}
+
+function summary(e) {
+    var validartionUrl = "/Order/ValidateOrderModel";
+    e.preventDefault();
+    var formInputs = $("form .model");
+    var orderModel = {};
+    for (var i = 0; i < formInputs.length; i++) {
+        orderModel[formInputs[i].id] = formInputs[i].value;
+    }
+    $.get(validartionUrl, orderModel, function (errors) {
+        var valid = true;
+        for (var i = 0; i < errors.length;i++) {
+            var error = errors[i];
+            var selector = "[data-valmsg-for='" + error.elementId + "']";
+            var notification = $(selector);
+            notification.removeClass("field-validation-valid").addClass("field-validation-error");
+            notification = notification[0];
+            if (notification != undefined) {
+                var message = error.message;
+                notification.innerText =message;
+                if (message != "") valid = false;
+            }
+        }
+        if (valid) showSummary();
+    }, "json");
+
+    function showSummary() {
+        var summaryUrl = "/Order/GetOrderSummary";
+        $("#popupSummaryWrapper").load(summaryUrl, orderModel, function () {
+            $("#popupSummaryWrapper").show("blind");
+            //TODO here is gonna be binding click events for ok and cancel buttons
+        });
     }
 }

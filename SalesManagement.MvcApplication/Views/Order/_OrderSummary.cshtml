@@ -1,0 +1,17 @@
+﻿@model SalesManagement.MvcApplication.ViewModels.Order.OrderPartialViewModel
+
+<div id="popupWrapper">
+    <div id="popupBackground" class="parent-centered">
+        <div class="child-centered">
+            @{ Model.HasButtons = true;}
+            @Html.Partial("_Order", Model)
+        </div>
+        <div class="helper-centered"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/Order/_OrderSummary.css")"/>').appendTo('head');
+    });
+</script>

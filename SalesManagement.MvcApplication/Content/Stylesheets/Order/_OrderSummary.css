@@ -1,0 +1,30 @@
+﻿div#popupWrapper {
+    position: static;
+    width: 100%;
+    height: 100%;
+}
+
+div#popupBackground {
+    background-color: #CCCCCC;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.parent-centered {
+    text-align: center;
+}
+
+.child-centered {
+    width: 50%;
+    display:inline-block;
+    vertical-align:middle;
+}
+.helper-centered {
+    display:inline-block;
+    vertical-align:middle;
+    height:100%;
+    width:0px;
+}

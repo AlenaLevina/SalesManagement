@@ -91,7 +91,7 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
         public ActionResult Create()
         {
-            return View("Order",OrderViewModelBuilder.Build(new Order(), ActionType.Create,null,null));
+            return View("Order", OrderViewModelBuilder.Build(new Order(), ActionType.Create, null, null));
         }
 
         [HttpPost]
@@ -107,7 +107,7 @@ namespace SalesManagement.MvcApplication.Controllers
                 var sku = model.ProductSku.Value;
                 var clientUniqueId = model.ClientUniqueId.Value;
                 var employeeLogin = User.Identity.Name;
-                service.CreateOrder(order, sku, employeeLogin,clientUniqueId);
+                service.CreateOrder(order, sku, employeeLogin, clientUniqueId);
                 model.Success = true;
                 return Redirect(Url.Action("Confirm", model));
             }
@@ -129,7 +129,7 @@ namespace SalesManagement.MvcApplication.Controllers
             var orderPartialViewModel = OrderPartialViewModelBuilder.Build(order, model.ClientUniqueId.Value,
                                                                            model.ProductSku.Value, clientFullName,
                                                                            productName, productPrice);
-            return View(ConfirmViewModelBuilder.Build(orderPartialViewModel,model.ActionType));
+            return View(ConfirmViewModelBuilder.Build(orderPartialViewModel, model.ActionType));
         }
 
         //TODO Get and Post method for Edit()
@@ -150,7 +150,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var idExists = service.UniqueIdExists(parameter);
-            return Json(new {result=idExists},JsonRequestBehavior.AllowGet);
+            return Json(new { result = idExists }, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
@@ -158,19 +158,19 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var client = service.GetClientByUniqueId(uniqueId);
-            var model = ClientPartialViewModelBuilder.Build(new List<Client>{client}, 1);
+            var model = ClientPartialViewModelBuilder.Build(new List<Client> { client }, 1);
             return PartialView("_Client", model);
         }
 
         [Authorize(Roles = RoleNames.AllRoleNames)]
-        public ActionResult GetClientsByFullName(string firstName, string lastName,int position)
+        public ActionResult GetClientsByFullName(string firstName, string lastName, int position)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var clients = service.GetClientsByFullName(firstName, lastName).ToList();
             var model = ClientPartialViewModelBuilder.Build(clients, position);
             return PartialView("_Client", model);
         }
-        
+
         [Authorize(Roles = RoleNames.AllRoleNames)]
         public ActionResult GetClientAddress(int uniqueId)
         {
@@ -187,6 +187,44 @@ namespace SalesManagement.MvcApplication.Controllers
             var client = service.GetClientByUniqueId(uniqueId);
             if (client != null) return Json(client.Phone, JsonRequestBehavior.AllowGet);
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetOrderSummary(OrderViewModel model)
+        {
+            if (model == null) throw new ArgumentNullException("model");
+
+            var orderService = DependencyResolver.Current.Resolve<IOrderService>();
+            var client = orderService.GetClientByUniqueId(model.ClientUniqueId.Value);
+            var clientFullName = client.FirstName + " " + client.LastName;
+            var productService = DependencyResolver.Current.Resolve<IProductService>();
+            var product = productService.GetProductBySku(model.ProductSku.Value);
+            var productName = product.Name;
+            var price = product.Price;
+            var order = OrderViewModelBuilder.Build(model);
+            var partialViewModel = OrderPartialViewModelBuilder.Build(order, model.ClientUniqueId.Value,
+                                                                      model.ProductSku.Value, clientFullName,
+                                                                      productName, price);
+
+            return PartialView("_OrderSummary", partialViewModel);
+        }
+
+        public ActionResult ValidateOrderModel(OrderViewModel model)
+        {
+            if (model == null) throw new ArgumentNullException("model");
+
+            Validate(model);
+            var modelStateErrors =
+                ModelState.Select(
+                    modelState =>
+                    new
+                    {
+                        elementId = modelState.Key,
+                        message = modelState.Value.Errors.Select(error => error.ErrorMessage)
+                                .Concat("; ")
+                    }).ToList();
+            //return Json(new string[0], JsonRequestBehavior.AllowGet);
+            return Json(modelStateErrors, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -230,6 +268,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var orderService = DependencyResolver.Current.Resolve<IOrderService>();
             var productService = DependencyResolver.Current.Resolve<IProductService>();
+            bool productIsAvailable=false;
 
             if (model.ClientUniqueId == null) ModelState.AddModelError("ClientUniqueId", "Client Id is requiered");
             else if (model.ClientUniqueId.Value < 0) ModelState.AddModelError("ClientUniqueId", "Client Id is non-negative");
@@ -237,11 +276,15 @@ namespace SalesManagement.MvcApplication.Controllers
 
             if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");
             else if (model.ProductSku.Value < 0) ModelState.AddModelError("ProductSku", "Product SKU is non-negative");
-            else if (!productService.ProductIsAvailable(model.ProductSku.Value)) ModelState.AddModelError("ProductSku", "This product is not available");
+            else
+            {
+                productIsAvailable = productService.ProductIsAvailable(model.ProductSku.Value);
+                if (!productIsAvailable) ModelState.AddModelError("ProductSku", "This product is not available");
+            }
 
             if (model.Amount == null) ModelState.AddModelError("Amount", "Amount is requiered");
             else if (model.Amount.Value < 0) ModelState.AddModelError("Amount", "Amount is non-negative");
-            else if(model.ProductSku != null && !productService.ProductItemsAvailable(model.ProductSku.Value,model.Amount.Value)) ModelState.AddModelError("Amount","There is no so much items available");
+            else if (model.ProductSku != null && productIsAvailable && !productService.ProductItemsAvailable(model.ProductSku.Value, model.Amount.Value)) ModelState.AddModelError("Amount", "There is no so much items available");
 
             if (model.DeliveryDate == null) ModelState.AddModelError("DeliveryDate", "Delivery date is requiered");
             else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now);
@@ -250,8 +293,13 @@ namespace SalesManagement.MvcApplication.Controllers
             else if (model.DeliveryAddress.Length > Order.MaxLengthFor.DeliveryAddress) ModelState.AddModelError("DeliveryAddress", "Delivery address is too long");
 
             if (model.ContactPhoneNumber == null) ModelState.AddModelError("ContactPhoneNumber", "Phone number is requiered");
-            else if (model.ContactPhoneNumber.Length > Order.MaxLengthFor.ContactPhoneNumber) ModelState.AddModelError("ContactPhoneNumber","Phone number is too long");
-            else if (!PhoneNumberHelper.IsPhoneNumber(model.ContactPhoneNumber)) ModelState.AddModelError("ContactPhoneNumber","Wrong formut of phone number");
+            else if (model.ContactPhoneNumber.Length > Order.MaxLengthFor.ContactPhoneNumber) ModelState.AddModelError("ContactPhoneNumber", "Phone number is too long");
+            else if (!PhoneNumberHelper.IsPhoneNumber(model.ContactPhoneNumber)) ModelState.AddModelError("ContactPhoneNumber", "Wrong format of phone number");
+
+
+
+
+            //return ModelState.IsValid;
         }
 
         #endregion

@@ -46,7 +46,7 @@
             <h3>Choose client</h3>
             <div class="separate left half">
                 <h4>by Unique Id</h4>
-                @Html.TextBoxFor(m => m.ClientUniqueId)
+                @Html.TextBoxFor(m => m.ClientUniqueId,new {@class="model"})
                 <img id="uniqueIdExists"  class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt="" />
                 <label id="uniqueIdNotification" class="validation">Wrong client id</label>
                 @Html.ValidationMessageFor(m => m.ClientUniqueId)
@@ -62,12 +62,12 @@
         </div>
         
         <div class="clearBoth">&nbsp;</div>
-        <div id="matchingClients"></div>
+        <div id="matchingClients" class="hidden"></div>
         <div class="separate chooseArea">
             <h3>Choose product</h3>
             <div class="separate left half">
                 <h4>by SKU</h4>
-                @Html.TextBoxFor(m => m.ProductSku)
+                @Html.TextBoxFor(m => m.ProductSku,new {@class="model"})
                 <img id="skuExists"  class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
                 <label id="skuNotification" class="validation">Wrong product SKU</label>
                 @Html.ValidationMessageFor(m => m.ProductSku)
@@ -78,12 +78,12 @@
             </div>
         </div>
         <div class="clearBoth">&nbsp;</div>
-        <div id="matchingProducts"></div>
+        <div id="matchingProducts" class="hidden"></div>
         
         <div class="separate chooseArea">
             <h3>Specify amount</h3>
             <div class="separate left">
-                @Html.TextBoxFor(m => m.Amount)
+                @Html.TextBoxFor(m => m.Amount,new {@class="model"})
                 <img id="amountLeftWarning" class="validation" width="25" height="25" src="~/Content/Images/attention.png" alt=""/>
                 <label id="amountLeftNotification" class="validation">Only <span id="amountLeftNumber"></span> left</label>
                 <label id="amountWrongNotification" class="validation"></label>
@@ -95,7 +95,7 @@
             <h3>Specify delivery information</h3>
             <div class="separate left">
                 @Html.Label("Delivery date")<br />
-                @Html.TextBoxFor(m => m.DeliveryDate,new {@Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("MM/dd/yyyy")})
+                @Html.TextBoxFor(m => m.DeliveryDate,new {@class="model", @Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("MM/dd/yyyy")})
                 <img id="dateIsAfterYesterday" class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
                 <label id="dateNotification" class="validation">Delivery date can't be before today</label>
                 @Html.ValidationMessageFor(m => m.DeliveryDate)
@@ -103,22 +103,27 @@
         
             <div class="separate left">
                 @Html.Label("Delivery address")<br />
-                @Html.TextBoxFor(m => m.DeliveryAddress)
+                @Html.TextBoxFor(m => m.DeliveryAddress,new {@class="model"})
                 @Html.ValidationMessageFor(m => m.DeliveryAddress)
             </div>
         
             <div class="separate left">
                 @Html.Label("Contact phone number")<br />
-                +@Html.TextBoxFor(m => m.ContactPhoneNumber)
+                +@Html.TextBoxFor(m => m.ContactPhoneNumber,new {@class="model"})
                 @Html.ValidationMessageFor(m => m.ContactPhoneNumber)
             </div>
         </div>
         
         
-        @Html.HiddenFor(m => m.ActionType)
+        @Html.HiddenFor(m => m.ActionType,new {@class="model"})
+
+        @*@Html.HiddenFor(m=>m.ValidationOnly,new {@class="model"})*@
+
+        <div id="popupSummaryWrapper" class="hidden"></div>
         
         <div class="separate">
-            <button type="submit">@buttonTitle</button>
+            <button type="submit" id="submit">@buttonTitle</button>
+            @*<button type="submit" id="submit"></button>*@
         </div>
     }
     <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>

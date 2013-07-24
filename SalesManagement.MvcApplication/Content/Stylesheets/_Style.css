@@ -417,3 +417,7 @@ div.clearBoth {
 span.field-validation-error {
     color: #FF4848;
 }
+
+.hidden {
+    display: none;
+}
