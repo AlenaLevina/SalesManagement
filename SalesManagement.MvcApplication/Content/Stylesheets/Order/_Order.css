@@ -2,16 +2,20 @@
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 3px double #B55100;
     font-size: 20px;
     background-color: #FFEEDF;
     text-align: left;
+    box-shadow: black 5px 5px 10px 3px;
 }
 
 div.summary-item {
     margin-top: 5px;
     margin-bottom: 5px;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6966;
 }
 
 span.summary-item-title {
@@ -21,22 +25,39 @@ span.summary-item-title {
 div.summary-buttons {
     text-align: center;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
-div.summary-buttons a {
-    padding: 5px;
-    width: 70px;
+div.summary-buttons img {
     display: inline-block;
-    border-radius: 5px;
+    border-radius: 25px;
     text-decoration: none;
-    margin: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    cursor: pointer;
+    opacity: 0.5;
+    /*background-color: #b55100;*/
 }
 
-a.summary-button-ok {
-    background-color: #CFE3B9;
+div.summary-buttons img:hover {
+    opacity: 1;
 }
 
-a.summary-button-cancel {
-    background-color: #E3B9B9;
+img#summary-button-ok {
+    /*background-color: #3F8422;
+    /*box-shadow: #b55100 0 0 10px 2px;*/
+}
+
+img#summary-button-cancel {
+    /*background-color: #A22D25;
+    box-shadow: #b55100 0 0 10px 2px;*/ 
+}
+
+div.summary h2 {
+    font-size: 25px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: #b55100 double 1px;
+    text-align: center;
+    border-bottom-width: 3px;
 }

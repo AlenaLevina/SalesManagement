@@ -61,3 +61,11 @@ div.chooseArea h3 {
     float: left;
     width: 100%;
 }
+
+div.summary {
+    display: none;
+}
+
+/*div#popupSummaryWrapper {
+    background-color: red;
+}*/

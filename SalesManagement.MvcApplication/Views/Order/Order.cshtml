@@ -119,12 +119,15 @@
 
         @*@Html.HiddenFor(m=>m.ValidationOnly,new {@class="model"})*@
 
-        <div id="popupSummaryWrapper" class="hidden"></div>
+        
         
         <div class="separate">
-            <button type="submit" id="submit">@buttonTitle</button>
+            <button type="button" id="fakeSubmit">@buttonTitle</button>
+            <button type="submit" id="submit" class="hidden"></button>
             @*<button type="submit" id="submit"></button>*@
         </div>
+        
+        <div id="popupSummaryWrapper" class="hidden"></div>
     }
     <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
     <script type="text/javascript" src="~/Scripts/jQuery-ui.1.10.3.js"></script>

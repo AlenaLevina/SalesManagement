@@ -1,6 +1,13 @@
 ﻿@model SalesManagement.MvcApplication.ViewModels.Order.OrderPartialViewModel 
 
+
 <div class="summary">
+    @if (Model.HasButtons)
+    {
+        <h2>
+            Approve the information below
+        </h2>
+    }
     <div class="summary-items">
         <div class="summary-item">
             <span class="summary-item-title">Client →</span>
@@ -45,8 +52,10 @@
     @if (Model.HasButtons)
     {
         <div class="summary-buttons">
-            <a href="#" class="summary-button-ok">Ok</a>
-            <a href="#" class="summary-button-cancel">Cancel</a>
+            <img width="50" height="50" alt="Approve" id="summary-button-ok" src="~/Content/Images/check50.png"/>
+            <img width="50" height="50" alt="Decline" id="summary-button-cancel" src="~/Content/Images/cross50.png"/>
+            @*<a href="#" class="summary-button-ok">Ok</a>
+            <a href="#" class="summary-button-cancel">Cancel</a>*@
         </div>
     }
 </div>

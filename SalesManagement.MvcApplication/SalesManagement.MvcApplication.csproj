@@ -168,10 +168,12 @@
     </Content>
     <Content Include="Content\Images\attention.png" />
     <Content Include="Content\Images\check.png" />
+    <Content Include="Content\Images\check50.png" />
     <Content Include="Content\Images\chosen.png" />
     <Content Include="Content\Images\close_frame .png" />
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\cross.png" />
+    <Content Include="Content\Images\cross50.png" />
     <Content Include="Content\Images\female.png" />
     <Content Include="Content\Images\img01.gif" />
     <Content Include="Content\Images\img02.jpg" />

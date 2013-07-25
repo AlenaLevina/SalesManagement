@@ -11,6 +11,10 @@ div#popupBackground {
     position: fixed;
     top: 0;
     left: 0;
+    background: rgb(0, 0, 0);
+	background: rgba(0, 0, 0, 0.6);/* RGBa with 0.6 opacity */
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99CCCCCC, endColorstr=#99CCCCCC);/* For IE 5.5 - 7*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";/* For IE 8*/
 }
 
 .parent-centered {
@@ -28,3 +32,5 @@ div#popupBackground {
     height:100%;
     width:0px;
 }
+
+

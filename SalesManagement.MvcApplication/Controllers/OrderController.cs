@@ -15,6 +15,41 @@ namespace SalesManagement.MvcApplication.Controllers
 {
     public class OrderController : Controller
     {
+#if DEBUG
+        public ActionResult Test()
+        {
+            var model = new OrderViewModel
+                {
+                    ActionType = ActionType.Create,
+                    Amount = 4,
+                    ClientUniqueId = 1227352,
+                    ContactPhoneNumber = "+375-44-521-12-89",
+                    DeliveryAddress = "New Orlean",
+                    DeliveryDate = DateTime.Now,
+                    ProductSku = 61051089
+                };
+            return GetOrderSummary(model);
+            //public ActionResult GetOrderSummary(OrderViewModel model)
+            //{
+            //    if (model == null) throw new ArgumentNullException("model");
+
+            //    var orderService = DependencyResolver.Current.Resolve<IOrderService>();
+            //    var client = orderService.GetClientByUniqueId(model.ClientUniqueId.Value);
+            //    var clientFullName = client.FirstName + " " + client.LastName;
+            //    var productService = DependencyResolver.Current.Resolve<IProductService>();
+            //    var product = productService.GetProductBySku(model.ProductSku.Value);
+            //    var productName = product.Name;
+            //    var price = product.Price;
+            //    var order = OrderViewModelBuilder.Build(model);
+            //    var partialViewModel = OrderPartialViewModelBuilder.Build(order, model.ClientUniqueId.Value,
+            //                                                              model.ProductSku.Value, clientFullName,
+            //                                                              productName, price);
+
+            //    return PartialView("_OrderSummary", partialViewModel);
+            //}
+        }
+#endif
+
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult Clients()
         {
@@ -218,11 +253,10 @@ namespace SalesManagement.MvcApplication.Controllers
                 ModelState.Select(
                     modelState =>
                     new
-                    {
-                        elementId = modelState.Key,
-                        message = modelState.Value.Errors.Select(error => error.ErrorMessage)
-                                .Concat("; ")
-                    }).ToList();
+                        {
+                            elementId = modelState.Key,
+                            message = String.Join("; ", modelState.Value.Errors.Select(error => error.ErrorMessage))
+                        }).ToList();
             //return Json(new string[0], JsonRequestBehavior.AllowGet);
             return Json(modelStateErrors, JsonRequestBehavior.AllowGet);
         }
@@ -268,7 +302,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var orderService = DependencyResolver.Current.Resolve<IOrderService>();
             var productService = DependencyResolver.Current.Resolve<IProductService>();
-            bool productIsAvailable=false;
+            bool productIsAvailable = false;
 
             if (model.ClientUniqueId == null) ModelState.AddModelError("ClientUniqueId", "Client Id is requiered");
             else if (model.ClientUniqueId.Value < 0) ModelState.AddModelError("ClientUniqueId", "Client Id is non-negative");

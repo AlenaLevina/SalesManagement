@@ -10,12 +10,23 @@
         $("#ContactPhoneNumber").unbind("focus", getClientPhone);
     });
     $("#DeliveryDate").datepicker({ dateFormat: "dd/MM/yy" });
-    $("#submit").click(summary);
-    
+    $("#fakeSubmit").click(summary);
 });
 
 function bindEventsToClientUniqueIdInput() {
     $("#ClientUniqueId").bind("keyup", clientUniqueIdChanged);
+    
+    function clientUniqueIdChanged(e) {
+        if (e.keyCode != 27) {
+            validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification", "#matchingClients", loadClientByUniqueId);
+        }
+
+        function loadClientByUniqueId() {
+            var url = "/Order/GetClientByUniqueId";
+            var clientUniqueId = document.getElementById("ClientUniqueId").value;
+            $("#matchingClients").load(url, { "uniqueId": clientUniqueId }, showClient);
+        }
+    }
 }
 
 function bindEventsToClientInfoInputs () {
@@ -31,14 +42,40 @@ function unbindEventsToClientInfoInputs() {
 function bindEventsToClientFullNameInputs() {
     $("#clientFirstName").bind("keyup", getClients);
     $("#clientLastName").bind("keyup", getClients);
+    
+
+    function getClients(e) {
+        if (e.keyCode != 27) {
+            //setPopupWindowSettings(clientPopupWindowSettings);
+            loadClientByFullName(1);
+        }
+    }
 }
 
 function bindEventsToProductSkuInput() {
     $("#ProductSku").bind("keyup", productSkuChanged);
+    
+    function productSkuChanged(e) {
+        if (e.keyCode != 27) {
+            validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification", "#matchingProducts", loadProductBySku);
+            hideAmountAll();
+
+            function loadProductBySku() {
+                var url = "/Product/GetProductBySku";
+                var productSku = document.getElementById("ProductSku").value;
+                $("#matchingProducts").load(url, { "sku": productSku }, showProduct);
+            }
+        }
+    }
 }
 
 function bindEventsToProductNameInput () {
     $("#productName").bind("keyup", getProducts);
+    function getProducts(e) {
+        if (e.keyCode != 27) {
+            loadProductByName(1);
+        }
+    }
 }
 
 function bindEventsToAmountInput() {
@@ -68,6 +105,7 @@ function bindEventsToAmountInput() {
             }
         }
     });
+    
     function showAmountWarning() {
         $("#amountLeftWarning").attr("src", "/Content/Images/attention.png");
         $("#amountLeftWarning").show();
@@ -99,43 +137,14 @@ function unbindEventsToAmountInput() {
     $("#Amount").unbind("keyup");
 }
 
-
-
-
 function hideAmountAll() {
     $("#amountLeftWarning").hide();
     $("#amountWrongNotification").hide();
     $("#amountLeftNotification").hide();
 }
 
-function clientUniqueIdChanged(e) {
-    if (e.keyCode != 27) {
-        validate("/Order/ClientUniqueIdExists", "ClientUniqueId", "#uniqueIdExists", "#uniqueIdNotification","#matchingClients", loadClientByUniqueId);
-    }
-}
-
-function loadClientByUniqueId() {
-    var url = "/Order/GetClientByUniqueId";
-    var clientUniqueId = document.getElementById("ClientUniqueId").value;
-    $("#matchingClients").load(url, { "uniqueId": clientUniqueId },showClient);
-}
-
 function showClient() {
     $("#matchingClients").fadeIn();
-}
-
-function productSkuChanged(e) {
-    if (e.keyCode != 27) {
-        //setPopupWindowSettings(productPopupWindowSettings);
-        validate("/Product/ProductSkuExists", "ProductSku", "#skuExists", "#skuNotification", "#matchingProducts", loadProductBySku);
-        hideAmountAll();
-    }
-}
-
-function loadProductBySku() {
-    var url = "/Product/GetProductBySku";
-    var productSku = document.getElementById("ProductSku").value;
-    $("#matchingProducts").load(url, { "sku": productSku }, showProduct);
 }
 
 function showProduct() {
@@ -194,21 +203,10 @@ function getClientPhone() {
     }, "json");
 }
 
-function getClients(e) {
-    if (e.keyCode != 27) {
-        //setPopupWindowSettings(clientPopupWindowSettings);
-        loadClientByFullName(1);
-    }
-}
 
 
 
-function getProducts(e) {
-    if (e.keyCode != 27) {
-        //setPopupWindowSettings(productPopupWindowSettings);
-        loadProductByName(1);
-    }
-}
+
 
 function loadClientByFullName(position) {
     var firstName = document.getElementById("clientFirstName").value;
@@ -231,16 +229,16 @@ function loadProductByName(position) {
     }
 }
 
-function delPressed(e) {
-    $("#" + e.target.id).unbind();
-    if (e.keyCode==46) {
-        unbindEventsToClientInfoInputs();
-    }
-}
+//function delPressed(e) {
+//    $("#" + e.target.id).unbind();
+//    if (e.keyCode==46) {
+//        unbindEventsToClientInfoInputs();
+//    }
+//}
 
-function summary(e) {
+function summary() {
     var validartionUrl = "/Order/ValidateOrderModel";
-    e.preventDefault();
+    
     var formInputs = $("form .model");
     var orderModel = {};
     for (var i = 0; i < formInputs.length; i++) {
@@ -251,13 +249,18 @@ function summary(e) {
         for (var i = 0; i < errors.length;i++) {
             var error = errors[i];
             var selector = "[data-valmsg-for='" + error.elementId + "']";
-            var notification = $(selector);
-            notification.removeClass("field-validation-valid").addClass("field-validation-error");
-            notification = notification[0];
+            var notificationElement = $(selector);
+            notificationElement.removeClass("field-validation-valid").addClass("field-validation-error");
+            var notification = notificationElement[0];
             if (notification != undefined) {
                 var message = error.message;
                 notification.innerText =message;
-                if (message != "") valid = false;
+                if (message != "") {
+                    notificationElement.show();
+                    valid = false;
+                } else {
+                    notificationElement.hide();
+                }
             }
         }
         if (valid) showSummary();
@@ -266,8 +269,15 @@ function summary(e) {
     function showSummary() {
         var summaryUrl = "/Order/GetOrderSummary";
         $("#popupSummaryWrapper").load(summaryUrl, orderModel, function () {
-            $("#popupSummaryWrapper").show("blind");
-            //TODO here is gonna be binding click events for ok and cancel buttons
+            $("#summary-button-ok").click(function () {
+                $("#submit").click();
+            });
+            $("#summary-button-cancel").click(function () {
+                $("#popupSummaryWrapper").hide("slow");
+            });
+            $("#popupSummaryWrapper").show(400, function () {
+                $("div.summary").slideDown();
+            });
         });
     }
 }
