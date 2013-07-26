@@ -82,3 +82,8 @@ div.subArea h4 {
 div.debug {
     opacity: 0.5;
 }
+
+
+div.debug:hover {
+    opacity: 1;
+}

@@ -92,5 +92,15 @@ namespace Services
         {
             return GetRepository<IClientRepository>().GetByFullName(firstName, lastName);
         }
+
+        public Order GetOrderById(int id)
+        {
+            return GetRepository<IOrderRepository>().Get(id);
+        }
+
+        public IEnumerable<Order> GetAllOrders()
+        {
+            return GetRepository<IOrderRepository>().GetAll();
+        }
     }
 }

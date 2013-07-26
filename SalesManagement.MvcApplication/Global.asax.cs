@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using AutoMapper;
 using Contracts;
 using Data.EF.Migrations;
 using DependencyResolver = Common.Dependency.DependencyResolver;
@@ -22,6 +23,7 @@ namespace SalesManagement.MvcApplication
 
             DependencyResolver.SetResolver(new SalesManagementDependencyResolver());
             StartDbHelper.Prepare();
+            Mapper.Initialize(config=>config.AddProfile<SalesManagementProfile>());
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

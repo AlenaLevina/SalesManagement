@@ -21,8 +21,12 @@ namespace SalesManagement.MvcApplication
 
         public static void CreateAdmin()
         {
+            const string adminLogin = "Admin";
             var service = DependencyResolver.Current.Resolve<IMembershipService>();
-            service.CreateUser("Admin", "123", RoleNames.AdministratorRoleName);
+            if (!service.LoginExists(adminLogin))
+            {
+                service.CreateUser(adminLogin, "123", RoleNames.AdministratorRoleName);
+            }
         }
 
         public static void Prepare()

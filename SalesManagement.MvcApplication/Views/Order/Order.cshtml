@@ -1,4 +1,5 @@
-﻿@using SalesManagement.MvcApplication
+﻿
+@using SalesManagement.MvcApplication
 @using SalesManagement.MvcApplication.ViewModels
 @model SalesManagement.MvcApplication.ViewModels.Order.OrderViewModel
 
@@ -95,7 +96,7 @@
             <h3>Specify delivery information</h3>
             <div class="separate left">
                 @Html.Label("Delivery date")<br />
-                @Html.TextBoxFor(m => m.DeliveryDate,new {@class="model", @Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("MM/dd/yyyy")})
+                @Html.TextBoxFor(m => m.DeliveryDate,new {@class="model", @Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("dd/MM/yyyy")})
                 <img id="dateIsAfterYesterday" class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
                 <label id="dateNotification" class="validation">Delivery date can't be before today</label>
                 @Html.ValidationMessageFor(m => m.DeliveryDate)

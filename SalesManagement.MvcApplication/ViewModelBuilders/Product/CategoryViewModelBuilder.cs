@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Model;
 using SalesManagement.MvcApplication.ViewModels;
 using SalesManagement.MvcApplication.ViewModels.Product;
@@ -10,26 +11,26 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
     {
         public static CategoryViewModel Build(IEnumerable<Characteristic> characteristics, Category category,ActionType actionType)
         {
-            return new CategoryViewModel
-            {
-                Id=category.Id,
-                Name=category.Name,
-                Characteristics = characteristics.Select(c=>new CategoryCharacteristic{Id=c.Id,Name = c.Name,Chosen =  actionType != ActionType.Create && category.Characteristics.Any(e => e.Id.Equals(c.Id))}).ToList(),
-                ActionType = actionType
-            };
+            var model = Mapper.Map<Category, CategoryViewModel>(category);
+            model.Characteristics =
+                characteristics.Select(
+                    c =>
+                    new CategoryCharacteristic
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            Chosen = actionType != ActionType.Create && category.Characteristics.Any(e => e.Id.Equals(c.Id))
+                        }).ToList();
+            model.ActionType = actionType;
+            return model;
         }
 
         public static Category Build(CategoryViewModel model)
         {
-            var category = new Category
-                {
-                    Characteristics =
-                        model.Characteristics.Where(c => c.Chosen)
-                             .Select(c => new Characteristic {Id = c.Id, Name = c.Name})
-                             .ToList(),
-                    Name = model.Name,
-                    Id=model.Id
-                };
+            var category = Mapper.Map<CategoryViewModel, Category>(model);
+            category.Characteristics = model.Characteristics.Where(c => c.Chosen)
+                                            .Select(c => new Characteristic {Id = c.Id, Name = c.Name})
+                                            .ToList();
             return category;
         }
     }

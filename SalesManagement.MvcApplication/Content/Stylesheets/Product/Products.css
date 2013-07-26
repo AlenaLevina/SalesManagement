@@ -4,10 +4,12 @@
     border-bottom-color: #6F6978;
     margin-bottom: 5px;
     float: left;
+    width: 100%;
 }
 
 div.productName{
     font-size: 14px;
+    margin-bottom: 5px;
 }
 
 div.category {
@@ -25,7 +27,7 @@ span.available {
 }
 
 span.temporaryUnavailable {
-    color: #FFCC00;
+    color: #FFAC00; /*#FFE991*/
 }
 
 span.unavailable {
@@ -33,5 +35,58 @@ span.unavailable {
 }
 
 div.entityListItem h4 a:hover span.status.temporaryUnavailable {
-    color: #FFE991;
+    color: #FF7900;
+}
+
+span.amountLeft {
+    font-size: 10px;
+    float: right;
+}
+
+span.amountLeft span.number {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+div.price {
+    float: left;
+    width: 281px;
+    padding: 3px;
+    text-align: center;
+}
+
+div.name {
+    width: 300px !important;
+}
+
+div.productName span.name {
+    color: #44403E;
+    font-weight: bold;
+}
+
+div.productName span.categoryName {
+    color: #C25700;
+}
+
+div.price span.number {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.productCharacteristics {
+    margin-bottom: 3px;
+}
+
+span.productCharacteristic {
+    margin-right: 5px;
+}
+
+span.productCharacteristic span.characteristicName {
+    font-weight: bold;
+}
+
+div.productDescription span.name {
+    font-weight: bold;
 }

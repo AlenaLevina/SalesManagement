@@ -1,4 +1,5 @@
-﻿using SalesManagement.MvcApplication.ViewModels.Order;
+﻿using AutoMapper;
+using SalesManagement.MvcApplication.ViewModels.Order;
 
 namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
 {
@@ -6,19 +7,14 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
     {
         public static OrderPartialViewModel Build(Model.Order order,int clientUniqueId,int productSku,string clientFullName, string productName,float price)
         {
-            return new OrderPartialViewModel
-                {
-                    Amount = order.Amount,
-                    ClientUniqueId = clientUniqueId,
-                    ContactPhoneNumber = order.ContactPhoneNumber,
-                    DeliveryAddress = order.DeliveryAddress,
-                    DeliveryDate = order.DeliveryDate,
-                    ProductSku = productSku,
-                    ClientFullName = clientFullName,
-                    Price = price,
-                    ProductName = productName,
-                    TotalPrice = price*order.Amount
-                };
+            var model = Mapper.Map<Model.Order, OrderPartialViewModel>(order);
+            model.ClientUniqueId = clientUniqueId;
+            model.ProductSku = productSku;
+            model.ClientFullName = clientFullName;
+            model.Price = price;
+            model.ProductName = productName;
+            model.TotalPrice = price*model.Amount;
+            return model;
         }
     }
 }

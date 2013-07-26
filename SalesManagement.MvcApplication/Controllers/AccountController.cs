@@ -113,6 +113,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             if (model.FirstName != null && model.FirstName.Length > Model.Profile.MaxLengthFor.FirstName) ModelState.AddModelError("FirstName", "First name is too long");
             if (model.LastName != null && model.LastName.Length > Model.Profile.MaxLengthFor.LastName) ModelState.AddModelError("LastName", "Last name is too long");
+            if (model.DateOfBirth!=null&&model.DateOfBirth.Value>=DateTime.Now) ModelState.AddModelError("DateOfBirth","Date of birth must be before today");
             
             if (ModelState.IsValid)
             {
@@ -127,8 +128,9 @@ namespace SalesManagement.MvcApplication.Controllers
                     model.Image.SaveAs(projectDirectory + GlobalConstants.UploadUserImageDirectory + fileName);
                 }
                 service.UpdateUserProfile(login, EditProfileViewModelBuilder.Build(model, fileName));
+                return Redirect(Url.Action("ViewProfile"));
             }
-            return Redirect(Url.Action("ViewProfile"));
+            return View(model);
 
         }
     }

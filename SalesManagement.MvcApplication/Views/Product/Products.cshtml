@@ -36,20 +36,45 @@
                                 case ProductStatus.Unavailable:
                                     <span class="status unavailable">(unavailable)</span>
                                     break;
-                            }                          
+                            }       
                         </a>
                     </h4>
+                </div>
+                <div class="price">
+                    <span>
+                        @if (product.Status == ProductStatus.Available)
+                        {
+                            @:Price:
+                        }
+                        else
+                        {
+                            @:Last price:
+                        }
+                    </span>
+                    <span class="number">
+                        @product.Price$
+                    </span>
                 </div>
                 <div class="deleteLink">
                     @Html.ActionLink("Delete","Delete","Product",new {id=product.Id},null)
                 </div>
             </div>
+            <div class="clearBoth"></div>
             <div class="additionalInfo">
                 <div class="productName">
-                    <span>@product.Category.Name → </span><span>@product.Name</span>
+                    <span class="categoryName">@product.Category.Name → </span><span class="name">@product.Name</span>
+                    <span class="amountLeft"><span class="number">@product.Amount</span> items left</span>
+                </div>
+                <div class="productCharacteristics">
+                    @foreach (var characteristic in product.CharacteristicValues)
+                    {
+                        <span class="productCharacteristic">
+                            <span class="characteristicName">@characteristic.Characteristic.Name</span>:&nbsp;<span class="characteristicValue">@characteristic.Value</span>
+                        </span>
+                    }
                 </div>
                 <div class="productDescription">
-                    <span>@product.Description</span>
+                    <span class="name">Description:</span>&nbsp;<span>@product.Description</span>
                 </div>
             </div>
         </div>

@@ -1,3 +1,3 @@
 ﻿$(document).ready(function() {
-    $("#DateOfBirth").datepicker();
+    $("#DateOfBirth").datepicker({ dateFormat: "dd/MM/yy" });
 })

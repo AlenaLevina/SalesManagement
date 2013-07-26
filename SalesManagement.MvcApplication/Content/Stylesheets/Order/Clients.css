@@ -8,6 +8,7 @@
 
 div.fullName{
     font-size: 14px;
+    text-transform: capitalize;
 }
 
 div.phoneNumber {

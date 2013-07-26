@@ -118,8 +118,10 @@ namespace SalesManagement.MvcApplication.Controllers
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult Orders()
         {
-            //TODO create View "Orders"
-            return View();
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var orders = service.GetAllOrders();
+            var model = OrdersViewModelBuilder.Build(orders);
+            return View(model); //TODO create view Orders!
         }
 
         [HttpGet]
@@ -165,6 +167,15 @@ namespace SalesManagement.MvcApplication.Controllers
                                                                            model.ProductSku.Value, clientFullName,
                                                                            productName, productPrice);
             return View(ConfirmViewModelBuilder.Build(orderPartialViewModel, model.ActionType));
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int orderId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var order = service.GetOrderById(orderId);
+            var model = OrderViewModelBuilder.Build(order, ActionType.Edit, order.Product.Sku, order.Client.UniqueId);
+            return View("Order", model);
         }
 
         //TODO Get and Post method for Edit()

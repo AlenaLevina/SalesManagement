@@ -1,5 +1,6 @@
-﻿using Model;
+﻿using AutoMapper;
 using SalesManagement.MvcApplication.ViewModels.Account;
+using Profile = Model.Profile;
 
 namespace SalesManagement.MvcApplication.ViewModelBuilders.Account
 {
@@ -7,16 +8,10 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Account
     {
         public static ViewProfileViewModel Build(Profile profile, string role, string login)
         {
-            return new ViewProfileViewModel
-            {
-                DateOfBirth = profile.DateOfBirth,
-                FirstName = profile.FirstName,
-                Gender = profile.Gender,
-                ImageUrl = profile.ImageUrl,
-                LastName = profile.LastName,
-                Role = role,
-                Login = login
-            };
+            var model=Mapper.Map<Profile, ViewProfileViewModel>(profile);
+            model.Role = role;
+            model.Login = login;
+            return model;
         }
     }
 }
