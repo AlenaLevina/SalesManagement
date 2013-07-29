@@ -17,8 +17,6 @@ namespace Model
 
         public float Price { get; set; }
 
-        public DateTime Date { get; set; }
-
         public DateTime DeliveryDate { get; set; }
 
         public string DeliveryAddress { get; set; }
@@ -53,7 +51,6 @@ namespace Model
         {
             Amount = order.Amount;
             Price = order.Price;
-            Date = order.Date;
             DeliveryDate = order.DeliveryDate;
             DeliveryAddress = order.DeliveryAddress;
             ContactPhoneNumber = order.ContactPhoneNumber;
@@ -64,6 +61,11 @@ namespace Model
             Product = order.Product;
             EmployeeId = order.EmployeeId;
             Employee = order.Employee;
+        }
+
+        public float GetTotalPrice()
+        {
+            return Price*Amount;
         }
 
         #endregion

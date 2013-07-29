@@ -1,13 +1,4 @@
-﻿div.bottomBordered {
-    border-bottom-style: dotted;
-    border-bottom-width: 1px;
-    border-bottom-color: #6F6978;
-    margin-bottom: 5px;
-    float: left;
-    width: 100%;
-}
-
-div.productName{
+﻿div.productName{
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -38,15 +29,12 @@ div.entityListItem h4 a:hover span.status.temporaryUnavailable {
     color: #FF7900;
 }
 
-span.amountLeft {
-    font-size: 10px;
-    float: right;
-}
+/*span.amountLeft {
+    /*font-size: 10px;
+    /*float: right;
+}*/
 
-span.amountLeft span.number {
-    font-size: 14px;
-    font-weight: bold;
-}
+
 
 
 
@@ -70,7 +58,7 @@ div.productName span.categoryName {
     color: #C25700;
 }
 
-div.price span.number {
+div.price span.number,span.amountLeft span.number {
     font-size: 14px;
     font-weight: bold;
 }

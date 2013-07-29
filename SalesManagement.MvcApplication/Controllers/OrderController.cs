@@ -121,7 +121,7 @@ namespace SalesManagement.MvcApplication.Controllers
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var orders = service.GetAllOrders();
             var model = OrdersViewModelBuilder.Build(orders);
-            return View(model); //TODO create view Orders!
+            return View(model);
         }
 
         [HttpGet]
@@ -170,6 +170,7 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
         public ActionResult Edit(int orderId)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
@@ -178,7 +179,33 @@ namespace SalesManagement.MvcApplication.Controllers
             return View("Order", model);
         }
 
-        //TODO Get and Post method for Edit()
+        [HttpPost]
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult Edit(OrderViewModel model)
+        {
+            Validate(model);
+
+            if (ModelState.IsValid)
+            {
+                var orderService = DependencyResolver.Current.Resolve<IOrderService>();
+                var order = OrderViewModelBuilder.Build(model);
+                
+                orderService.EditOrder(order,model.ProductSku.Value,model.ClientUniqueId.Value,User.Identity.Name);
+                return Redirect(Url.Action("Confirm", model));
+            }
+            return View("Order", model);
+        }
+
+        [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
+        public ActionResult Delete(int orderId)
+        {
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            service.DeleteOrder(orderId);
+            return Redirect(Url.Action("Orders"));
+        }
+
+
+        
 
         #region JS actions
 
@@ -321,18 +348,19 @@ namespace SalesManagement.MvcApplication.Controllers
 
             if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");
             else if (model.ProductSku.Value < 0) ModelState.AddModelError("ProductSku", "Product SKU is non-negative");
-            else
+            else if (model.ActionType==ActionType.Create)
             {
                 productIsAvailable = productService.ProductIsAvailable(model.ProductSku.Value);
                 if (!productIsAvailable) ModelState.AddModelError("ProductSku", "This product is not available");
             }
 
             if (model.Amount == null) ModelState.AddModelError("Amount", "Amount is requiered");
-            else if (model.Amount.Value < 0) ModelState.AddModelError("Amount", "Amount is non-negative");
-            else if (model.ProductSku != null && productIsAvailable && !productService.ProductItemsAvailable(model.ProductSku.Value, model.Amount.Value)) ModelState.AddModelError("Amount", "There is no so much items available");
+            else if (model.Amount.Value <= 0) ModelState.AddModelError("Amount", "Amount is a positive number");
+            else if (model.ProductSku != null && model.ActionType == ActionType.Create && productIsAvailable && !productService.ProductItemsAvailable(model.ProductSku.Value, model.Amount.Value)) ModelState.AddModelError("Amount", "There is no so much items available");
+            else if(model.ProductSku!=null&&model.ActionType==ActionType.Edit&&(model.Amount.Value-model.OldAmount>0)&&!productService.ProductItemsAvailable(model.ProductSku.Value,model.Amount.Value-model.OldAmount)) ModelState.AddModelError("Amount","Can't add so much items, choose smaller amount");
 
             if (model.DeliveryDate == null) ModelState.AddModelError("DeliveryDate", "Delivery date is requiered");
-            else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now);
+            else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now.ToString("dd/MMMM/yyyy"));
 
             if (model.DeliveryAddress == null) ModelState.AddModelError("DeliveryAddress", "Delivery address is requiered");
             else if (model.DeliveryAddress.Length > Order.MaxLengthFor.DeliveryAddress) ModelState.AddModelError("DeliveryAddress", "Delivery address is too long");

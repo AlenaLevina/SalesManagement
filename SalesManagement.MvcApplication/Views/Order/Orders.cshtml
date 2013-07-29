@@ -1,0 +1,77 @@
+﻿@using Model
+@using SalesManagement.MvcApplication
+@model SalesManagement.MvcApplication.ViewModels.Order.OrdersViewModel
+
+@{
+    ViewBag.Title = GlobalConstants.TitlePrefix + "Orders";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_EntityList.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Orders.css"/>
+}
+
+@section MainContent
+{
+    @foreach (var order in Model.Orders)
+    {
+        string statusName=String.Empty;   
+        switch (order.Status)
+        {
+             case OrderStatus.Delivered:
+                statusName = "delivered";
+                break;
+            case OrderStatus.Paid:
+                statusName = "paid";
+                break;
+            case OrderStatus.Unpaid:
+                statusName = "unpaid";
+                break;
+        }
+        
+        <div class="entityListItem @statusName">
+            <div class="bottomBordered">
+                <div class="name">
+                    <h4 >
+                        <a href='@Url.Action("Edit", "Order", new {orderId = order.Id })' title="Edit this order">
+                            <span class="clientName">@order.Client.GetFullName()</span>
+                            ordered 
+                            <span class="productName">@order.Product.Name</span>
+                            <span class="status @statusName">(@statusName)</span>
+                        </a>
+                    </h4>
+                </div>
+                <div class="deleteLink">
+                    @Html.ActionLink("Refuse", "Delete", "Order", new {orderId=order.Id}, null)
+                </div>
+            </div>
+            <div class="clearBoth"></div>
+            <div class="additionalInfo">
+                <div class="IDs">
+                    <span class="client">
+                        <span class="id-title">Client:</span>
+                        <span class="id-value"> #@order.Client.UniqueId </span>
+                    </span>
+                    <span class="product">
+                        <span class="id-title">Product:</span>
+                        <span class="id-value"> #@order.Product.Sku</span>
+                    </span>
+                </div>
+                <div class="amount-price">
+                    <span class="amount">@order.Amount</span>
+                    item(s) at price of 
+                    <span class="price">@order.Price$</span>
+                    per item
+                </div>
+                <div class="totalPrice">
+                    Total: <span class="number">@order.GetTotalPrice()$</span>
+                </div>
+                <div class="deliveryInfo">
+                    <span class="infoItem"><span class="name">Delivery date:</span>&nbsp;<span class="value">@order.DeliveryDate.ToString("dd/MM/yyyy")</span></span>
+                    <span class="infoItem"><span class="name">Delivery address:</span>&nbsp;<span class="value">@order.DeliveryAddress</span></span>
+                    <span class="infoItem"><span class="name">Contact phone:</span>&nbsp;<span class="value">+@order.ContactPhoneNumber</span></span>
+                </div>
+            </div>
+        </div>
+    }
+}

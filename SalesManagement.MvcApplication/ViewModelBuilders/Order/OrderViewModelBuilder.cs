@@ -15,6 +15,8 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Order
             model.ClientUniqueId = clientUniqueId;
             model.ProductSku =  productSku;
             model.DeliveryDate = order.DeliveryDate == default(DateTime) ? (DateTime?)null : order.DeliveryDate;
+            model.ActionType = actionType;
+            model.OldAmount = order.Amount;
             return model;
         }
 

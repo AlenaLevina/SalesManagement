@@ -51,6 +51,15 @@ namespace Model
             UniqueId = client.UniqueId;
         }
 
+        public string GetFullName()
+        {
+            if (FirstName != null && LastName != null)
+            {
+                return FirstName + " " + LastName;
+            }
+            return null;
+        }
+
         #endregion
 
 

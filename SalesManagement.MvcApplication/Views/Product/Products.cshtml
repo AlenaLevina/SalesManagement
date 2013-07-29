@@ -41,18 +41,10 @@
                     </h4>
                 </div>
                 <div class="price">
-                    <span>
-                        @if (product.Status == ProductStatus.Available)
-                        {
-                            @:Price:
-                        }
-                        else
-                        {
-                            @:Last price:
-                        }
-                    </span>
+                    @*<span>Price:</span>*@
+                    <span class="amountLeft"><span class="number">@product.Amount</span> items left</span> at price of
                     <span class="number">
-                        @product.Price$
+                        @product.Price$, 
                     </span>
                 </div>
                 <div class="deleteLink">
@@ -63,7 +55,7 @@
             <div class="additionalInfo">
                 <div class="productName">
                     <span class="categoryName">@product.Category.Name → </span><span class="name">@product.Name</span>
-                    <span class="amountLeft"><span class="number">@product.Amount</span> items left</span>
+                    
                 </div>
                 <div class="productCharacteristics">
                     @foreach (var characteristic in product.CharacteristicValues)

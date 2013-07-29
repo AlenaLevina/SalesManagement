@@ -37,24 +37,37 @@ div.entityListItem h4 a {
 }
 
 div.entityListItem h4 a:hover {
-    background-color: #FFC895;
+    background-color: rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
     border-radius: 5px;
 }
 
 
 
-div.deleteLink {
+/*div.deleteLink {
     width: 50px;
     text-align: center;
-}
+}*/
 
 div.deleteLink a {
     padding: 3px 5px 3px 5px;
 }
 
 div.deleteLink a:hover {
-    background-color: #FFC895;
+    background-color: rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
     font-weight: bold;
     border-radius: 3px;
     color: #C10000;
+}
+
+div.bottomBordered {
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6978;
+    margin-bottom: 5px;
+    float: left;
+    width: 100%;
 }

@@ -16,5 +16,7 @@ namespace Contracts
         IEnumerable<Client> GetClientsByFullName(string firstName, string lastName);
         Order GetOrderById(int id);
         IEnumerable<Order> GetAllOrders();
+        void EditOrder(Order order, int productSku,int clientUniqueId,string employeeLogin);
+        void DeleteOrder(int id);
     }
 }

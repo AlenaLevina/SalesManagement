@@ -208,6 +208,7 @@
     <Content Include="Content\Stylesheets\Order\Clients.css" />
     <Content Include="Content\Stylesheets\Order\CreateClient.css" />
     <Content Include="Content\Stylesheets\Order\Order.css" />
+    <Content Include="Content\Stylesheets\Order\Orders.css" />
     <Content Include="Content\Stylesheets\Order\_Order.css" />
     <Content Include="Content\Stylesheets\Order\_OrderSummary.css" />
     <Content Include="Content\Stylesheets\Product\Create.css" />
@@ -331,6 +332,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\_OrderSummary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Orders.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
 ﻿
+@using Model
 @using SalesManagement.MvcApplication
 @using SalesManagement.MvcApplication.ViewModels
 @model SalesManagement.MvcApplication.ViewModels.Order.OrderViewModel
@@ -96,7 +97,7 @@
             <h3>Specify delivery information</h3>
             <div class="separate left">
                 @Html.Label("Delivery date")<br />
-                @Html.TextBoxFor(m => m.DeliveryDate,new {@class="model", @Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("dd/MM/yyyy")})
+                @Html.TextBoxFor(m => m.DeliveryDate,new {@class="model", @Value=Model.DeliveryDate==null? null:Model.DeliveryDate.Value.ToString("dd/MMMM/yyyy")})
                 <img id="dateIsAfterYesterday" class="validation" width="25" height="25" src="~/Content/Images/cross.png" alt=""/>
                 <label id="dateNotification" class="validation">Delivery date can't be before today</label>
                 @Html.ValidationMessageFor(m => m.DeliveryDate)
@@ -115,10 +116,27 @@
             </div>
         </div>
         
-        
-        @Html.HiddenFor(m => m.ActionType,new {@class="model"})
+        if (Model.ActionType == ActionType.Edit && User.IsInRole(RoleNames.AdministratorRoleName))
+         {
+            <div class="separate chooseArea">
+                <h3>Chose status</h3>
+                <div class="separate left">
+                    @Html.Label("Status")<br />
+                    @Html.RadioButtonFor(m => m.Status, OrderStatus.Unpaid, new {@checked = true, id = "rbnUnpaid"})
+                    @Html.Label("Unpaid", new {@for = "rbnUnpaid"})<br />
+                    @Html.RadioButtonFor(m => m.Status, OrderStatus.Paid, new {id = "rbnPaid"})
+                    @Html.Label("Paid", new {@for = "rbnPaid"})<br />
+                    @Html.RadioButtonFor(m => m.Status, OrderStatus.Delivered, new {id = "rbnDelivered"})
+                    @Html.Label("Delivered", new {@for = "rbnDelivered"})<br />
+                </div>
+            </div>
+         }
 
+        @Html.HiddenFor(m => m.ActionType,new {@class="model"})
+        @Html.HiddenFor(m => m.OldAmount,new {@class="model"})
         @*@Html.HiddenFor(m=>m.ValidationOnly,new {@class="model"})*@
+        @Html.HiddenFor(m=>m.Id)
+        @Html.HiddenFor(m=>m.Price)
 
         
         

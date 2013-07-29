@@ -9,7 +9,7 @@
     $("#ContactPhoneNumber").keypress(function () {
         $("#ContactPhoneNumber").unbind("focus", getClientPhone);
     });
-    $("#DeliveryDate").datepicker({ dateFormat: "dd/MM/yy" });
+    $("#DeliveryDate").datepicker({ dateFormat: "dd/MMMM/yyyy" });
     $("#fakeSubmit").click(summary);
 });
 
@@ -237,6 +237,7 @@ function loadProductByName(position) {
 //}
 
 function summary() {
+    
     var validartionUrl = "/Order/ValidateOrderModel";
     
     var formInputs = $("form .model");

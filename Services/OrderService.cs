@@ -72,7 +72,7 @@ namespace Services
             order.ClientId = clientId;
             order.ProductId = productId;
             order.EmployeeId = employeeId;
-            order.Date = DateTime.Now;
+            order.DeliveryDate = DateTime.Now;
             order.Price = price;
             order.Status = OrderStatus.Unpaid;
             GetRepository<IOrderRepository>().Create(order);
@@ -101,6 +101,29 @@ namespace Services
         public IEnumerable<Order> GetAllOrders()
         {
             return GetRepository<IOrderRepository>().GetAll();
+        }
+
+        public void EditOrder(Order order, int productSku, int clientUniqueId, string employeeLogin)
+        {
+            if (order == null) throw new ArgumentNullException("order");
+            var orderRepo = GetRepository<IOrderRepository>();
+            var oldOrder = orderRepo.Get(order.Id);
+            oldOrder.CopyFrom(order);
+            var client = GetRepository<IClientRepository>().GetByUniqueId(clientUniqueId);
+            oldOrder.Client = client;
+            oldOrder.ClientId = client.Id;
+            var product = GetRepository<IProductRepository>().GetBySku(productSku);
+            oldOrder.Product = product;
+            oldOrder.ProductId = product.Id;
+            var user = GetRepository<IUserRepository>().GetByLogin(employeeLogin);
+            oldOrder.Employee = user;
+            oldOrder.EmployeeId = user.Id;
+            orderRepo.Update(oldOrder);
+        }
+
+        public void DeleteOrder(int id)
+        {
+            GetRepository<IOrderRepository>().Delete(id);
         }
     }
 }
