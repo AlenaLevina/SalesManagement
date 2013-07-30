@@ -179,5 +179,21 @@ div.orderStatusLinks {
     float: right;
 }
 
-/**************************/
+div.entityListItem.delivered img.delivered,
+div.entityListItem.paid img.paid,
+div.entityListItem.unpaid img.unpaid,
+div.entityListItem.refused img.refused{
+    opacity: 0.1;
+}
 
+/*div.entityListItem.paid img.paid {
+    opacity: 0.1;
+}
+
+div.entityListItem.unpaid img.unpaid {
+    opacity: 0.1;
+}
+
+div.entityListItem.refused img.refused {
+    opacity: 0.1;
+}*/
