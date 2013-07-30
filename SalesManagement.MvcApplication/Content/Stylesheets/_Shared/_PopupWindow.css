@@ -6,13 +6,15 @@
 
 div.entityInfo div.post.notFound {
     text-align: center;
-    width: 180px;
+    /*width: 180px;*/
 }
 
 div.entityInfo {
     position: absolute;
     width: 400px;
     top: -10px;
+    left: 125px;
+
 }
 
 div.entityInfo span.narrow {
@@ -128,7 +130,7 @@ img.closeEntityWindow:active {
 }
 
 
-img.closeEntityWindow.notFound {
+/*img.closeEntityWindow.notFound {
     left: 180px;
-}
+}*/
 

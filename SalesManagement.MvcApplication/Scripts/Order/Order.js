@@ -9,7 +9,7 @@
     $("#ContactPhoneNumber").keypress(function () {
         $("#ContactPhoneNumber").unbind("focus", getClientPhone);
     });
-    $("#DeliveryDate").datepicker({ dateFormat: "dd/MMMM/yyyy" });
+    $("#DeliveryDate").datepicker({ dateFormat: "dd/mm/yy" });
     $("#fakeSubmit").click(summary);
 });
 

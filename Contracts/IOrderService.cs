@@ -18,5 +18,7 @@ namespace Contracts
         IEnumerable<Order> GetAllOrders();
         void EditOrder(Order order, int productSku,int clientUniqueId,string employeeLogin);
         void DeleteOrder(int id);
+        IEnumerable<Order> GetOrdersByEmployeeLogin(string login);
+        void ChangeStatus(int orderId, OrderStatus status);
     }
 }

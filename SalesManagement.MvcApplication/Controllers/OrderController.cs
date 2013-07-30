@@ -15,40 +15,22 @@ namespace SalesManagement.MvcApplication.Controllers
 {
     public class OrderController : Controller
     {
-#if DEBUG
-        public ActionResult Test()
-        {
-            var model = new OrderViewModel
-                {
-                    ActionType = ActionType.Create,
-                    Amount = 4,
-                    ClientUniqueId = 1227352,
-                    ContactPhoneNumber = "+375-44-521-12-89",
-                    DeliveryAddress = "New Orlean",
-                    DeliveryDate = DateTime.Now,
-                    ProductSku = 61051089
-                };
-            return GetOrderSummary(model);
-            //public ActionResult GetOrderSummary(OrderViewModel model)
-            //{
-            //    if (model == null) throw new ArgumentNullException("model");
-
-            //    var orderService = DependencyResolver.Current.Resolve<IOrderService>();
-            //    var client = orderService.GetClientByUniqueId(model.ClientUniqueId.Value);
-            //    var clientFullName = client.FirstName + " " + client.LastName;
-            //    var productService = DependencyResolver.Current.Resolve<IProductService>();
-            //    var product = productService.GetProductBySku(model.ProductSku.Value);
-            //    var productName = product.Name;
-            //    var price = product.Price;
-            //    var order = OrderViewModelBuilder.Build(model);
-            //    var partialViewModel = OrderPartialViewModelBuilder.Build(order, model.ClientUniqueId.Value,
-            //                                                              model.ProductSku.Value, clientFullName,
-            //                                                              productName, price);
-
-            //    return PartialView("_OrderSummary", partialViewModel);
-            //}
-        }
-#endif
+//#if DEBUG
+//        public ActionResult Test()
+//        {
+//            var model = new OrderViewModel
+//                {
+//                    ActionType = ActionType.Create,
+//                    Amount = 4,
+//                    ClientUniqueId = 1227352,
+//                    ContactPhoneNumber = "+375-44-521-12-89",
+//                    DeliveryAddress = "New Orlean",
+//                    DeliveryDate = DateTime.Now,
+//                    ProductSku = 61051089
+//                };
+//            return GetOrderSummary(model);
+//        }
+//#endif
 
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
         public ActionResult Clients()
@@ -116,12 +98,23 @@ namespace SalesManagement.MvcApplication.Controllers
         }
 
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
-        public ActionResult Orders()
+        public ActionResult All()
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var orders = service.GetAllOrders();
             var model = OrdersViewModelBuilder.Build(orders);
-            return View(model);
+            return View("Orders",model);
+        }
+
+        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        public ActionResult My()
+        {
+            var employeeLogin = User.Identity.Name;
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var orders = service.GetOrdersByEmployeeLogin(employeeLogin).ToList();
+            var model = OrdersViewModelBuilder.Build(orders);
+            return View("Orders", model);
+
         }
 
         [HttpGet]
@@ -201,10 +194,16 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             service.DeleteOrder(orderId);
-            return Redirect(Url.Action("Orders"));
+            return Redirect(Url.Action("All"));
         }
 
-
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult ChangeStatus(int orderId, OrderStatus status)
+        {
+            DependencyResolver.Current.Resolve<IOrderService>().ChangeStatus(orderId, status);
+            return Redirect(Url.Action("My"));
+        }
+ 
         
 
         #region JS actions
@@ -360,7 +359,7 @@ namespace SalesManagement.MvcApplication.Controllers
             else if(model.ProductSku!=null&&model.ActionType==ActionType.Edit&&(model.Amount.Value-model.OldAmount>0)&&!productService.ProductItemsAvailable(model.ProductSku.Value,model.Amount.Value-model.OldAmount)) ModelState.AddModelError("Amount","Can't add so much items, choose smaller amount");
 
             if (model.DeliveryDate == null) ModelState.AddModelError("DeliveryDate", "Delivery date is requiered");
-            else if (model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now.ToString("dd/MMMM/yyyy"));
+            else if (model.ActionType==ActionType.Create&&model.DeliveryDate.Value < DateTime.Now) ModelState.AddModelError("DeliveryDate", "Choose delivery date after " + DateTime.Now.ToString(GlobalConstants.DateTimeFormat));
 
             if (model.DeliveryAddress == null) ModelState.AddModelError("DeliveryAddress", "Delivery address is requiered");
             else if (model.DeliveryAddress.Length > Order.MaxLengthFor.DeliveryAddress) ModelState.AddModelError("DeliveryAddress", "Delivery address is too long");

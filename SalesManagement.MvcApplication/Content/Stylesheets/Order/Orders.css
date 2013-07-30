@@ -1,4 +1,81 @@
-﻿div.entityListItem.unpaid {
+﻿div.entityListItem {
+    padding: 1%;
+    border-radius: 5px;
+    /*background-color: #FFEEDF;*/ /*min-height: 70px;*/
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left;
+    width: 98%;
+}
+
+/*div.entityListItem:hover {
+    background-color: #FFE3CA;
+}*/
+
+div.entityListItem div.name {
+    /*width: 587px;*/
+    float: left;
+}
+
+/*div.editLink, div.deleteLink {
+    text-align: right;
+}*/
+
+/*div.entityListItem div a {
+    display: block;
+}*/
+
+/*div.entityListItem div.deleteLink {
+    width: 50px;
+    float: right;
+}*/
+
+div.entityListItem h4 a {
+    color: #6F6966;
+    text-decoration: none;
+    padding: 5px;
+}
+
+div.entityListItem h4 a:hover {
+    background-color: rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
+    border-radius: 10px;
+}
+
+
+
+/*div.deleteLink {
+    width: 50px;
+    text-align: center;
+}*/
+
+/*div.deleteLink a {
+    padding: 3px 5px 3px 5px;
+}*/
+
+/*div.deleteLink a:hover {
+    background-color: rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
+    font-weight: bold;
+    border-radius: 3px;
+    color: #C10000;
+}*/
+
+div.bottomBordered {
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #6F6978;
+    margin-bottom: 5px;
+    float: left;
+    width: 100%;
+}
+
+/***********************************************************/
+
+
+div.entityListItem.unpaid {
     background-color: #FFE6E6;
 }
 
@@ -9,6 +86,18 @@ div.entityListItem.delivered {
 div.entityListItem.paid {
     background-color: #FFECD5;
 }
+
+div.entityListItem.refused {
+    background-color: #DADADA;
+    opacity: 0.5;
+}
+
+div.entityListItem.refused:hover {
+    background-color: #E4E4E4;
+    opacity: 1;
+}
+
+
 
 div.IDs {
     margin-bottom: 5px;
@@ -26,6 +115,13 @@ span.productName {
     color: #C95B01;
 }
 
+div.status {
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+    padding: 3px 10px 3px 10px;
+}
+
 span.delivered {
     color: green;
 }
@@ -36,6 +132,10 @@ span.paid {
 
 span.unpaid {
     color: #CC0000;
+}
+
+span.refused {
+    color: #666666;
 }
 
 div.entityListItem h4 a:hover span.status.paid {
@@ -59,3 +159,25 @@ div.deliveryInfo span.infoItem {
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#0B000000, endColorstr=#0B000000);/* For IE 5.5 - 7*/
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#0B000000, endColorstr=#0B000000)";/* For IE 8*/
 }
+
+a.orderStatusLink {
+    display: inline-block;
+}
+
+img.orderStatusLink {
+    height: 14px;
+    opacity: 0.25;
+    padding: 1px;
+    border-radius: 5px;
+    border: black solid 2px;
+}
+img.orderStatusLink:hover {
+    opacity: 0.5;
+}
+
+div.orderStatusLinks {
+    float: right;
+}
+
+/**************************/
+

@@ -39,7 +39,7 @@
         
         <div class="separate">
             @Html.Label("Date of birth")<br/>
-            @Html.TextBoxFor(p=>p.DateOfBirth,new {@Value=Model.DateOfBirth==null?null: Model.DateOfBirth.Value.ToString("dd/MM/yyyy")})
+            @Html.TextBoxFor(p=>p.DateOfBirth,new {@Value=Model.DateOfBirth==null?null: Model.DateOfBirth.Value.ToString(GlobalConstants.DateTimeFormat)})
             @Html.ValidationMessageFor(p=>p.DateOfBirth)
         </div>
         

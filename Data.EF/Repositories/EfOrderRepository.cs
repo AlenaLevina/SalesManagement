@@ -1,4 +1,6 @@
-﻿using Data.Repositories;
+﻿using System.Collections.Generic;
+using Data.Repositories;
+using System.Linq;
 using Model;
 
 namespace Data.EF.Repositories
@@ -7,6 +9,11 @@ namespace Data.EF.Repositories
     {
         public EfOrderRepository(EfUnitOfWork unitOfWork) : base(unitOfWork)
         {
+        }
+
+        public IEnumerable<Order> GetAllByEmployeeId(int id)
+        {
+            return Context.Orders.Where(e => e.EmployeeId.Equals(id));
         }
     }
 }

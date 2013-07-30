@@ -125,5 +125,21 @@ namespace Services
         {
             GetRepository<IOrderRepository>().Delete(id);
         }
+
+        public IEnumerable<Order> GetOrdersByEmployeeLogin(string login)
+        {
+            if (login == null) throw new ArgumentNullException("login");
+
+            var employeeId = GetRepository<IUserRepository>().GetByLogin(login).Id;
+            return GetRepository<IOrderRepository>().GetAllByEmployeeId(employeeId);
+        }
+
+        public void ChangeStatus(int orderId, OrderStatus status)
+        {
+            var orderRepo = GetRepository<IOrderRepository>();
+            var order = orderRepo.Get(orderId);
+            order.Status = status;
+            orderRepo.Update(order);
+        }
     }
 }
