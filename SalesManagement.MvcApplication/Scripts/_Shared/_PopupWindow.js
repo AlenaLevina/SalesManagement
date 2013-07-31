@@ -52,7 +52,7 @@
                 break;
         }
        //console.log("next position: " + position);
-        popupWindowSettings.loadEntityFunction(position);
+        popupWindowSettings.loadEntityFunction(position,popupWindowSettings.placeholderSelector);
     }
 
     function closePopupWindow() {

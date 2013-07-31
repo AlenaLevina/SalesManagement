@@ -88,13 +88,7 @@ div.entityListItem.paid {
 }
 
 div.entityListItem.refused {
-    background-color: #DADADA;
-    opacity: 0.5;
-}
-
-div.entityListItem.refused:hover {
     background-color: #E4E4E4;
-    opacity: 1;
 }
 
 

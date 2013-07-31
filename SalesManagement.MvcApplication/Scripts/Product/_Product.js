@@ -12,7 +12,7 @@
     placeholderSelector: "#matchingProducts",
     currentEntityPositionElementId: "currentProductPosition",
     totalEntityAmountElementId: "totalProductAmount",
-    loadEntityFunction: loadProductByName,
+    loadEntityFunction: ProductPopupWindow.loadProductByName,
     closeEntityWindowSelector: "#closeProductWindow"
 };
 
@@ -20,5 +20,3 @@ $(document).ready(function () {
     configuratePopupWindow(productPopupWindowSettings);
 });
 
-
-//popupWindowSettings = productPopupWindowSettings;

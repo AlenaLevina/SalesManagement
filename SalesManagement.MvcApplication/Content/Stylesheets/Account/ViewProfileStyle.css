@@ -51,7 +51,7 @@ div#roles span
 
 div#profileLinks a {
     display: block;
-    margin-bottom: 5px;
+    padding: 5px;
 }
 
 div#employeeArea, div#managerArea, div#adminArea {
@@ -86,4 +86,8 @@ div.debug {
 
 div.debug:hover {
     opacity: 1;
+}
+
+div.subArea a:hover {
+    background-color: rgba(111, 105, 102, 0.1);
 }

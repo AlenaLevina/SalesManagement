@@ -7,103 +7,105 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/Stylesheets/_Style.css" rel="stylesheet" type="text/css" media="screen" />
     <link  rel="shortcut icon" type="image/x-icon" href="~/Content/Images/favicon.ico" />
+    <script type="text/javascript" src="~/Scripts/jQuery.1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/_Shared/_Main.js"></script>
     @RenderSection("Head",false)
 </head>
-<body>
-<div id="wrapper">
-	<div id="header-wrapper">
-	    <div id="header">
-	        <div id="welcome">
-	            @if (User.Identity.IsAuthenticated)
-	            {
-	                <span class="welcome">Welcome, @Html.ActionLink(User.Identity.Name,"ViewProfile","Account")!</span>
-	                @Html.ActionLink("[Sign Out]", "SignOut", "Account")
-	            }
-	            else
-	            {
-	                @Html.ActionLink("[Sign In]","SignIn","Account")
-	            }
-	        </div>
-	        <div id="logo">
-	            <h1>@Html.ActionLink("SalMan","Index","Home")</h1>
-	            <p>Sales management system</p>
-	        </div>
-	        <div id="menu">
-	            <ul>
-	                <li class="current_page_item">@Html.ActionLink("Home","Index","Home")</li>
-	                <li><a href="#">Blog</a></li>
-	                <li><a href="#">Photos</a></li>
-	                <li><a href="#">About</a></li>
-	                <li><a href="#">Links</a></li>
-	                <li>@Html.ActionLink("Register","Register","Account")</li>
-	            </ul>
-	        </div>
-	        <br style="clear:both;" />
-	    </div>
-	</div>
-	<!-- end #header -->
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-			    <div id="content">
-			        @RenderSection("MainContent")
+    <body>
+        <div id="wrapper">
+            <div id="header-wrapper">
+                <div id="header">
+                    <div id="welcome">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span class="welcome">Welcome, @Html.ActionLink(User.Identity.Name,"ViewProfile","Account")!</span>
+                            @Html.ActionLink("[Sign Out]", "SignOut", "Account")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("[Sign In]","SignIn","Account")
+                        }
+                    </div>
+                    <div id="logo">
+                        <h1>@Html.ActionLink("SalMan","Index","Home")</h1>
+                        <p>Sales management system</p>
+                    </div>
+                    <div id="menu">
+                        <ul>
+                            <li class="current_page_item">@Html.ActionLink("Home","Index","Home")</li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Photos</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Links</a></li>
+                            <li>@Html.ActionLink("Register","Register","Account")</li>
+                        </ul>
+                    </div>
+                    <br style="clear:both;" />
+                </div>
+            </div>
+            <!-- end #header -->
+            <div id="page">
+                <div id="page-bgtop">
+                    <div id="page-bgbtm">
+                        <div id="content">
+                            @RenderSection("MainContent")
 			        
-			    </div>
-				<!-- end #content -->
-				<div id="sidebar">
-					<ul>
-						<li>
-							<div id="search" >
-								<form method="get" action="#">
-									<div>
-										<input type="text" name="s" id="search-text" value="" />
-										<input type="submit" id="search-submit" value="GO" />
-									</div>
-								</form>
-							</div>
-							<div class="clearBoth">&nbsp;</div>
-						</li>
-						<li>
-							<h2>Site functionality</h2>
-							<p>All site functionality is concentrated in user's profile. Please, sign in under any of following accounts.</p>
-						</li>
-						<li>
-							<h2>Admin account</h2>
-							<ul>
-								<li><a href="#">Login - Admin</a></li>
-								<li><a href="#">Password - 123</a></li>
-							</ul>
-						</li>
-						<li>
-							<h2>Manager account</h2>
-							<ul>
-								<li><a href="#">Login - Manager</a></li>
-								<li><a href="#">Password - 123</a></li>
-							</ul>
-						</li>
-						<li>
-							<h2>Archives</h2>
-							<ul>
-								<li><a href="#">Aliquam libero</a></li>
-								<li><a href="#">Consectetuer adipiscing elit</a></li>
-								<li><a href="#">Metus aliquam pellentesque</a></li>
-								<li><a href="#">Suspendisse iaculis mauris</a></li>
-								<li><a href="#">Urnanet non molestie semper</a></li>
-								<li><a href="#">Proin gravida orci porttitor</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<!-- end #sidebar -->
-				<div class="clearBoth">&nbsp;</div>
-			</div>
-		</div>
-	</div>
-	<!-- end #page -->
-</div>
-<div id="footer">
-	<p>Copyright (c) 2013 Sales management system. All rights reserved. </p>
-</div>
-<!-- end #footer -->
-</body>
+                        </div>
+                        <!-- end #content -->
+                        <div id="sidebar">
+                            <ul>
+                                <li>
+                                    <div id="search" >
+                                        <form method="get" action="#">
+                                            <div>
+                                                <input type="text" name="s" id="search-text" value="" />
+                                                <input type="submit" id="search-submit" value="GO" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="clearBoth">&nbsp;</div>
+                                </li>
+                                <li>
+                                    <h2>Site functionality</h2>
+                                    <p>All site functionality is concentrated in user's profile. Please, sign in under any of following accounts.</p>
+                                </li>
+                                <li>
+                                    <h2>Admin account</h2>
+                                    <ul>
+                                        <li><a href="#">Login - Admin</a></li>
+                                        <li><a href="#">Password - 123</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h2>Manager account</h2>
+                                    <ul>
+                                        <li><a href="#">Login - Manager</a></li>
+                                        <li><a href="#">Password - 123</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h2>Archives</h2>
+                                    <ul>
+                                        <li><a href="#">Aliquam libero</a></li>
+                                        <li><a href="#">Consectetuer adipiscing elit</a></li>
+                                        <li><a href="#">Metus aliquam pellentesque</a></li>
+                                        <li><a href="#">Suspendisse iaculis mauris</a></li>
+                                        <li><a href="#">Urnanet non molestie semper</a></li>
+                                        <li><a href="#">Proin gravida orci porttitor</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end #sidebar -->
+                        <div class="clearBoth">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <!-- end #page -->
+        </div>
+        <div id="footer">
+            <p>Copyright (c) 2013 Sales management system. All rights reserved. </p>
+        </div>
+        <!-- end #footer -->
+    </body>
 </html>

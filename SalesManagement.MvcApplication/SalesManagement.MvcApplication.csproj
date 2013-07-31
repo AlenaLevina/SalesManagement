@@ -234,7 +234,10 @@
     <Content Include="Scripts\Order\_Client.js" />
     <Content Include="Scripts\Product\Create.js" />
     <Content Include="Scripts\Product\_Product.js" />
+    <Content Include="Scripts\_Shared\_Main.js" />
+    <Content Include="Scripts\_Shared\_ClientPopupWindow.js" />
     <Content Include="Scripts\_Shared\_PopupWindow.js" />
+    <Content Include="Scripts\_Shared\_ProductPopupWindow.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -7,7 +7,6 @@
 }
 
 @section Head{
-    @*<link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_EntityList.css"/>*@
     <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Orders.css"/>
 }
 
@@ -15,7 +14,7 @@
 {
     @foreach (var order in Model.Orders)
     {
-        string statusName=String.Empty;  
+        var statusName=String.Empty;  
         switch (order.Status)
         {
              case OrderStatus.Delivered:
@@ -67,11 +66,11 @@
                 <div class="IDs">
                     <span class="client">
                         <span class="id-title">Client:</span>
-                        <span class="id-value"> #@order.Client.UniqueId </span>
+                        <span class="id-value"> #<span class="activeClientUniqueId">@order.Client.UniqueId</span></span>
                     </span>
                     <span class="product">
                         <span class="id-title">Product:</span>
-                        <span class="id-value"> #@order.Product.Sku</span>
+                        <span class="id-value"> #<span class="activeProductSku">@order.Product.Sku</span></span>
                     </span>
                 </div>
                 <div class="amount-price">

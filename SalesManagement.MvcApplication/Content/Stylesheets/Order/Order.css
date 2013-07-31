@@ -1,4 +1,6 @@
-﻿div#matchingClients, div#matchingProducts,div#popupSummaryWrapper {
+﻿div#matchingClients,
+div#matchingProducts,
+div#popupSummaryWrapper {
     position: relative;
 }
 
