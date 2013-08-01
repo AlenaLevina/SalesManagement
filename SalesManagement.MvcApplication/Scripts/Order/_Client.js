@@ -1,4 +1,6 @@
-﻿(function() {
+﻿console.log("_Client.js is loaded");
+//$.getScript("/Scripts/_Shared/_PopupWindow.js");
+(function () {
     var clientPopupWindowSettings = {
         checkmarkImageSelector: "#chooseThisClient",
         previousEntityLinkId: "previousClient",

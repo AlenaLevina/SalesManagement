@@ -71,3 +71,9 @@ div.summary {
 /*div#popupSummaryWrapper {
     background-color: red;
 }*/
+
+div.entityInfo {
+    top: -10px;
+    left: 125px;
+
+}

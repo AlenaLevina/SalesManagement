@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿console.log("CreateClient.js is loaded");
+$(document).ready(function () {
     if ($("#ActionType").attr("value") == "Create") $("#ClientId").focus(getClientId);
 });
 

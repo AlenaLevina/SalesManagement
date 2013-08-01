@@ -1,16 +1,18 @@
-﻿//console.log("ClientPopupWindow loaded");
+﻿console.log("_ClientPopupWindow.js is loaded");
 ClientPopupWindow = {
-    showClientByUniqueId: function (clientUniqueId, placeholderSelector) {
+    showClientByUniqueId: function (clientUniqueId, placeholderSelector,callback) {
         var url = "/Order/GetClientByUniqueId";
         $(placeholderSelector).load(url, { "uniqueId": clientUniqueId }, function () {
             $(placeholderSelector).fadeIn();
+            if (callback!=undefined&&callback!=null) callback();
         });
     },
-    showClientByfullName: function (position, firstName, lastName, placeHolderSelector) {
+    showClientByfullName: function (position, firstName, lastName, placeHolderSelector,callback) {
         if (!(firstName == "" && lastName == "")) {
             var url = "/Order/GetClientsByFullName";
             $(placeHolderSelector).load(url, { "firstName": firstName, "lastName": lastName, "position": position }, function () {
                 $(placeHolderSelector).fadeIn();
+                if (callback != undefined && callback != null) callback();
             });
         } else {
             $(placeHolderSelector).fadeOut(600);

@@ -1,4 +1,5 @@
-﻿function configuratePopupWindow(popupWindowSettings) {
+﻿console.log("_PopupWindow.js is loaded");
+function configuratePopupWindow(popupWindowSettings) {
     $(document).ready(function () {
         $(popupWindowSettings.checkmarkImageSelector).bind("click", chooseEntity);
         $(popupWindowSettings.previousEntityLinkSelector).click(function(e) {

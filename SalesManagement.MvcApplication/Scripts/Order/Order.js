@@ -1,4 +1,5 @@
-﻿$.getScript("/Scripts/_Shared/_ClientPopupWindow.js");
+﻿console.log("Order.js is loaded");
+$.getScript("/Scripts/_Shared/_ClientPopupWindow.js");
 $.getScript("/Scripts/_Shared/_ProductPopupWindow.js");
 
 

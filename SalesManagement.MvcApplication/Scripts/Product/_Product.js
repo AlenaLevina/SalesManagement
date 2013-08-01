@@ -1,4 +1,6 @@
-﻿var productPopupWindowSettings = {
+﻿console.log("_Product.js is loaded");
+//$.getScript("/Scripts/_Shared/_PopupWindow.js");
+var productPopupWindowSettings = {
     checkmarkImageSelector: "#chooseThisProduct",
     previousEntityLinkId: "previousProduct",
     previousEntityLinkSelector: "#previousProduct",

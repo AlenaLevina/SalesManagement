@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿console.log("Create.js is loaded");
+$(document).ready(function () {
     if ($("#ActionType").attr("value")=="Create") $("#Sku").focus(getSku);
     $("#CategoryId").change(function() {
         var categoryId = this.value;
