@@ -185,6 +185,7 @@
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\cross50.png" />
+    <Content Include="Content\Images\edit.png" />
     <Content Include="Content\Images\refused.png" />
     <Content Include="Content\Images\delivered.png" />
     <Content Include="Content\Images\female.png" />

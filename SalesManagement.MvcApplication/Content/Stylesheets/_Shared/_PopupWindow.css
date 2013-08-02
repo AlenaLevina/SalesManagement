@@ -16,6 +16,7 @@ div.entityInfo div.post.notFound {
 div.entityInfo {
     position: absolute;
     width: 400px;
+    z-index: 2;
 }
 
 div.entityInfo span.narrow {

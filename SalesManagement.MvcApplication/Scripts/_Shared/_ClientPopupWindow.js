@@ -3,8 +3,8 @@ ClientPopupWindow = {
     showClientByUniqueId: function (clientUniqueId, placeholderSelector,callback) {
         var url = "/Order/GetClientByUniqueId";
         $(placeholderSelector).load(url, { "uniqueId": clientUniqueId }, function () {
+            if (callback != undefined && callback != null) callback();
             $(placeholderSelector).fadeIn();
-            if (callback!=undefined&&callback!=null) callback();
         });
     },
     showClientByfullName: function (position, firstName, lastName, placeHolderSelector,callback) {

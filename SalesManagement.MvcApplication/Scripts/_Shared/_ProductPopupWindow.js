@@ -4,8 +4,8 @@ ProductPopupWindow = {
     showProductBySku: function (productSku, placeholderSelector,callback) {
         var url = "/Product/GetProductBySku";
         $(placeholderSelector).load(url, { "sku": productSku }, function () {
-            $(placeholderSelector).fadeIn();
             if (callback != undefined && callback != null) callback();
+            $(placeholderSelector).fadeIn();
         });
     },
     showProductByName: function (position, name, placeholderSelector,callback) {

@@ -427,3 +427,19 @@ div#currentProduct {
     display: none;
     position: relative;
 }
+
+span.activeClientUniqueId,
+span.activeProductSku {
+    text-decoration: underline;
+}
+
+span.activeClientUniqueId:hover,
+span.activeProductSku:hover {
+    text-decoration: none;
+    color: #C25700;
+}
+
+span.activeClientName span.activeClientUniqueId,
+span.activeProductName span.activeProductSku {
+    display: none;
+}

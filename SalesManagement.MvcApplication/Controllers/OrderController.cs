@@ -225,7 +225,7 @@ namespace SalesManagement.MvcApplication.Controllers
             return Json(new { result = idExists }, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = RoleNames.EmployeeActionsRoleName)]
+        [Authorize(Roles = RoleNames.AllRoleNames)]
         public ActionResult GetClientByUniqueId(int uniqueId)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();

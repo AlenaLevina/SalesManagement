@@ -1,4 +1,6 @@
-﻿div.entityListItem {
+﻿/************* General (from _EntityListItem.css) ***********************/
+
+div.entityListItem {
     padding: 1%;
     border-radius: 5px;
     /*background-color: #FFEEDF;*/ /*min-height: 70px;*/
@@ -37,10 +39,10 @@ div.entityListItem h4 a {
 }
 
 div.entityListItem h4 a:hover {
-    background-color: rgba(0,0,0,0.1);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
-    border-radius: 10px;
+    /*background-color: rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
+    border-radius: 10px;*/
 }
 
 
@@ -72,6 +74,8 @@ div.bottomBordered {
     width: 100%;
 }
 
+
+
 /***********************************************************/
 
 
@@ -101,11 +105,22 @@ div.IDs {
     font-weight: bold;
 }
 
-span.clientName {
+span.activeClientName,
+span.activeProductName {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+span.activeClientName:hover,
+span.activeProductName:hover {
+    text-decoration: none;
+}
+
+span.activeClientName {
     color: #FEA55C;
 }
 
-span.productName {
+span.activeProductName {
     color: #C95B01;
 }
 
@@ -154,24 +169,38 @@ div.deliveryInfo span.infoItem {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#0B000000, endColorstr=#0B000000)";/* For IE 8*/
 }
 
-a.orderStatusLink {
+a.orderStatusLink,
+a.orderActionLink {
     display: inline-block;
 }
 
-img.orderStatusLink {
+img.orderStatusLink,
+img.orderActionLink {
     height: 14px;
     opacity: 0.25;
     padding: 1px;
     border-radius: 5px;
     border: black solid 2px;
+    z-index: 1;
 }
-img.orderStatusLink:hover {
+img.orderStatusLink:hover,
+img.orderActionLink:hover {
     opacity: 0.5;
 }
 
-div.orderStatusLinks {
+div.orderStatusLinks,
+div.orderActionLinks {
     float: right;
 }
+
+div.orderActionLinks {
+    margin-left: 5px;
+    padding-left: 5px;
+    border-left-style: dotted;
+    border-left-width: 1px;
+    border-left-color: #6F6978;
+}
+
 
 div.entityListItem.delivered img.delivered,
 div.entityListItem.paid img.paid,
@@ -191,3 +220,6 @@ div.entityListItem.unpaid img.unpaid {
 div.entityListItem.refused img.refused {
     opacity: 0.1;
 }*/
+
+
+/**********************************************/
