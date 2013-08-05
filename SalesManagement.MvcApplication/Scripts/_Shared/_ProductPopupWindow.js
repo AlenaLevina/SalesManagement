@@ -1,11 +1,12 @@
 ﻿console.log("_ProductPopupWindow.js is loaded");
 
 ProductPopupWindow = {
-    showProductBySku: function (productSku, placeholderSelector,callback) {
+    showProductBySku: function (productSku, placeholderSelector,callbackBefore,callbackAfter) {
         var url = "/Product/GetProductBySku";
         $(placeholderSelector).load(url, { "sku": productSku }, function () {
-            if (callback != undefined && callback != null) callback();
+            if (callbackBefore != undefined && callbackBefore != null) callbackBefore();
             $(placeholderSelector).fadeIn();
+            if (callbackAfter != undefined && callbackAfter != null) callbackAfter();
         });
     },
     showProductByName: function (position, name, placeholderSelector,callback) {

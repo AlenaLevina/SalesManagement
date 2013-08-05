@@ -1,10 +1,11 @@
 ﻿console.log("_ClientPopupWindow.js is loaded");
 ClientPopupWindow = {
-    showClientByUniqueId: function (clientUniqueId, placeholderSelector,callback) {
+    showClientByUniqueId: function (clientUniqueId, placeholderSelector,callbackBefore,callbackAfter) {
         var url = "/Order/GetClientByUniqueId";
         $(placeholderSelector).load(url, { "uniqueId": clientUniqueId }, function () {
-            if (callback != undefined && callback != null) callback();
+            if (callbackBefore != undefined && callbackBefore != null) callbackBefore();
             $(placeholderSelector).fadeIn();
+            if (callbackAfter != undefined && callbackAfter != null) callbackAfter();
         });
     },
     showClientByfullName: function (position, firstName, lastName, placeHolderSelector,callback) {

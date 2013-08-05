@@ -70,20 +70,18 @@
         }
     </div>
 </div>
-@*<script type="text/javascript" src="~/Scripts/_Shared/_PopupWindow.js"></script>
-<script type="text/javascript" src="~/Scripts/Product/_Product.js"></script>*@
+<script type="text/javascript" src="~/Scripts/_Shared/_PopupWindow.js"></script>
+<script type="text/javascript" src="~/Scripts/Product/_Product.js"></script>
 <script>
-    $(document).ready(function () {
-        $.usingScript("/Scripts/_Shared/_PopupWindow.js");
-        $.usingScript("/Scripts/Product/_Product.js");
-        if ($("head link[href='/Content/Stylesheets/Product/_Product.css']").length==0){
-            $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/Product/_Product.css")"/>').appendTo('head');
+    //$.usingScript("/Scripts/_Shared/_PopupWindow.js");
+    //$.usingScript("/Scripts/Product/_Product.js");
+    if ($("head link[href='/Content/Stylesheets/Product/_Product.css']").length == 0) {
+        $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/Product/_Product.css")"/>').appendTo('head');
         }
-        if ($("head link[href='/Content/Stylesheets/_Shared/_PopupWindow.css']").length == 0){
+        if ($("head link[href='/Content/Stylesheets/_Shared/_PopupWindow.css']").length == 0) {
             $('<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Stylesheets/_Shared/_PopupWindow.css")"/>').appendTo('head');
         }
-        
-    });
+    
 </script>
 
 

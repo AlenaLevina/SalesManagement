@@ -3,7 +3,7 @@
 }
 
 span.productName {
-    color: #6F6966;
+    color: #6F6966 !important;
 }
 
 span.categoryName {

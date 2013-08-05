@@ -91,3 +91,9 @@ div.debug:hover {
 div.subArea a:hover {
     background-color: rgba(111, 105, 102, 0.1);
 }
+
+div#salesChart {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 300px;
+}
