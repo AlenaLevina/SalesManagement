@@ -25,6 +25,8 @@ namespace Model
 
         public OrderStatus Status { get; set; }
 
+        public DateTime RegistrationDate { get; set; }
+
         #endregion
 
 
@@ -61,6 +63,7 @@ namespace Model
             Product = order.Product;
             EmployeeId = order.EmployeeId;
             Employee = order.Employee;
+            RegistrationDate = order.RegistrationDate;
         }
 
         public float GetTotalPrice()

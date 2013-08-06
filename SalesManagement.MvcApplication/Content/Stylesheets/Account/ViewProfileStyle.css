@@ -92,8 +92,40 @@ div.subArea a:hover {
     background-color: rgba(111, 105, 102, 0.1);
 }
 
-div#salesChart {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 300px;
+
+div#charts {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+div#chartsMenu {
+    text-align: center;
+}
+
+div#chartsMenu div,
+.notchosenbutton {
+    background-position: bottom;
+    /*border: 1px solid #C4742E;*/
+    display: inline-block;
+    background-image: url('../../Images/button-sprite.png');
+    background-color: #FFE1C7;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    background-repeat: repeat-x;
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.5) /* #C4742E*/;
+}
+
+
+div#chartsMenu div:hover,
+.chosenbutton {
+    background-position: bottom;
+    /*border: 1px solid #D78434;*/
+    background-image: url('../../Images/button-sprite-hover.png');
+    background-color: #FFEFDB;
+    background-repeat: repeat-x;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px 1px rgba(100, 100, 100, 0.5) /* #C4742E*/;
+}
+

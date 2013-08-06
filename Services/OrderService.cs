@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Helpers;
 using Contracts;
+using Contracts.DerivedEntities;
 using Data.Exceptions;
 using Data.Repositories;
 using Model;
@@ -72,7 +74,7 @@ namespace Services
             order.ClientId = clientId;
             order.ProductId = productId;
             order.EmployeeId = employeeId;
-            order.DeliveryDate = DateTime.Now;
+            order.RegistrationDate = DateTime.Now;
             order.Price = price;
             order.Status = OrderStatus.Unpaid;
             GetRepository<IOrderRepository>().Create(order);
@@ -140,6 +142,23 @@ namespace Services
             var order = orderRepo.Get(orderId);
             order.Status = status;
             orderRepo.Update(order);
+        }
+
+        public IEnumerable<DateAmountOrderStatistic> GetMonthlyOrderAmountStatistics(string employeeLogin,DateTime afterDate)
+        {
+            if (employeeLogin == null) throw new ArgumentNullException("employeeLogin");
+            afterDate.AddDays(1 - afterDate.Day);
+            var employeeId = GetRepository<IUserRepository>().GetByLogin(employeeLogin).Id;
+            var orders = GetRepository<IOrderRepository>().GetAllByEmployeeId(employeeId, afterDate);
+            return
+                orders.Where(order=>order.Status==OrderStatus.Delivered||order.Status==OrderStatus.Paid).GroupBy(order => new Tuple<int, int>(order.RegistrationDate.Month, order.RegistrationDate.Year))
+                      .Select(
+                          groupedOrders =>
+                          new DateAmountOrderStatistic
+                              {
+                                  Date = new DateTime(groupedOrders.Key.Item2, groupedOrders.Key.Item1, 1),
+                                  OrderAmount = groupedOrders.Count()
+                              }).OrderByDescending(o => o.Date);
         }
     }
 }

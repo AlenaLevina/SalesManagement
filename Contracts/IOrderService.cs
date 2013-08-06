@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Contracts.DerivedEntities;
 using Model;
 
 namespace Contracts
@@ -20,5 +22,6 @@ namespace Contracts
         void DeleteOrder(int id);
         IEnumerable<Order> GetOrdersByEmployeeLogin(string login);
         void ChangeStatus(int orderId, OrderStatus status);
+        IEnumerable<DateAmountOrderStatistic> GetMonthlyOrderAmountStatistics(string employeeLogin,DateTime afterDate);
     }
 }

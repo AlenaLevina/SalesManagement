@@ -178,11 +178,13 @@
       <DependentUpon>SalesManagement.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Images\attention.png" />
+    <Content Include="Content\Images\button-sprite.png" />
     <Content Include="Content\Images\check.png" />
     <Content Include="Content\Images\check50.png" />
     <Content Include="Content\Images\chosen.png" />
     <Content Include="Content\Images\close_frame .png" />
     <Content Include="Content\Images\close.png" />
+    <Content Include="Content\Images\button-sprite-hover.png" />
     <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\cross50.png" />
     <Content Include="Content\Images\edit.png" />
@@ -229,12 +231,15 @@
     <Content Include="Content\Stylesheets\_Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Account\EditProfile.js" />
-    <Content Include="Scripts\jQuery-ui.1.10.3.js" />
+    <Content Include="Scripts\Account\ViewProfile.js" />
+    <Content Include="Scripts\_Libraries\highcharts.js" />
+    <Content Include="Scripts\_Libraries\jQuery-ui.1.10.3.js" />
     <Content Include="Scripts\Order\CreateClient.js" />
     <Content Include="Scripts\Order\Order.js" />
     <Content Include="Scripts\Order\_Client.js" />
     <Content Include="Scripts\Product\Create.js" />
     <Content Include="Scripts\Product\_Product.js" />
+    <Content Include="Scripts\_Libraries\moment.js" />
     <Content Include="Scripts\_Shared\_Main.js" />
     <Content Include="Scripts\_Shared\_ClientPopupWindow.js" />
     <Content Include="Scripts\_Shared\_PopupWindow.js" />
@@ -308,7 +313,7 @@
     <Content Include="Views\Product\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jQuery.1.10.2.js" />
+    <Content Include="Scripts\_Libraries\jQuery.1.10.2.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Clients.cshtml" />

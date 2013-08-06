@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data.Repositories;
 using System.Linq;
 using Model;
@@ -14,6 +15,11 @@ namespace Data.EF.Repositories
         public IEnumerable<Order> GetAllByEmployeeId(int id)
         {
             return Context.Orders.Where(e => e.EmployeeId.Equals(id));
+        }
+
+        public IEnumerable<Order> GetAllByEmployeeId(int id, DateTime afterDate)
+        {
+            return Context.Orders.Where(e => e.EmployeeId.Equals(id) && e.RegistrationDate >= afterDate);
         }
     }
 }

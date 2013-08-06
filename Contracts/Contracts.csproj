@@ -38,6 +38,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DerivedEntities\DateAmountOrderStatistic.cs" />
     <Compile Include="IMembershipService.cs" />
     <Compile Include="IOrderService.cs" />
     <Compile Include="IProductService.cs" />

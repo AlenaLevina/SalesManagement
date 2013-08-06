@@ -281,6 +281,7 @@ namespace SalesManagement.MvcApplication.Controllers
             return PartialView("_OrderSummary", partialViewModel);
         }
 
+        [Authorize(Roles = RoleNames.AllRoleNames)]
         public ActionResult ValidateOrderModel(OrderViewModel model)
         {
             if (model == null) throw new ArgumentNullException("model");
@@ -296,6 +297,25 @@ namespace SalesManagement.MvcApplication.Controllers
                         }).ToList();
             //return Json(new string[0], JsonRequestBehavior.AllowGet);
             return Json(modelStateErrors, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetMonthlyOrderAmountStatistics(string employeeLogin,int monthsAmount)
+        {
+            if (employeeLogin == null) throw new ArgumentNullException("employeeLogin");
+
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var afterDate = DateTime.Now.AddMonths(-monthsAmount);
+            var orderStatistics = service.GetMonthlyOrderAmountStatistics(employeeLogin, afterDate).ToList();
+            var result =
+                new
+                    {
+                        dates = orderStatistics.Select(statistics => statistics.Date.ToShortDateString()),
+                        amounts = orderStatistics.Select(statistics => statistics.OrderAmount)
+                    };
+                //orderStatistics.Select(os => new {date = os.Date.ToShortDateString(), amount = os.OrderAmount});
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

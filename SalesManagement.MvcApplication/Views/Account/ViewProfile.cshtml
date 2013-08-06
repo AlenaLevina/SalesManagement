@@ -46,17 +46,16 @@
                 <span class="role">@Model.Role</span>
             </div>
         </div>
-        <div id="salesChart">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend.
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend.
-Ut nonummy. Fusce aliquet pede non pede. Suspendisse dapibus lorem pellentesque magna. Integer nulla. Donec blandit feugiat ligula. Donec hendrerit, felis et imperdiet euismod, purus ipsum pretium metus, in lacinia nulla nisl eget sapien. Donec ut est in lectus consequat consequat.
-Etiam eget dui. Aliquam erat volutpat. Sed at lorem in nunc porta tristique. Proin nec augue. Quisque aliquam tempor magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc ac magna.
-Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus sagittis felis. Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue magna vel risus. Cras non magna vel ante adipiscing rhoncus. Vivamus a mi. Morbi neque. Aliquam erat volutpat.
+        <div id="charts">
+            <div id="chartsMenu">
+                <div id="btnStatusChart">Statuses percentage</div>
+                <div id="btnMonthlyAmountChart">Order amount per month</div>
+            </div>
+            <div id="salesChart">
 
-
+            </div>
         </div>
+        
     </div>
 
     <div id="profileLinks">
@@ -65,68 +64,71 @@ Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque 
             @Html.ActionLink("Edit profile", "EditProfile", "Account")
             if (User.IsInRole(RoleNames.EmployeeRoleName))
             {
-            <div id="employeeArea">
-                <h3>Employee panel</h3>
-                <div class="subArea">
-                    <h4>Orders</h4>
-                    @Html.ActionLink("Register new order", "Create", "Order")
-                    @Html.ActionLink("View all", "All", "Order")
-                    @Html.ActionLink("View my orders","My","Order")
-                </div>
-            </div>
-            }
-            if (User.IsInRole(RoleNames.ManagerRoleName))
-            {
-            <div id="managerArea">
-                <h3>Manager panel</h3>
-                <div class="subArea">
-                    <h4>Users</h4>
-                    @Html.ActionLink("Register new employee", "Register", "Account")
-                </div>
-                <div class="subArea">
-                    <h4>Clients</h4>
-                    @Html.ActionLink("Create new", "CreateClient", "Order")
-                    @Html.ActionLink("View all", "Clients", "Order")
-                </div>
-            </div>
-            }
-
-            if (User.IsInRole(RoleNames.AdministratorRoleName))
-            {
-            <div id="adminArea">
-                <h3>Administrator panel</h3>
-                <div class="subArea">
-                    <h4>Users</h4>
-                    @Html.ActionLink("Register new user", "Register", "Account")
-                </div>
-                <div class="subArea">
-                    <h4>Product categories</h4>
-                    @Html.ActionLink("Create new", "CreateCategory", "Product")
-                    @Html.ActionLink("View all and edit", "Categories", "Product")
-                </div>
-                <div class="subArea">
-                    <h4>Products</h4>
-                    @Html.ActionLink("Create new", "Create", "Product")
-                    @Html.ActionLink("View all","Products","Product")
-                </div>
-
-                @if (PreprocessorHelper.IsDebug())
-                {
-                    <div class="subArea debug">
-                        <h4>Clients</h4>
-                        @Html.ActionLink("Create new", "CreateClient", "Order")
-                        @Html.ActionLink("View all", "Clients", "Order")
-                    </div>
-                    
-                    <div class="subArea debug">
+                <div id="employeeArea">
+                    <h3>Employee panel</h3>
+                    <div class="subArea">
                         <h4>Orders</h4>
                         @Html.ActionLink("Register new order", "Create", "Order")
                         @Html.ActionLink("View all", "All", "Order")
                         @Html.ActionLink("View my orders","My","Order")
                     </div>
-                }
-            </div>
+                </div>
+            }
+            if (User.IsInRole(RoleNames.ManagerRoleName))
+            {
+                <div id="managerArea">
+                    <h3>Manager panel</h3>
+                    <div class="subArea">
+                        <h4>Users</h4>
+                        @Html.ActionLink("Register new employee", "Register", "Account")
+                    </div>
+                    <div class="subArea">
+                        <h4>Clients</h4>
+                        @Html.ActionLink("Create new", "CreateClient", "Order")
+                        @Html.ActionLink("View all", "Clients", "Order")
+                    </div>
+                </div>
+            }
+
+            if (User.IsInRole(RoleNames.AdministratorRoleName))
+            {
+                <div id="adminArea">
+                    <h3>Administrator panel</h3>
+                    <div class="subArea">
+                        <h4>Users</h4>
+                        @Html.ActionLink("Register new user", "Register", "Account")
+                    </div>
+                    <div class="subArea">
+                        <h4>Product categories</h4>
+                        @Html.ActionLink("Create new", "CreateCategory", "Product")
+                        @Html.ActionLink("View all and edit", "Categories", "Product")
+                    </div>
+                    <div class="subArea">
+                        <h4>Products</h4>
+                        @Html.ActionLink("Create new", "Create", "Product")
+                        @Html.ActionLink("View all","Products","Product")
+                    </div>
+
+                    @if (PreprocessorHelper.IsDebug())
+                    {
+                        <div class="subArea debug">
+                            <h4>Clients</h4>
+                            @Html.ActionLink("Create new", "CreateClient", "Order")
+                            @Html.ActionLink("View all", "Clients", "Order")
+                        </div>
+                    
+                        <div class="subArea debug">
+                            <h4>Orders</h4>
+                            @Html.ActionLink("Register new order", "Create", "Order")
+                            @Html.ActionLink("View all", "All", "Order")
+                            @Html.ActionLink("View my orders","My","Order")
+                        </div>
+                    }
+                </div>
             }
         }
     </div>
+    <script type="text/javascript" src="~/Scripts/_Libraries/highcharts.js"></script>
+    <script type="text/javascript" src="~/Scripts/Account/ViewProfile.js"></script>
+    <script type="text/javascript" src="~/Scripts/_Libraries/moment.js"></script>
 }
