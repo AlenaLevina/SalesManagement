@@ -304,6 +304,7 @@ namespace SalesManagement.MvcApplication.Controllers
         {
             if (employeeLogin == null) throw new ArgumentNullException("employeeLogin");
 
+            //TODO maybe use Dictionary<K,V> in service implementation instead of class?
             var service = DependencyResolver.Current.Resolve<IOrderService>();
             var afterDate = DateTime.Now.AddMonths(-monthsAmount);
             var orderStatistics = service.GetMonthlyOrderAmountStatistics(employeeLogin, afterDate).ToList();
@@ -315,6 +316,17 @@ namespace SalesManagement.MvcApplication.Controllers
                     };
                 //orderStatistics.Select(os => new {date = os.Date.ToShortDateString(), amount = os.OrderAmount});
 
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = RoleNames.AllRoleNames)]
+        public ActionResult GetStatusesPercentageStatistics(string employeeLogin, int monthsAmount)
+        {
+            if (employeeLogin == null) throw new ArgumentNullException("employeeLogin");
+
+            var service = DependencyResolver.Current.Resolve<IOrderService>();
+            var afterDate = DateTime.Now.AddMonths(-monthsAmount);
+            var result = service.GetStatusesPercentageStatistics(employeeLogin, afterDate).OrderByDescending(pair=>pair.Value).ToArray();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

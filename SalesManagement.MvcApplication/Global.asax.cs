@@ -7,7 +7,9 @@ using System.Web.Security;
 using AutoMapper;
 using Contracts;
 using Data.EF.Migrations;
+using SalesManagement.MvcApplication.Binders;
 using DependencyResolver = Common.Dependency.DependencyResolver;
+
 namespace SalesManagement.MvcApplication
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -22,8 +24,12 @@ namespace SalesManagement.MvcApplication
             MigrationHelper.Prepare();
 
             DependencyResolver.SetResolver(new SalesManagementDependencyResolver());
+
             StartDbHelper.Prepare();
+
             Mapper.Initialize(config=>config.AddProfile<SalesManagementProfile>());
+
+            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

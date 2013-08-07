@@ -11,7 +11,7 @@
 }
 
 @section MainContent{
-    <div id="profileInfo">
+    <div id="profileInfo" class="profileArea">
         <div id="profilePhoto">
             @if (Model.ImageUrl != null)
             {
@@ -46,25 +46,40 @@
                 <span class="role">@Model.Role</span>
             </div>
         </div>
-        <div id="charts">
-            <div id="chartsMenu">
-                <div id="btnStatusChart">Statuses percentage</div>
-                <div id="btnMonthlyAmountChart">Order amount per month</div>
-            </div>
-            <div id="salesChart">
-
-            </div>
-        </div>
+        
         
     </div>
+    
+    @if (User.IsInRole(RoleNames.EmployeeRoleName)||User.IsInRole(RoleNames.AdministratorRoleName))
+    {
+        <div class="profileArea">
+            <h3>My statistics</h3>
+            <div id="charts">
+                <div id="chartsMenu">
+                    <div id="btnStatusChart">Statuses percentage</div>
+                    <div id="btnMonthlyAmountChart">Order amount per month</div>
+                </div>
+                <div id="salesChart">
+
+                </div>
+            </div>
+        </div>
+    }
 
     <div id="profileLinks">
-        @if (Context.User.Identity.Name.Equals(Model.Login, StringComparison.OrdinalIgnoreCase))
+       @if (Context.User.Identity.Name.Equals(Model.Login, StringComparison.OrdinalIgnoreCase))
         {
-            @Html.ActionLink("Edit profile", "EditProfile", "Account")
+            <div class="profileArea">
+                <h3>User panel</h3>
+                <div class="subArea">
+                    <h4>Profile</h4>
+                    @Html.ActionLink("Edit profile", "EditProfile", "Account")
+                </div>
+            </div>
+            
             if (User.IsInRole(RoleNames.EmployeeRoleName))
             {
-                <div id="employeeArea">
+                <div id="employeeArea" class="profileArea">
                     <h3>Employee panel</h3>
                     <div class="subArea">
                         <h4>Orders</h4>
@@ -76,7 +91,7 @@
             }
             if (User.IsInRole(RoleNames.ManagerRoleName))
             {
-                <div id="managerArea">
+                <div id="managerArea" class="profileArea">
                     <h3>Manager panel</h3>
                     <div class="subArea">
                         <h4>Users</h4>
@@ -92,7 +107,7 @@
 
             if (User.IsInRole(RoleNames.AdministratorRoleName))
             {
-                <div id="adminArea">
+                <div id="adminArea" class="profileArea">
                     <h3>Administrator panel</h3>
                     <div class="subArea">
                         <h4>Users</h4>

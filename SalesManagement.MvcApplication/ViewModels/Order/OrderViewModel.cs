@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Model;
 
 namespace SalesManagement.MvcApplication.ViewModels.Order
@@ -8,6 +9,7 @@ namespace SalesManagement.MvcApplication.ViewModels.Order
         public int? ClientUniqueId { get; set; }//
         public int? ProductSku { get; set; } //
         public int? Amount { get; set; }
+        [DisplayFormat(DataFormatString = GlobalConstants.DateTimeFormat, ApplyFormatInEditMode = true)]
         public DateTime? DeliveryDate { get; set; }
         public string DeliveryAddress { get; set; }
         public string ContactPhoneNumber { get; set; }

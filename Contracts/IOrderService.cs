@@ -23,5 +23,6 @@ namespace Contracts
         IEnumerable<Order> GetOrdersByEmployeeLogin(string login);
         void ChangeStatus(int orderId, OrderStatus status);
         IEnumerable<DateAmountOrderStatistic> GetMonthlyOrderAmountStatistics(string employeeLogin,DateTime afterDate);
+        IDictionary<string,int> GetStatusesPercentageStatistics(string employeeLogin, DateTime afterDate);
     }
 }
