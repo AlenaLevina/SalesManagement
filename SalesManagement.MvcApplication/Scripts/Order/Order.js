@@ -204,35 +204,35 @@ function getClientPhone() {
 function summary(e) {
     e.preventDefault();
     var validartionUrl = "/Order/ValidateOrderModel";
-    $("form").attr("action", validartionUrl);
-    $("#submit").click();
+    //$("form").attr("action", validartionUrl);
+    //$("#submit").click();
 
-    //var formInputs = $("form .model");
-    //var orderModel = {};
-    //for (var i = 0; i < formInputs.length; i++) {
-    //    orderModel[formInputs[i].id] = formInputs[i].value;
-    //}
-    //$.get(validartionUrl, orderModel, function (errors) {
-    //    var valid = true;
-    //    for (var i = 0; i < errors.length; i++) {
-    //        var error = errors[i];
-    //        var selector = "[data-valmsg-for='" + error.elementId + "']";
-    //        var notificationElement = $(selector);
-    //        notificationElement.removeClass("field-validation-valid").addClass("field-validation-error");
-    //        var notification = notificationElement[0];
-    //        if (notification != undefined) {
-    //            var message = error.message;
-    //            notification.innerText = message;
-    //            if (message != "") {
-    //                notificationElement.show();
-    //                valid = false;
-    //            } else {
-    //                notificationElement.hide();
-    //            }
-    //        }
-    //    }
-    //    if (valid) showSummary();
-    //}, "json");
+    var formInputs = $("form .model");
+    var orderModel = {};
+    for (var i = 0; i < formInputs.length; i++) {
+        orderModel[formInputs[i].id] = formInputs[i].value;
+    }
+    $.post(validartionUrl, orderModel, function (errors) {
+        var valid = true;
+        for (var i = 0; i < errors.length; i++) {
+            var error = errors[i];
+            var selector = "[data-valmsg-for='" + error.elementId + "']";
+            var notificationElement = $(selector);
+            notificationElement.removeClass("field-validation-valid").addClass("field-validation-error");
+            var notification = notificationElement[0];
+            if (notification != undefined) {
+                var message = error.message;
+                notification.innerText = message;
+                if (message != "") {
+                    notificationElement.show();
+                    valid = false;
+                } else {
+                    notificationElement.hide();
+                }
+            }
+        }
+        if (valid) showSummary();
+    }, "json");
 
     function showSummary() {
         var summaryUrl = "/Order/GetOrderSummary";

@@ -149,7 +149,8 @@ div#chartsMenu div:hover,.chosenbutton{
 }
 
 .chosenbutton {
-    border: 1px solid #C4742E;
+    /*border: 1px solid #C4742E;*/
+    background-image: url('../../Images/button-sprite.png');
     box-shadow: none;
 }
 
