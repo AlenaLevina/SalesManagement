@@ -170,6 +170,12 @@ namespace Services
             GetRepository<IProductRepository>().Delete(id);
         }
 
+        public void DeleteProductBySku(int sku)
+        {
+            var productRepo = GetRepository<IProductRepository>();
+            productRepo.Delete(productRepo.GetIdBySku(sku));
+        }
+
         public IEnumerable<Product> GetAvailableProductsByName(string name)
         {
             return GetRepository<IProductRepository>().GetAvailableByName(name);
@@ -184,6 +190,14 @@ namespace Services
         public bool ProductItemsAvailable(int productSku, int itemsAmount)
         {
             return GetRepository<IProductRepository>().GetBySku(productSku).Amount >= itemsAmount;
+        }
+
+        public void ChangeStatus(int sku, ProductStatus status)
+        {
+            var productRepo = GetRepository<IProductRepository>();
+            var product = productRepo.GetBySku(sku);
+            product.Status = status;
+            productRepo.Update(product);
         }
 
 

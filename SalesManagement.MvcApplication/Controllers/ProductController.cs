@@ -157,10 +157,10 @@ namespace SalesManagement.MvcApplication.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleNames.AdministratorRoleName)]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int sku)
         {
             var service = DependencyResolver.Current.Resolve<IProductService>();
-            service.DeleteProduct(id);
+            service.DeleteProductBySku(sku);
             return Redirect(Url.Action("Products"));
         }
 
@@ -170,6 +170,13 @@ namespace SalesManagement.MvcApplication.Controllers
             var service = DependencyResolver.Current.Resolve<IProductService>();
             var products = service.GetAllProducts();
             return View(ProductsViewModelBuilder.Build(products));
+        }
+
+        [Authorize(Roles = RoleNames.AdministratorRoleName)]
+        public ActionResult ChangeStatus(int sku, ProductStatus status)
+        {
+            DependencyResolver.Current.Resolve<IProductService>().ChangeStatus(sku, status);
+            return Redirect(Url.Action("Products"));
         }
 
         #region JS actions

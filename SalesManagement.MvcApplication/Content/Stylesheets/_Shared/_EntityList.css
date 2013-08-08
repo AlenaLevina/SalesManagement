@@ -1,4 +1,6 @@
-﻿div.entityListItem {
+﻿div.entityListItem
+
+ {
     padding: 1%;
     border-radius: 5px;
     background-color: #FFEEDF; /*min-height: 70px;*/
@@ -8,12 +10,12 @@
     width: 98%;
 }
 
-div.entityListItem:hover {
+/*div.entityListItem:hover {
     background-color: #FFE3CA;
-}
+}*/
 
 div.entityListItem div.name {
-    width: 587px;
+    /*width: 587px;*/
     float: left;
 }
 
@@ -21,9 +23,9 @@ div.editLink, div.deleteLink {
     text-align: right;
 }
 
-div.entityListItem div a {
+/*div.entityListItem div a {
     display: block;
-}
+}*/
 
 div.entityListItem div.deleteLink {
     width: 50px;
@@ -38,8 +40,8 @@ div.entityListItem h4 a {
 
 div.entityListItem h4 a:hover {
     background-color: rgba(0,0,0,0.1);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
     border-radius: 5px;
 }
 
@@ -56,8 +58,8 @@ div.deleteLink a {
 
 div.deleteLink a:hover {
     background-color: rgba(0,0,0,0.1);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);/* For IE 5.5 - 7*/
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";/* For IE 8*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
     font-weight: bold;
     border-radius: 3px;
     color: #C10000;
@@ -71,3 +73,38 @@ div.bottomBordered {
     float: left;
     width: 100%;
 }
+
+a.entityStatusLink,
+a.entityActionLink {
+    display: inline-block;
+}
+
+img.entityStatusLink,
+img.entityActionLink {
+    height: 14px;
+    opacity: 0.3;
+    padding: 1px;
+    border-radius: 5px;
+    border: black solid 2px;
+    z-index: 1;
+}
+
+img.entityStatusLink:hover,
+img.entityActionLink:hover {
+    opacity: 0.5;
+}
+
+div.entityStatusLinks,
+div.entityActionLinks {
+    float: right;
+}
+
+div.entityActionLinks {
+    margin-left: 5px;
+    padding-left: 5px;
+    border-left-style: dotted;
+    border-left-width: 1px;
+    border-left-color: #6F6978;
+}
+
+

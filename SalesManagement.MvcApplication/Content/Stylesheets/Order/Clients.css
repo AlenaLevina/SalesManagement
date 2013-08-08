@@ -11,7 +11,26 @@ div.fullName{
     text-transform: capitalize;
 }
 
-div.phoneNumber {
+/*div.phoneNumber {
     font-size: 13px;
+}*/
+
+div.additionalInfo div.heading {
+    margin-bottom: 5px;
+}
+
+div.heading span {
+    font-weight: bold;
+}
+
+div.heading span.uniqueId {
+    float: left;
+}
+div.heading span.phoneNumber {
+    float: right
+}
+
+div.name h4 span.clientName {
+    color: #C95B01;
 }
 

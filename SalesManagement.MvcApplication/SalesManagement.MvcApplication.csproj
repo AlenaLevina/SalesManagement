@@ -179,6 +179,7 @@
       <DependentUpon>SalesManagement.mdf</DependentUpon>
     </Content>
     <Content Include="Content\Images\attention.png" />
+    <Content Include="Content\Images\available.png" />
     <Content Include="Content\Images\button-sprite.png" />
     <Content Include="Content\Images\check.png" />
     <Content Include="Content\Images\check50.png" />
@@ -188,6 +189,7 @@
     <Content Include="Content\Images\button-sprite-hover.png" />
     <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\cross50.png" />
+    <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Images\edit.png" />
     <Content Include="Content\Images\refused.png" />
     <Content Include="Content\Images\delivered.png" />
@@ -215,6 +217,8 @@
     <Content Include="Content\Images\noimage.png" />
     <Content Include="Content\Images\notchosen.png" />
     <Content Include="Content\Images\paid.png" />
+    <Content Include="Content\Images\temporary-unavailable.png" />
+    <Content Include="Content\Images\unavailable.png" />
     <Content Include="Content\Images\unpaid.png" />
     <Content Include="Content\Stylesheets\Account\ViewProfileStyle.css" />
     <Content Include="Content\Stylesheets\jquery-ui-1.10.3.custom.css" />

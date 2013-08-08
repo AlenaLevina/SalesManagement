@@ -8,6 +8,7 @@
 
 @section Head{
     <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/Order/Orders.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Stylesheets/_Shared/_EntityList.css"/>
 }
 
 @section MainContent
@@ -49,23 +50,26 @@
                         </span>
                     </h4>
                 </div>
-                <div class="orderActionLinks">
-                    <a class="orderActionLink" href="@Url.Action("Edit", "Order", new {orderId = order.Id})">
-                        <img class="orderActionLink" src="~/Content/Images/edit.png" title="Edit" alt="D"/>
+                <div class="entityActionLinks">
+                    <a class="entityActionLink" href="@Url.Action("Edit", "Order", new {orderId = order.Id})">
+                        <img class="entityActionLink" src="~/Content/Images/edit.png" title="Edit" alt="Edit"/>
+                    </a>
+                    <a class="entityActionLink" href="@Url.Action("Delete","Order",new {orderId=order.Id})">
+                        <img class="entityActionLink" src="~/Content/Images/delete.png" title="Delete" alt="Del"/>
                     </a>
                 </div>
-                <div class="orderStatusLinks">
-                    <a class="orderStatusLink" href="@Url.Action("ChangeStatus", "Order", new {orderId = order.Id,status=OrderStatus.Delivered})">
-                        <img class="orderStatusLink delivered" src="~/Content/Images/delivered.png" title="Mark as delivered" alt="D"/>
+                <div class="entityStatusLinks">
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus", "Order", new {orderId = order.Id,status=OrderStatus.Delivered})">
+                        <img class="entityStatusLink delivered" src="~/Content/Images/delivered.png" title="Mark as delivered" alt="D"/>
                     </a>
-                    <a class="orderStatusLink" href="@Url.Action("ChangeStatus","Order",new {orderId=order.Id,status=OrderStatus.Paid})">
-                        <img class="orderStatusLink paid" src="~/Content/Images/paid.png" title="Mark as paid" alt="P"/>
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus","Order",new {orderId=order.Id,status=OrderStatus.Paid})">
+                        <img class="entityStatusLink paid" src="~/Content/Images/paid.png" title="Mark as paid" alt="P"/>
                     </a>
-                    <a class="orderStatusLink" href="@Url.Action("ChangeStatus","Order",new {orderId=order.Id,status=OrderStatus.Unpaid})">
-                        <img class="orderStatusLink unpaid" src="~/Content/Images/unpaid.png" title="Mark as unpaid" alt="U"/>
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus","Order",new {orderId=order.Id,status=OrderStatus.Unpaid})">
+                        <img class="entityStatusLink unpaid" src="~/Content/Images/unpaid.png" title="Mark as unpaid" alt="U"/>
                     </a>
-                    <a class="orderStatusLink" href="@Url.Action("ChangeStatus", "Order", new {orderId = order.Id,status=OrderStatus.Refused})">
-                        <img class="orderStatusLink refused" src="~/Content/Images/refused.png" title="Mark as refused" alt="R"/>
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus", "Order", new {orderId = order.Id,status=OrderStatus.Refused})">
+                        <img class="entityStatusLink refused" src="~/Content/Images/refused.png" title="Mark as refused" alt="R"/>
                     </a>
                 </div>
                 <div class="status">

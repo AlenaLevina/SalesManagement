@@ -17,15 +17,34 @@
     <h2>
         Products
     </h2>
+
     @foreach (var product in Model.Products)
     {
-        <div class="entityListItem">
+        var statusName = String.Empty;
+        var statusText = String.Empty;
+        switch (product.Status)
+        {
+            case ProductStatus.Available:
+                statusName = "available";
+                statusText = "available";
+                break;
+            case ProductStatus.TemporaryUnavailable:
+                statusName = "temporaryUnavailable";
+                statusText = "temporary unavailable";
+                break;
+            case ProductStatus.Unavailable:
+                statusName = "unavailable";
+                statusText = "unavailable";
+                break;
+        }
+        <div class="entityListItem @statusName">
             <div class="bottomBordered">
                 <div class="name">
                     <h4 >
-                        <a href='@Url.Action("Edit","Product",new {sku=product.Sku})' title="Edit this product">
+                        <span>
                             #@product.Sku
-                            @switch (product.Status)
+                            <span class="status @statusName">(@statusText)</span>
+                            @*@switch (product.Status)
                             {
                                 case ProductStatus.Available:
                                     <span class="status available">(available)</span>
@@ -36,19 +55,34 @@
                                 case ProductStatus.Unavailable:
                                     <span class="status unavailable">(unavailable)</span>
                                     break;
-                            }       
-                        </a>
+                            }*@
+                        </span>
                     </h4>
                 </div>
+                <div class="entityActionLinks">
+                    <a class="entityActionLink" href="@Url.Action("Edit","Product",new {sku=product.Sku})">
+                        <img class="entityActionLink" src="~/Content/Images/edit.png" alt="Edit" title="Edit"/>
+                    </a>
+                    <a class="entityActionLink" href="@Url.Action("Delete","Product",new {sku=product.Sku})">
+                        <img class="entityActionLink" src="~/Content/Images/delete.png" alt="Del" title="Delete"/>
+                    </a>
+                </div>
+                <div class="entityStatusLinks">
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus","Product",new {sku=product.Sku,status=ProductStatus.Available})">
+                        <img class="entityStatusLink" src="~/Content/Images/available.png" alt="A" title="Make availabe"/>
+                    </a>
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus","Product",new {sku=product.Sku,status=ProductStatus.TemporaryUnavailable})">
+                        <img class="entityStatusLink" src="~/Content/Images/temporary-unavailable.png" alt="A" title="Make temporary unavailable"/>
+                    </a>
+                    <a class="entityStatusLink" href="@Url.Action("ChangeStatus","Product",new {sku=product.Sku,status=ProductStatus.Unavailable})">
+                        <img class="entityStatusLink" src="~/Content/Images/unavailable.png" alt="A" title="Make unavailable"/>
+                    </a>
+                </div>
                 <div class="price">
-                    @*<span>Price:</span>*@
                     <span class="amountLeft"><span class="number">@product.Amount</span> items left</span> at price of
                     <span class="number">
-                        @product.Price$, 
+                        @product.Price$
                     </span>
-                </div>
-                <div class="deleteLink">
-                    @Html.ActionLink("Delete","Delete","Product",new {id=product.Id},null)
                 </div>
             </div>
             <div class="clearBoth"></div>

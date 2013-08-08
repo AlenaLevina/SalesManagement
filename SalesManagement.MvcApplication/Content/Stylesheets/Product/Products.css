@@ -39,10 +39,10 @@ div.entityListItem h4 a:hover span.status.temporaryUnavailable {
 
 
 div.price {
-    float: left;
-    width: 281px;
+    float: right;
     padding: 3px;
     text-align: center;
+    margin-right: 10px;
 }
 
 div.name {
@@ -77,4 +77,21 @@ span.productCharacteristic span.characteristicName {
 
 div.productDescription span.name {
     font-weight: bold;
+}
+
+div.entityListItem.available img.available,
+div.entityListItem.temporaryUnavailable img.temporaryUnavailable,
+div.entityListItem.unavailable img.unavailable{
+    opacity: 0.1;
+}
+
+div.entityListItem.available {
+    background-color: #E3EDDC;
+   
+}
+div.entityListItem.temporaryUnavailable {
+    background-color: #FFEED5;
+}
+div.entityListItem.unavailable {
+    background-color: #F9E6E3;
 }
