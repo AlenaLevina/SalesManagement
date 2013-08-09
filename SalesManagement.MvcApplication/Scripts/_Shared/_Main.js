@@ -1,7 +1,19 @@
 ﻿console.log("_Main.js is loaded");
 
 $(document).ready(function () {
-    
+    //$("a.entityStatusLink").click(function(e) {
+    //    e.preventDefault();
+    //    var url=$(this).attr("href");
+    //    $.get(url, null, function () {
+    //        console.log($(this).parent());
+    //        console.log("sent");
+    //    });
+    //});
+
+
+
+
+
     $.usingScript("/Scripts/_Shared/_ClientPopupWindow.js", function () {
         preparePopupWindow("span.activeClientUniqueId", "currentClient", "span.activeClientName",ClientPopupWindow.showClientByUniqueId,"#clientInfo");
     });
@@ -11,59 +23,44 @@ $(document).ready(function () {
     });
     
     function preparePopupWindow(activeIdSelector, currentEntityId, activeNameSelector, showEntityFunction,entityInfoSelector) {
-        var dateStarted;
-        var dateFinished;
-        var holdEnoughName={};
-        var holdEnoughId={};
-        var secondsToHold = 1;
         var currentEntitySelector = "#" + currentEntityId;
 
 
-        $(activeIdSelector).mouseover(function () {
-            dateStarted = new Date();
-            openPopupWindow(holdEnoughId, dateStarted, this, this.innerText, currentEntityId, showEntityFunction, currentEntitySelector, secondsToHold,entityInfoSelector);
+        $(activeIdSelector).click(function () {
+            openPopupWindow(this, this.innerText, currentEntityId, showEntityFunction, currentEntitySelector, entityInfoSelector);
         });
 
         $(activeIdSelector).mouseout(function () {
-            closePopupWindow(dateStarted, secondsToHold, holdEnoughId, currentEntitySelector);
+            closePopupWindow(currentEntitySelector);
         });
 
-        $(activeNameSelector).mouseover(function () {
-            dateStarted = new Date();
-            openPopupWindow(holdEnoughName, dateStarted, this, $(this).find(activeIdSelector)[0].innerText, currentEntityId, showEntityFunction, currentEntitySelector, secondsToHold,entityInfoSelector);
+        $(activeNameSelector).click(function () {
+            openPopupWindow(this, $(this).find(activeIdSelector)[0].innerText, currentEntityId, showEntityFunction, currentEntitySelector,entityInfoSelector);
         });
 
         $(activeNameSelector).mouseout(function () {
-            closePopupWindow(dateStarted, secondsToHold, holdEnoughName, currentEntitySelector);
+            closePopupWindow(currentEntitySelector);
         });
 
     }
 
-    function openPopupWindow(holdEnough, dateStarted, eventSource, uniqueId, currentEntityId, showEntityFunction, currentEntitySelector, secondsToHold,entityInfoSelector) {
-        holdEnough.value = true;
+    function openPopupWindow(eventSource, uniqueId, currentEntityId, showEntityFunction, currentEntitySelector, entityInfoSelector) {
         var popupTop = $(eventSource).offset().top;
         var popupLeft = $(eventSource).offset().left;
-        setTimeout(function () {
-            if (holdEnough.value) {
-                $(currentEntitySelector).fadeOut("slow", function () { $(currentEntitySelector).remove(); });
-                $("body").prepend('<div id="' + currentEntityId + '"></div>');
-                showEntityFunction(uniqueId, currentEntitySelector, function () {
-                    $("img.closeEntityWindow").remove();
-                    $("img.chooseThisEntity").remove();
-                    $("div.entityInfo p.links").remove();
-                    $(currentEntitySelector).css("top", popupTop);
-                    $(currentEntitySelector).css("left", popupLeft);
-                }, function() {
-                    correctPopupWindowPosition(/*"#clientInfo"*/entityInfoSelector, "#content");
-                });
-            }
-        }, secondsToHold * 1000);
+        $(currentEntitySelector).fadeOut("slow", function () { $(currentEntitySelector).remove(); });
+        $("body").prepend('<div id="' + currentEntityId + '" style="display:none;"></div>');
+        showEntityFunction(uniqueId, currentEntitySelector, function () {
+            $("img.closeEntityWindow").remove();
+            $("img.chooseThisEntity").remove();
+            $("div.entityInfo p.links").remove();
+            $(currentEntitySelector).css("top", popupTop);
+            $(currentEntitySelector).css("left", popupLeft);
+        }, function() {
+            correctPopupWindowPosition(entityInfoSelector, "#content");
+        });
     }
     
-    function closePopupWindow(dateStarted, secondsToHold, holdEnough, currentEntitySelector) {
-        var dateFinished = new Date();
-        var holdCursorTime = dateFinished.getTime() - dateStarted.getTime();
-        if (holdCursorTime / 1000 < secondsToHold) holdEnough.value = false;
+    function closePopupWindow(currentEntitySelector) {
         $(currentEntitySelector).fadeOut("slow", function () { $(currentEntitySelector).remove(); });
     }
 
@@ -113,13 +110,37 @@ function correctPopupWindowPosition(popupWindowSelector,popupWindowContainerSele
     var windowRight = window.outerWidth;
     var windowBottom = window.outerHeight;
     var windowLeft = window.pageXOffset;
-    
-    if (windowRight - popupRight < 0) popup.offset({ left: windowRight - popupWidth });
-    if (containerRight - popupRight < 0) popup.offset({ left: containerRight - popupWidth });
-    if (windowBottom - popupBottom < 0) popup.offset({ top: windowBottom - popupHeight });
-    if (containerBottom - popupBottom < 0) popup.offset({ top: containerBottom - popupHeight });
-    if (popupLeft - windowLeft < 0) popup.offset({ left: windowLeft });
-    if (popupLeft - containerLeft < 0) popup.offset({ left: containerLeft });
-    if (popupTop - windowTop < 0) popup.offset({ top: windowTop });
-    if (popupTop - containerTop < 0) popup.offset({ top: containerTop });
+
+    if (windowRight - popupRight < 0) {
+        popup.offset({ left: windowRight - popupWidth });
+        //console.log("on the right of window");
+    }
+    if (containerRight - popupRight < 0) {
+        popup.offset({ left: containerRight - popupWidth });
+        //console.log("on the left of container");
+    }
+    if (windowBottom - popupBottom < 0/* && windowBottom < containerBottom - popupHeight*/) {
+        popup.offset({ top: windowBottom - popupHeight });
+        //console.log("under window");
+    }
+    if (containerBottom - popupBottom < 0/* && windowBottom >= containerBottom - popupHeight*/) {
+        popup.offset({ top: containerBottom - popupHeight });
+        //console.log("under container");
+    }
+    if (popupLeft - windowLeft < 0) {
+        popup.offset({ left: windowLeft });
+        //console.log("to the left of window");
+    }
+    if (popupLeft - containerLeft < 0) {
+        popup.offset({ left: containerLeft });
+        //console.log("to the left of container");
+    }
+    if (popupTop - windowTop < 0) {
+        popup.offset({ top: windowTop });
+        //console.log("above window");
+    }
+    if (popupTop - containerTop < 0) {
+        popup.offset({ top: containerTop });
+        //console.log("above container");
+    }
 }

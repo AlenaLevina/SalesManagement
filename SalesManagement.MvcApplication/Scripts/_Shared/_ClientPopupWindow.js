@@ -22,6 +22,6 @@ ClientPopupWindow = {
     loadClientByFullName: function (position, placeHolderSelector) {
         var firstName = document.getElementById("clientFirstName").value;
         var lastName = document.getElementById("clientLastName").value;
-        this.showClientByfullName(position, firstName, lastName, placeHolderSelector);
+        ClientPopupWindow.showClientByfullName(position, firstName, lastName, placeHolderSelector);
     }
 };

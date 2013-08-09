@@ -23,7 +23,8 @@ namespace SalesManagement.MvcApplication.ViewModelBuilders.Product
                                 Description = p.Description,
                                 Name = p.Name,
                                 Price = p.Price,
-                                Sku = p.Sku
+                                Sku = p.Sku,
+                                Amount = p.Amount
                         }),
                         CurrentProductPosition = currentProductPosition
                 };

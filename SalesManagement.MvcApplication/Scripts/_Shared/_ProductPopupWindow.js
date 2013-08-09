@@ -22,6 +22,6 @@ ProductPopupWindow = {
     },
     loadProductByName: function (position, placeholderSelector) {
         var name = document.getElementById("productName").value;
-        this.showProductByName(position, name, placeholderSelector);
+        ProductPopupWindow.showProductByName(position, name, placeholderSelector);
     }
 };

@@ -10,5 +10,6 @@ namespace SalesManagement.MvcApplication.ViewModels.Product
         public string Description { get; set; }
         public int Sku { get; set; }
         public float Price { get; set; }
+        public int Amount { get; set; }
     }
 }

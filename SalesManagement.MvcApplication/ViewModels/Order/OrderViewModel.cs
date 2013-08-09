@@ -6,6 +6,8 @@ namespace SalesManagement.MvcApplication.ViewModels.Order
 {
     public class OrderViewModel
     {
+        [Required(ErrorMessage = "Client Id is requiered")]
+        [Range(10*GlobalConstants.ClientIdLength,10*(GlobalConstants.ClientIdLength+1)-1,ErrorMessage = "Wrong format of client unique ID")]
         public int? ClientUniqueId { get; set; }//
         public int? ProductSku { get; set; } //
         public int? Amount { get; set; }
