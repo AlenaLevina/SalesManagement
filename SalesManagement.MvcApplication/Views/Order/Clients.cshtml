@@ -26,14 +26,19 @@
                         @*@Html.ActionLink("Client #"+@client.UniqueId,"EditClient","Order",new {id=client.UniqueId},new {title="Edit this client"})*@
                     </h4>
                 </div>
-                <div class="deleteLink">
-                    @Html.ActionLink("Delete","DeleteClient","Order",new {id=client.Id},null)
+                <div class="entityActionLinks">
+                    <a class="entityActionLink" href="@Url.Action("EditClient","Order",new {uniqueId=client.UniqueId})">
+                        <img class="entityActionLink" src="~/Content/Images/edit.png" alt="Edit" title="Edit"/>
+                    </a>
+                    <a class="entityActionLink" href="@Url.Action("DeleteClient","Order",new {uniqueId=client.UniqueId})">
+                        <img class="entityActionLink" src="~/Content/Images/delete.png" alt="Del" title="Delete"/>
+                    </a>
                 </div>
             </div>
             <div class="additionalInfo">
                 <div class="heading">
-                    <span class="uniqueId">#@client.UniqueId</span>
-                    <span class="phoneNumber">+@client.Phone</span>
+                    <span class="left">#@client.UniqueId</span>
+                    <span class="right">+@client.Phone</span>
                     <div class="clearBoth"></div>
                 </div>
                 <div>

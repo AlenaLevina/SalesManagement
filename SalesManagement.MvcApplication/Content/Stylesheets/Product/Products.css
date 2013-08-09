@@ -1,16 +1,20 @@
-﻿div.productName{
+﻿/*div.productName{
     font-size: 14px;
     margin-bottom: 5px;
-}
+}*/
 
-div.category {
+/*div.category {
     font-size: 13px;
+}*/
+
+div.name h4 span.status {
+    /*font-size: 5px;*/
+    text-decoration: none;
+    /*font-weight: normal;*/
 }
 
-div.productName a span.status {
-    font-size: 12px;
-    text-decoration: none;
-    font-weight: normal;
+div.name h4 span.productName {
+    color: #c25700;
 }
 
 span.available {
@@ -38,29 +42,33 @@ div.entityListItem h4 a:hover span.status.temporaryUnavailable {
 
 
 
-div.price {
+/*div.price {
     float: right;
     padding: 3px;
     text-align: center;
     margin-right: 10px;
-}
+}*/
 
-div.name {
-    width: 300px !important;
-}
 
-div.productName span.name {
+
+
+/*div.productName span.name {
     color: #44403E;
     font-weight: bold;
 }
 
 div.productName span.categoryName {
     color: #C25700;
-}
+}*/
 
-div.price span.number,span.amountLeft span.number {
+span.number {
     font-size: 14px;
     font-weight: bold;
+}
+
+div.heading span.left {
+    font-weight: bold;
+    font-size: 14px;
 }
 
 div.productCharacteristics {

@@ -1,110 +1,101 @@
-﻿div.entityListItem
-
- {
-    padding: 1%;
-    border-radius: 5px;
-    background-color: #FFEEDF; /*min-height: 70px;*/
-    margin-top: 5px;
-    margin-bottom: 5px;
-    float: left;
-    width: 98%;
+﻿div.entityListItem {
+	padding: 1%;
+	border-radius: 5px;
+	background-color: #FFEEDF;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	float: left;
+	width: 98%;
 }
 
-/*div.entityListItem:hover {
-    background-color: #FFE3CA;
-}*/
-
 div.entityListItem div.name {
-    /*width: 587px;*/
-    float: left;
+	float: left;
 }
 
 div.editLink, div.deleteLink {
-    text-align: right;
+	text-align: right;
 }
 
-/*div.entityListItem div a {
-    display: block;
-}*/
-
 div.entityListItem div.deleteLink {
-    width: 50px;
-    float: right;
+	width: 50px;
+	float: right;
 }
 
 div.entityListItem h4 a {
-    color: #6F6966;
-    text-decoration: none;
-    padding: 3px;
+	color: #6F6966;
+	text-decoration: none;
+	padding: 3px;
 }
 
 div.entityListItem h4 a:hover {
-    background-color: rgba(0,0,0,0.1);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	background-color: rgba(0,0,0,0.1);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
-    border-radius: 5px;
+	border-radius: 5px;
 }
 
-
-
-/*div.deleteLink {
-    width: 50px;
-    text-align: center;
-}*/
-
 div.deleteLink a {
-    padding: 3px 5px 3px 5px;
+	padding: 3px 5px 3px 5px;
 }
 
 div.deleteLink a:hover {
-    background-color: rgba(0,0,0,0.1);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
+	background-color: rgba(0,0,0,0.1);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)";
-    font-weight: bold;
-    border-radius: 3px;
-    color: #C10000;
+	font-weight: bold;
+	border-radius: 3px;
+	color: #C10000;
 }
 
 div.bottomBordered {
-    border-bottom-style: dotted;
-    border-bottom-width: 1px;
-    border-bottom-color: #6F6978;
-    margin-bottom: 5px;
-    float: left;
-    width: 100%;
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	border-bottom-color: #6F6978;
+	margin-bottom: 5px;
+	float: left;
+	width: 100%;
 }
 
 a.entityStatusLink,
 a.entityActionLink {
-    display: inline-block;
+	display: inline-block;
 }
 
 img.entityStatusLink,
 img.entityActionLink {
-    height: 14px;
-    opacity: 0.3;
-    padding: 1px;
-    border-radius: 5px;
-    border: black solid 2px;
-    z-index: 1;
+	height: 14px;
+	opacity: 0.3;
+	padding: 1px;
+	border-radius: 5px;
+	border: black solid 2px;
+	z-index: 1;
 }
 
 img.entityStatusLink:hover,
 img.entityActionLink:hover {
-    opacity: 0.5;
+	opacity: 0.5;
 }
 
 div.entityStatusLinks,
 div.entityActionLinks {
-    float: right;
+	float: right;
 }
 
 div.entityActionLinks {
-    margin-left: 5px;
-    padding-left: 5px;
-    border-left-style: dotted;
-    border-left-width: 1px;
-    border-left-color: #6F6978;
+	margin-left: 5px;
+	padding-left: 5px;
+	border-left-style: dotted;
+	border-left-width: 1px;
+	border-left-color: #6F6978;
 }
 
+div.heading {
+	margin-bottom: 5px;
+}
 
+div.heading span.left {
+	float: left;
+}
+div.heading span.right {
+	float: right
+}

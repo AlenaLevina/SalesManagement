@@ -27,6 +27,7 @@ div.entityInfo div.post {
     border: 3px double #B55100;
     margin: 0;
     padding: 10px 10px 5px 10px;
+    box-shadow: 3px 3px 7px 2px rgba(181,81,0,0.5);
     
 }
 

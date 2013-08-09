@@ -65,10 +65,10 @@ namespace SalesManagement.MvcApplication.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
-        public ActionResult EditClient(int id)
+        public ActionResult EditClient(int uniqueId)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            var client = service.GetClientByUniqueId(id);
+            var client = service.GetClientByUniqueId(uniqueId);
             return View("Client", ClientViewModelBuilder.Build(client, ActionType.Edit));
         }
 
@@ -90,10 +90,10 @@ namespace SalesManagement.MvcApplication.Controllers
 
         [HttpGet]
         [Authorize(Roles = RoleNames.ManagerActionsRoleName)]
-        public ActionResult DeleteClient(int id)
+        public ActionResult DeleteClient(int uniqueId)
         {
             var service = DependencyResolver.Current.Resolve<IOrderService>();
-            service.DeleteClient(id);
+            service.DeleteClient(service.GetClientByUniqueId(uniqueId).Id);
             return Redirect(Url.Action("Clients"));
         }
 

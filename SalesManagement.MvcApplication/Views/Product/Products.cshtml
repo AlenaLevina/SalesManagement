@@ -40,24 +40,12 @@
         <div class="entityListItem @statusName">
             <div class="bottomBordered">
                 <div class="name">
-                    <h4 >
-                        <span>
-                            #@product.Sku
+                    @*<div class="productName">*@
+                        <h4>
+                            <span class="productName">@product.Name</span><span class="categoryName"> ← @product.Category.Name</span>
                             <span class="status @statusName">(@statusText)</span>
-                            @*@switch (product.Status)
-                            {
-                                case ProductStatus.Available:
-                                    <span class="status available">(available)</span>
-                                    break;
-                                case ProductStatus.TemporaryUnavailable:
-                                    <span class="status temporaryUnavailable">(temporary unavailable)</span>
-                                    break;
-                                case ProductStatus.Unavailable:
-                                    <span class="status unavailable">(unavailable)</span>
-                                    break;
-                            }*@
-                        </span>
-                    </h4>
+                        </h4>
+                    @*</div>*@
                 </div>
                 <div class="entityActionLinks">
                     <a class="entityActionLink" href="@Url.Action("Edit","Product",new {sku=product.Sku})">
@@ -78,18 +66,16 @@
                         <img class="entityStatusLink" src="~/Content/Images/unavailable.png" alt="A" title="Make unavailable"/>
                     </a>
                 </div>
-                <div class="price">
-                    <span class="amountLeft"><span class="number">@product.Amount</span> items left</span> at price of
-                    <span class="number">
-                        @product.Price$
-                    </span>
-                </div>
+                @*<div class="price">
+                    
+                </div>*@
             </div>
             <div class="clearBoth"></div>
             <div class="additionalInfo">
-                <div class="productName">
-                    <span class="categoryName">@product.Category.Name → </span><span class="name">@product.Name</span>
-                    
+                <div class="heading">
+                    <span class="left">#@product.Sku</span>
+                    <span class="right"><span class="amountLeft"><span class="number">@product.Amount</span> items left</span> at price of<span class="number">@product.Price$</span></span>
+                    <div class="clearBoth"></div>
                 </div>
                 <div class="productCharacteristics">
                     @foreach (var characteristic in product.CharacteristicValues)
