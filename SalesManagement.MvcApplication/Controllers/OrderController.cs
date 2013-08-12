@@ -287,6 +287,11 @@ namespace SalesManagement.MvcApplication.Controllers
             if (model == null) throw new ArgumentNullException("model");
 
             Validate(model);
+            //IEnumerable<> modelStateErrors
+            //for (var i = 0; i < ModelState.Count)
+            //{
+                
+            //}
             var modelStateErrors =
                 ModelState.Select(
                     modelState =>
@@ -373,9 +378,9 @@ namespace SalesManagement.MvcApplication.Controllers
             var productService = DependencyResolver.Current.Resolve<IProductService>();
             bool productIsAvailable = false;
 
-            //if (model.ClientUniqueId == null) ModelState.AddModelError("ClientUniqueId", "Client Id is requiered");
-            //else if (model.ClientUniqueId.Value < 0) ModelState.AddModelError("ClientUniqueId", "Client Id is non-negative");
-            //else if (!orderService.UniqueIdExists(model.ClientUniqueId.Value)) ModelState.AddModelError("ClientUniqueId", "There is no client with such id");
+            if (model.ClientUniqueId == null) ModelState.AddModelError("ClientUniqueId", "Client Id is requiered");
+            else if (model.ClientUniqueId.Value < 0) ModelState.AddModelError("ClientUniqueId", "Client Id is non-negative");
+            else if (!orderService.UniqueIdExists(model.ClientUniqueId.Value)) ModelState.AddModelError("ClientUniqueId", "There is no client with such id");
             //TODO write custom validation attribute for checking if UniqueId exists
 
             if (model.ProductSku == null) ModelState.AddModelError("ProductSku", "Product SKU is requiered");

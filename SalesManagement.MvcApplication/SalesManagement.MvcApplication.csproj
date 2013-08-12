@@ -131,6 +131,7 @@
     <Compile Include="SalesManagementDependencyResolver.cs" />
     <Compile Include="SalesManagementProfile.cs" />
     <Compile Include="StartDbHelper.cs" />
+    <Compile Include="ValidationAttributes\UniqueIdExistsAttribute.cs" />
     <Compile Include="ViewModelBuilders\Account\EditProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Account\ViewProfileViewModelBuilder.cs" />
     <Compile Include="ViewModelBuilders\Order\ClientPartialViewModelBuilder.cs" />

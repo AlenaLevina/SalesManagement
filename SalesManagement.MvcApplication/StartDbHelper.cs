@@ -33,6 +33,7 @@ namespace SalesManagement.MvcApplication
         {
             CreateRoles();
             CreateAdmin();
+            var i = typeof (StartDbHelper);
         }
     }
 }
